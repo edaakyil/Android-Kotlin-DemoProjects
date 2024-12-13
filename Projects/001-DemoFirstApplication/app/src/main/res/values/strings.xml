@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DemoFirstApplication</string>
+    <string name="main_activity_prompt">C and System Programmers Association</string>
+    <string name="created_prompt">Main Activity Created</string>
+    <string name="created_date_time_prompt">Created Date Time: %s</string>
+    <!-- <string name="created_date_time_prompt">Created Date Time: %1$s</string>-->
+</resources>

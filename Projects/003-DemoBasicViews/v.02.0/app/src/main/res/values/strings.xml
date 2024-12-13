@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DemoBasicViews</string>
+    <string name="main_activity_edit_text_username_hint">Input username:</string>
+    <string name="main_activity_edit_text_password_hint">Input password:</string>
+    <string name="main_activity_text_view_login_title">Login Page</string>
+    <string name="main_activity_click_title_prompt">Input your information to log in</string>
+    <string name="main_activity_switch_accept_text">Accept</string>
+    <string name="main_activity_switch_accepted_text">Accepted</string>
+    <string name="button_login_text">Login</string>
+    <string name="button_close_text">Close</string>
+    <string name="button_clear_text">Clear</string>
+    <string name="login_prompt">Logging…</string>
+    <string name="close_prompt">Closing…</string>
+    <string name="check_accept_message">Accepted</string>
+
+    <string name="clear">Clear</string>
+</resources>
