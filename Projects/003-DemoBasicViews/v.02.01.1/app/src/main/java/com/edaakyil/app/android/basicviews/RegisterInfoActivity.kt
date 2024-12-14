@@ -15,7 +15,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.edaakyil.app.android.basicviews.constant.MARITAL_STATUS_TAGS
 import com.edaakyil.app.android.basicviews.constant.REGISTER_INFO
-import com.edaakyil.app.android.basicviews.constant.USERS
 import com.edaakyil.app.android.basicviews.model.RegisterInfoModel
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -134,7 +133,7 @@ class RegisterInfoActivity : AppCompatActivity() {
     }
 
     private fun saveData(close: Boolean) {
-        BufferedWriter(OutputStreamWriter(openFileOutput("$USERS/{mRegisterInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeRegisterInfo)
+        BufferedWriter(OutputStreamWriter(openFileOutput("${mRegisterInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeRegisterInfo)
         Log.i(SAVE_REGISTER_INFO, "User successfully saved")
         Toast.makeText(this, R.string.user_successfully_saved_prompt, Toast.LENGTH_SHORT).show()
 
