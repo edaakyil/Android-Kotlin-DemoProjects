@@ -183,7 +183,7 @@ class RegisterInfoActivity : AppCompatActivity() {
                 return
             }
 
-            BufferedReader(InputStreamReader(openFileInput("$username.txt"), StandardCharsets.UTF_8)).use(::loadRegisterInfo)
+            BufferedReader(InputStreamReader(openFileInput("$USERS/$username.txt"), StandardCharsets.UTF_8)).use(::loadRegisterInfo)
 
             Toast.makeText(this, R.string.user_successfully_loaded_prompt,Toast.LENGTH_SHORT).show()
         } catch (ex: IOException) {
