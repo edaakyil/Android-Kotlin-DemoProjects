@@ -15,7 +15,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.edaakyil.app.android.basicviews.constant.REGISTER_INFO
 import com.edaakyil.app.android.basicviews.constant.USERS_FILE_PATH
 import com.edaakyil.app.android.basicviews.constant.USERS_FORMAT
-import com.edaakyil.app.android.basicviews.data.service.UserService
 import com.edaakyil.app.android.basicviews.model.RegisterInfoModel
 import java.io.EOFException
 import java.io.File
