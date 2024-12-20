@@ -73,7 +73,6 @@ class RegisterPasswordActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, R.string.alert_dialog_confirm_password_message, Toast.LENGTH_SHORT).show()
             confirmPasswordAlertDialog()
-            //return
         }
     }
 
