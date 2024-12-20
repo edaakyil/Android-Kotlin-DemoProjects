@@ -85,9 +85,11 @@ class RegisterPasswordActivity : AppCompatActivity() {
         try {
             while (true) {
                 val ois = ObjectInputStream(fis)
-                    val registerInfo = ois.readObject() as RegisterInfoModel
-                    if (registerInfo.username == mRegisterInfo.username)
-                        result = true
+                val registerInfo = ois.readObject() as RegisterInfoModel
+                if (registerInfo.username == mRegisterInfo.username) {
+                    result = true
+                    break
+                }
             }
         } catch (_: EOFException) {
 
