@@ -22,9 +22,6 @@
     <!-- AlertDialog -->
     <string name="alert_dialog_close_title">Alert</string>
     <string name="alert_dialog_close_message">Save data?</string>
-    <string name="alert_dialog_close_save">Save</string>
-    <string name="alert_dialog_close_close">Close</string>
-    <string name="alert_dialog_close_cancel">Cancel</string>
 
     <!-- Activity title -->
     <string name="main_activity_text_view_login_title">Login Page</string>
@@ -39,9 +36,13 @@
     <string name="not_accepted_status_message">Not accepted</string>
     <string name="continue_register_prompt">Continue register</string>
     <string name="username_missing_blank">Username should not be empty</string>
+    <string name="user_info_saved">Your information saved</string>
 
     <!--    Common  -->
+    <string name="save">Save</string>
     <string name="clear">Clear</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
     <string name="anonymous">Anonymous</string>
 
     <!-- Marital Status -->

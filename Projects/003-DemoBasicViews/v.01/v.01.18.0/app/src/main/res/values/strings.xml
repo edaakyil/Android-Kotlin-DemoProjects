@@ -31,12 +31,6 @@
     <string name="alert_dialog_user_already_saved_message">Please select option</string>
     <string name="alert_dialog_update_message">User already exist.\nDo you want to update data?</string> <!-- edaakyil -->
     <string name="alert_dialog_confirm_password_message">Passwords should be the same.Please confirm password.</string> <!-- edaakyil -->
-    <string name="alert_dialog_ok">OK</string>
-    <string name="alert_dialog_no">No</string>
-    <string name="alert_dialog_save">Save</string>
-    <string name="alert_dialog_close">Close</string>
-    <string name="alert_dialog_update">Update</string> <!-- edaakyil -->
-    <string name="alert_dialog_cancel">Cancel</string>
 
     <!-- TextView -->
     <string name="main_activity_text_view_login_title">Login Page</string>
@@ -63,7 +57,13 @@
     <string name="save_user_info_prompt">Save your information</string>
 
     <!--    Common  -->
+    <string name="ok">OK</string>
+    <string name="no">No</string>
+    <string name="save">Save</string>
     <string name="clear">Clear</string>
+    <string name="close">Close</string>
+    <string name="update">Update</string> <!-- edaakyil -->
+    <string name="cancel">Cancel</string>
     <string name="anonymous">Anonymous</string>
 
     <!-- Marital Status -->

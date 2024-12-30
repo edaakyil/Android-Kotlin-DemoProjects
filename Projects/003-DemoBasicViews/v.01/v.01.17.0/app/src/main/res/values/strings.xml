@@ -24,10 +24,6 @@
     <string name="alert_dialog_close_title">Alert</string>
     <string name="alert_dialog_close_message">Save data?</string>
     <string name="alert_dialog_update_message">User already exist.\nDo you want to update data?</string> <!-- edaakyil -->
-    <string name="alert_dialog_save">Save</string>
-    <string name="alert_dialog_close">Close</string>
-    <string name="alert_dialog_update">Update</string> <!-- edaakyil -->
-    <string name="alert_dialog_cancel">Cancel</string>
 
     <!-- Activity title -->
     <string name="main_activity_text_view_login_title">Login Page</string>
@@ -51,7 +47,11 @@
     <string name="load_user_info_prompt">Load your existing information</string>
 
     <!--    Common  -->
+    <string name="save">Save</string>
     <string name="clear">Clear</string>
+    <string name="close">Close</string>
+    <string name="update">Update</string> <!-- edaakyil -->
+    <string name="cancel">Cancel</string>
     <string name="anonymous">Anonymous</string>
 
     <!-- Marital Status -->

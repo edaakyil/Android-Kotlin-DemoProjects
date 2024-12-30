@@ -127,9 +127,9 @@ class RegisterActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_close_title)
             .setMessage(R.string.alert_dialog_update_message)
-            .setPositiveButton(R.string.alert_dialog_update) { _, _ -> saveUserInfoCallback() }
-            .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
-            .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> }
+            .setPositiveButton(R.string.update) { _, _ -> saveUserInfoCallback() }
+            .setNegativeButton(R.string.close) { _, _ -> finish() }
+            .setNeutralButton(R.string.cancel) { _, _ -> }
             .create()
             .show()
     }
@@ -200,9 +200,9 @@ class RegisterActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_close_title)
             .setMessage(R.string.alert_dialog_close_message)
-            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveAtCloseCallback() }
-            .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
-            .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
+            .setPositiveButton(R.string.save) { _, _ -> saveAtCloseCallback() }
+            .setNegativeButton(R.string.close) { _, _ -> finish() }
+            .setNeutralButton(R.string.cancel) { _, _ -> Toast.makeText(this, R.string.cancel, Toast.LENGTH_SHORT).show() }
             .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
             .create()
             .show()

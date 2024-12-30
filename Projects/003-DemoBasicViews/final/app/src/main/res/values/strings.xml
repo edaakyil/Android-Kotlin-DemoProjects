@@ -62,7 +62,7 @@
     <string name="user_successfully_loaded_prompt">User successfully loaded</string>
     <string name="user_successfully_registered_prompt">User successfully registered</string>
     <string name="user_already_registered_prompt">User already registered</string>
-    <string name="io_problem_occurred_prompt">IO problem occurred</string>
+    <string name="data_problem_occurred_prompt">IO problem occurred</string>
     <string name="problem_occurred_prompt">Problem occurred</string>
     <string name="load_user_info_prompt">Load your existing information</string>
     <string name="save_user_info_prompt">Save your information</string>

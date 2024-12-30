@@ -136,14 +136,14 @@ class RegisterInfoActivity : AppCompatActivity() {
                 return
             }
 
-            if (!mUserService.existsByUsername(username)) {
+            if (!mUserService.isUserSaved(username)) {
                 saveData(close)
                 mButtonContinue.isEnabled = true
             } else
                 selectOptionIfUserSaved(close, isEnabled)
         } catch (ex: DataServiceException) {
             Log.e(SAVE_REGISTER_INFO, ex.message ?: "")
-            Toast.makeText(this, R.string.io_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
             Log.e(SAVE_REGISTER_INFO, ex.message, ex)
             Toast.makeText(this, R.string.problem_occurred_prompt, Toast.LENGTH_SHORT).show()
@@ -172,7 +172,7 @@ class RegisterInfoActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.user_successfully_loaded_prompt,Toast.LENGTH_SHORT).show()
         } catch (ex: DataServiceException) {
             Log.e(LOAD_REGISTER_INFO, ex.message ?: "")
-            Toast.makeText(this, R.string.io_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
             Log.e(LOAD_REGISTER_INFO, ex.message, ex)
             Toast.makeText(this, R.string.problem_occurred_prompt, Toast.LENGTH_SHORT).show()

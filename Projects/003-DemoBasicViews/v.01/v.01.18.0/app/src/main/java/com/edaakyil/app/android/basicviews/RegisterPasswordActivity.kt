@@ -59,7 +59,7 @@ class RegisterPasswordActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_close_title)
             .setMessage(R.string.alert_dialog_confirm_password_message)
-            .setPositiveButton(R.string.alert_dialog_ok) { _, _ -> mEditTextPassword.text.clear(); mEditTextConfirmPassword.text.clear()}
+            .setPositiveButton(R.string.ok) { _, _ -> mEditTextPassword.text.clear(); mEditTextConfirmPassword.text.clear()}
             .create()
             .show()
     }

@@ -126,8 +126,8 @@ class RegisterInfoActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_user_already_saved_title)
             .setMessage(R.string.alert_dialog_user_already_saved_message)
-            .setPositiveButton(R.string.alert_dialog_update) { _, _ -> saveData(close) }
-            .setNegativeButton(R.string.alert_dialog_no) { _, _ -> finish() }
+            .setPositiveButton(R.string.update) { _, _ -> saveData(close) }
+            .setNegativeButton(R.string.no) { _, _ -> finish() }
             .create()
             .show()
     }
@@ -206,9 +206,9 @@ class RegisterInfoActivity : AppCompatActivity() {
             val dlg = AlertDialog.Builder(this)
                 .setTitle(R.string.alert_dialog_close_title)
                 .setMessage(R.string.alert_dialog_close_message)
-                .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveRegisterInfo(true) }
-                .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
-                .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
+                .setPositiveButton(R.string.save) { _, _ -> saveRegisterInfo(true) }
+                .setNegativeButton(R.string.close) { _, _ -> finish() }
+                .setNeutralButton(R.string.cancel) { _, _ -> Toast.makeText(this, R.string.cancel, Toast.LENGTH_SHORT).show() }
                 .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
                 .create()
 

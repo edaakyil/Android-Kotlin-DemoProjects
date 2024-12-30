@@ -29,9 +29,7 @@ class RegisterActivity : AppCompatActivity() {
         initialize()
     }
 
-    private fun initialize() {
-        initViews()
-    }
+    private fun initialize() = initViews()
 
     private fun initViews() {
         mRadioGroupLastEducationDegree = findViewById(R.id.registerActivityRadioGroupLastEducationDegree)
@@ -59,10 +57,24 @@ class RegisterActivity : AppCompatActivity() {
         mRadioGroupMaritalStatus.setOnCheckedChangeListener { _, id -> Toast.makeText(this, "Checked: ${findViewById<RadioButton>(id).text}", Toast.LENGTH_SHORT).show() }
     }
 
+    fun onClearButtonClicked(view: View) = mRadioGroupLastEducationDegree.clearCheck()
+
+    fun onRegisterButtonClicked(view: View) {
+        val selectedMaritalStatusValue = findViewById<RadioButton>(mRadioGroupMaritalStatus.checkedRadioButtonId).tag as Char
+
+        val id= mRadioGroupLastEducationDegree.checkedRadioButtonId
+        val selectedLastEducationDegreeValue = when (id) {
+            -1 -> 0
+            else -> findViewById<RadioButton>(id).tag.toString().toInt()
+        }
+
+        Toast.makeText(this, "$selectedMaritalStatusValue, $selectedLastEducationDegreeValue", Toast.LENGTH_SHORT).show()
+    }
+
     private fun saveAtCloseCallback() {
-        val name = mEditTextName.text.toString()
-        val email = mEditTextEmail.text.toString()
-        val username = mEditTextUsername.text.toString()
+        val name = mEditTextName.text.toString().trim()
+        val email = mEditTextEmail.text.toString().trim()
+        val username = mEditTextUsername.text.toString().trim()
         val maritalStatus = findViewById<RadioButton>(mRadioGroupMaritalStatus.checkedRadioButtonId).tag as Char
         val lastEducationDegreeId = mRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
@@ -79,33 +91,19 @@ class RegisterActivity : AppCompatActivity() {
             it.write("$maritalStatus ")
             it.write("$lastEducationDegree ")
 
-            Toast.makeText(this, R.string.info_saved, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.user_info_saved, Toast.LENGTH_SHORT).show()
         }
 
-	finish()
-    }
-
-    fun onClearButtonClicked(view: View) = mRadioGroupLastEducationDegree.clearCheck()
-
-    fun onRegisterButtonClicked(view: View) {
-        val selectedMaritalStatusValue = findViewById<RadioButton>(mRadioGroupMaritalStatus.checkedRadioButtonId).tag as Char
-
-        val id= mRadioGroupLastEducationDegree.checkedRadioButtonId
-        val selectedLastEducationDegreeValue = when (id) {
-            -1 -> 0
-            else -> findViewById<RadioButton>(id).tag.toString().toInt()
-        }
-
-        Toast.makeText(this, "$selectedMaritalStatusValue, $selectedLastEducationDegreeValue", Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     fun onCloseButtonClicked(view: View) {
         val dlg = AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_close_title)
             .setMessage(R.string.alert_dialog_close_message)
-            .setPositiveButton(R.string.alert_dialog_close_save) { _, _ -> saveAtCloseCallback() }
-            .setNegativeButton(R.string.alert_dialog_close_close) { _, _ -> finish() }
-            .setNeutralButton(R.string.alert_dialog_close_cancel) { _, _ -> }
+            .setPositiveButton(R.string.save) { _, _ -> saveAtCloseCallback() }
+            .setNegativeButton(R.string.close) { _, _ -> finish() }
+            .setNeutralButton(R.string.cancel) { _, _ -> }
             //.setCancelable(true) // default value is true
             .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
             .create()
