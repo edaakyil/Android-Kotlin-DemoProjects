@@ -11,7 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.edaakyil.app.android.basicviews.constant.MARITAL_STATUS_TAGS
-import com.edaakyil.app.android.basicviews.model.RegisterInfoModel
+import com.edaakyil.app.android.basicviews.model.UserInfoModel
 import java.io.BufferedWriter
 import java.io.File
 import java.io.IOException
@@ -26,7 +26,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var mEditTextUsername: EditText
     private lateinit var mRadioGroupMaritalStatus: RadioGroup
     private lateinit var mRadioGroupLastEducationDegree: RadioGroup
-    private lateinit var mRegisterInfo: RegisterInfoModel
+    private lateinit var mUserInfoModel: UserInfoModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +37,14 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        mRegisterInfo = RegisterInfoModel()
+        mUserInfoModel = UserInfoModel()
         initViews()
     }
 
     private fun initViews() {
-        mRadioGroupLastEducationDegree = findViewById(R.id.registerActivityRadioGroupLastEducationDegree)
-
         initEditTexts()
         initRadioGroupMaritalStatus()
+        mRadioGroupLastEducationDegree = findViewById(R.id.registerActivityRadioGroupLastEducationDegree)
     }
 
     private fun initEditTexts() {
@@ -67,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
         mRadioGroupMaritalStatus.setOnCheckedChangeListener { _, id -> Toast.makeText(this, "Checked: ${findViewById<RadioButton>(id).text}", Toast.LENGTH_SHORT).show() }
     }
 
-    private fun fillRegisterInfo() {
+    private fun fillUserInfoModel() {
         val name = mEditTextName.text.toString()
         val email = mEditTextEmail.text.toString()
         val username = mEditTextUsername.text.toString()
@@ -75,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
         val lastEducationDegreeId = mRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
 
-        mRegisterInfo.also {
+        mUserInfoModel.also {
             it.name = name
             it.email = email
             it.username = username
@@ -84,35 +83,35 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeRegisterInfo(bw: BufferedWriter) {
-        bw.write("${mRegisterInfo.username} ")
-        bw.write("${mRegisterInfo.name} ")
-        bw.write("${mRegisterInfo.email} ")
-        bw.write("${mRegisterInfo.maritalStatus} ")
-        bw.write("${mRegisterInfo.lastEducationDegree} ")
+    private fun writeUserInfo(bw: BufferedWriter) {
+        bw.write("${mUserInfoModel.username} ")
+        bw.write("${mUserInfoModel.name} ")
+        bw.write("${mUserInfoModel.email} ")
+        bw.write("${mUserInfoModel.maritalStatus} ")
+        bw.write("${mUserInfoModel.lastEducationDegree} ")
 
         Toast.makeText(this, R.string.user_info_saved, Toast.LENGTH_SHORT).show()
     }
 
     private fun saveAtCloseCallback() {
         try {
-            fillRegisterInfo()
+            fillUserInfoModel()
 
-            if (mRegisterInfo.username.isBlank()) {
+            if (mUserInfoModel.username.isBlank()) {
                 Toast.makeText(this, R.string.username_missing_prompt, Toast.LENGTH_SHORT).show()
                 return
             }
 
-            val file = File(filesDir, "${mRegisterInfo.username}.txt")
+            val file = File(filesDir, "${mUserInfoModel.username}.txt")
 
             if (file.exists()) {
-                Log.w(SAVE_REGISTER_INFO, "user already saved")
+                Log.w(SAVE_REGISTER_INFO, "user already exists")
                 Toast.makeText(this, R.string.username_already_saved_prompt, Toast.LENGTH_SHORT).show()
                 return
             }
 
-            //BufferedWriter(OutputStreamWriter(openFileOutput("${mRegisterInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use { writeRegisterInfo(it) }
-            BufferedWriter(OutputStreamWriter(openFileOutput("${mRegisterInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeRegisterInfo)  // function reference
+            //BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfoModel.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use { writeUserInfo(it) }
+            BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfoModel.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeUserInfo)  // function/method reference
 
             Log.i(SAVE_REGISTER_INFO, "Saved")
 

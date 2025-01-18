@@ -1,6 +1,6 @@
 package com.edaakyil.app.android.basicviews.model
 
-data class RegisterInfoModel(
+data class UserInfoModel(
     var name: String = "",
     var username: String = "",
     var email: String = "",
