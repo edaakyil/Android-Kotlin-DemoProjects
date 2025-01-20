@@ -7,6 +7,7 @@
 
     <!-- Button text -->
     <string name="button_login_text">Login</string>
+    <string name="button_load_text">Load</string>
     <string name="button_close_text">Close</string>
     <string name="button_clear_text">Clear</string>
     <string name="button_register_text">Register</string>
@@ -39,8 +40,14 @@
     <string name="not_accepted_status_message">Not accepted</string>
     <string name="continue_register_prompt">Continue register</string>
     <string name="username_missing_prompt">Username should not be empty</string>
-    <string name="user_info_saved">Your information saved</string>
     <string name="username_already_saved_prompt">Username already saved.\nYou can load your information.</string>
+    <string name="username_not_found_prompt">Username not found</string>
+    <string name="user_successfully_saved_prompt">User successfully saved</string>
+    <string name="user_successfully_loaded_prompt">User successfully loaded</string>
+    <string name="io_problem_occurred_prompt">IO problem occurred</string>
+    <string name="problem_occurred_prompt">Problem occurred</string>
+    <string name="load_user_info_prompt">Load your existing information</string>
+    <string name="user_info_saved">Your information saved</string>
 
     <!--    Common  -->
     <string name="clear">Clear</string>

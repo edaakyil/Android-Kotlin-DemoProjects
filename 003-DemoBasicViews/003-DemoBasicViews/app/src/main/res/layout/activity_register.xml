@@ -27,6 +27,26 @@
         android:layout_marginHorizontal="32dp"
         android:backgroundTint="@color/pastel_silver_medal">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/load_user_info_prompt"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onLoadButtonClicked"
+                android:text="@string/button_load_text"/>
+
+        </LinearLayout>
+
         <EditText
             android:id="@+id/registerActivityEditTextUsername"
             android:layout_width="match_parent"
@@ -187,12 +207,12 @@
                     android:layout_weight="1"
                     android:layout_marginTop="8dp"
                     android:drawablePadding="0dp"
+                    android:paddingHorizontal="0dp"
                     android:insetLeft="32dp"
                     android:insetTop="0dp"
                     android:insetRight="0dp"
                     android:insetBottom="0dp"
                     android:onClick="onClearButtonClicked"
-                    android:paddingHorizontal="0dp"
                     android:text="@string/button_clear_text" />
 
             </LinearLayout>
@@ -207,7 +227,6 @@
                     android:id="@+id/registerActivityRadioButtonLastEducationDegreePrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:minHeight="0dip"
                     android:padding="4dp"
                     android:tag="1"
@@ -300,16 +319,16 @@
 </LinearLayout>
 
 
-<!--
-<RadioButton
-android:id="@+id/registerActivityRadioButtonSingle"
-android:checked="true"
-android:layout_weight="1"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_gravity="center"
-android:button="@null"
-android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
-android:gravity="center_horizontal|bottom"
-android:text="@string/single"/>
--->
+    <!--
+    <RadioButton
+    android:id="@+id/registerActivityRadioButtonSingle"
+    android:checked="true"
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:button="@null"
+    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+    android:gravity="center_horizontal|bottom"
+    android:text="@string/single"/>
+    -->
