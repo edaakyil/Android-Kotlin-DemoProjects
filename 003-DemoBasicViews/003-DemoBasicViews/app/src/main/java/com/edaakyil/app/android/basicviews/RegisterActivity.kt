@@ -151,6 +151,7 @@ class RegisterActivity : AppCompatActivity() {
         mEditTextEmail.setText(existUserInfo[2])
         (mRadioGroupMaritalStatus.getChildAt(MARITAL_STATUS_TAGS.indexOf(existUserInfo[3][0])) as RadioButton).isChecked = true
 
+        mRadioGroupLastEducationDegree.clearCheck()
         val lastEducationDegreeId = existUserInfo[4].toInt()
         if(lastEducationDegreeId != 0)
             (mRadioGroupLastEducationDegree.getChildAt(lastEducationDegreeId - 1) as RadioButton).isChecked = true
