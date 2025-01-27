@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.os.Build
 import com.edaakyil.android.basicviews.constant.REGISTER_INFO
 import com.edaakyil.android.basicviews.model.UserInfoModel
 
@@ -32,7 +33,10 @@ class RegisterPasswordActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        mUserInfo = if (android.os.Build.VERSION.SDK_INT < 33 ) intent.getSerializableExtra(REGISTER_INFO) as UserInfoModel else intent.getSerializableExtra(REGISTER_INFO, UserInfoModel::class.java)!!
+        mUserInfo = when {
+            Build.VERSION.SDK_INT < 33 -> intent.getSerializableExtra(REGISTER_INFO) as UserInfoModel
+            else -> intent.getSerializableExtra(REGISTER_INFO, UserInfoModel::class.java)!!
+        }
         initViews()
     }
 
