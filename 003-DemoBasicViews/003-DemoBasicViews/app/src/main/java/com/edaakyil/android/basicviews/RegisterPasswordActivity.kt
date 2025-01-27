@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -46,7 +47,33 @@ class RegisterPasswordActivity : AppCompatActivity() {
         mTextViewUsername.text = resources.getString(R.string.register_password_activity_text_view_username).format(mUserInfo.username)
     }
 
-    fun onRegisterButtonClicked(view: View) {}
+    fun onRegisterButtonClicked(view: View) {
+        val password = mEditTextPassword.text.toString()
+        val confirmPassword = mEditTextConfirmPassword.text.toString()
+
+        if (password.isBlank()) {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.alert_dialog_title_alert)
+                .setMessage(R.string.alert_dialog_empty_password_message)
+                .setPositiveButton(R.string.alert_dialog_ok) { _, _ -> mEditTextConfirmPassword.text.clear() }
+                .create()
+                .show()
+            return
+        }
+
+        if (password == confirmPassword)
+            mUserInfo.password = password
+        else
+            AlertDialog.Builder(this)
+                .setTitle(R.string.alert_dialog_title_alert)
+                .setMessage(R.string.alert_dialog_confirm_password_message)
+                .setPositiveButton(R.string.alert_dialog_ok) { _, _ -> }
+                .create()
+                .show()
+
+        mEditTextPassword.text.clear()
+        mEditTextConfirmPassword.text.clear()
+    }
 
     fun onCloseButtonClicked(view: View) = finish()
 }

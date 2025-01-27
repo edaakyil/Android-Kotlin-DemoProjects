@@ -199,7 +199,7 @@ class RegisterInfoActivity : AppCompatActivity() {
 
     fun onCloseButtonClicked(view: View) {
         AlertDialog.Builder(this)
-            .setTitle(R.string.alert_dialog_close_title)
+            .setTitle(R.string.alert_dialog_title_alert)
             .setMessage(R.string.alert_dialog_close_message)
             .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveUserInfoCallback(); finish() }
             .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }

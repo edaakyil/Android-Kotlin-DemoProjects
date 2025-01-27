@@ -24,13 +24,14 @@
     <string name="edit_text_email_hint">Input your email</string>
 
     <!-- AlertDialog -->
-    <string name="alert_dialog_close_title">Alert</string>
+    <string name="alert_dialog_title_alert">Alert</string>
     <string name="alert_dialog_confirm_password_title">Confirm Password</string>
     <string name="alert_dialog_close_message">Save data?</string>
     <string name="alert_dialog_user_already_saved_title">User already saved</string>
     <string name="alert_dialog_user_already_saved_message">Please select option</string>
     <string name="alert_dialog_update_message">User already exist.\nDo you want to update data?</string> <!-- edaakyil -->
     <string name="alert_dialog_confirm_password_message">Passwords should be the same.Please confirm password.</string> <!-- edaakyil -->
+    <string name="alert_dialog_empty_password_message">Passwords should not be missing</string> <!-- edaakyil -->
     <string name="alert_dialog_ok">OK</string>
     <string name="alert_dialog_no">No</string>
     <string name="alert_dialog_save">Save</string>
