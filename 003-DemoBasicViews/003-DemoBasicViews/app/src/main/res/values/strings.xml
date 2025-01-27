@@ -45,7 +45,7 @@
     <string name="management_activity_text_view_title">Management Page</string>
     <string name="register_info_activity_text_view_title">Register Info Page</string>
     <string name="register_password_activity_text_view_title">Register Password Page</string>
-    <string name="register_password_activity_text_view_info">Create password for %s</string>
+    <string name="register_password_activity_text_view_username">Create password for %s</string>
 
     <!-- Prompt && Messages -->
     <string name="login_prompt">Logging…</string>

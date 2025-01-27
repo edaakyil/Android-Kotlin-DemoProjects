@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/registerActivityLinearLayoutMain"
+    android:id="@+id/registerInfoActivityLinearLayoutMain"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -92,7 +92,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/registerActivityEditTextUsername"
+            android:id="@+id/registerInfoActivityEditTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
@@ -101,7 +101,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/registerActivityEditTextName"
+            android:id="@+id/registerInfoActivityEditTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
@@ -110,7 +110,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/registerActivityEditTextEmail"
+            android:id="@+id/registerInfoActivityEditTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
@@ -119,7 +119,7 @@
             android:textSize="16sp" />
 
         <LinearLayout
-            android:id="@+id/registerActivityLinearLayoutMaritalStatusMain"
+            android:id="@+id/registerInfoActivityLinearLayoutMaritalStatusMain"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                     android:background="?android:attr/listDivider" />
 
                 <TextView
-                    android:id="@+id/registerActivityEditTextMaritalStatusTitle"
+                    android:id="@+id/registerInfoActivityEditTextMaritalStatusTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|top"
@@ -159,16 +159,16 @@
             </LinearLayout>
 
             <RadioGroup
-                android:id="@+id/registerActivityRadioGroupMaritalStatus"
+                android:id="@+id/registerInfoActivityRadioGroupMaritalStatus"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-12dp"
                 android:minHeight="0dip"
-                android:checkedButton="@id/registerActivityRadioButtonMaritalStatusSingle">
+                android:checkedButton="@id/registerInfoActivityRadioButtonMaritalStatusSingle">
 
                 <RadioButton
-                    android:id="@+id/registerActivityRadioButtonMaritalStatusSingle"
+                    android:id="@+id/registerInfoActivityRadioButtonMaritalStatusSingle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -183,7 +183,7 @@
                     android:textSize="16sp" />
 
                 <RadioButton
-                    android:id="@+id/registerActivityRadioButtonMaritalStatusMarried"
+                    android:id="@+id/registerInfoActivityRadioButtonMaritalStatusMarried"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -198,7 +198,7 @@
                     android:textSize="16sp" />
 
                 <RadioButton
-                    android:id="@+id/registerActivityRadioButtonMaritalStatusDivorced"
+                    android:id="@+id/registerInfoActivityRadioButtonMaritalStatusDivorced"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -217,7 +217,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/registerActivityLinearLayoutLastEducationDegreeMain"
+            android:id="@+id/registerInfoActivityLinearLayoutLastEducationDegreeMain"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
                     android:background="?android:attr/listDivider" />
 
                 <TextView
-                    android:id="@+id/registerActivityEditTextLastEducationDegreeTitle"
+                    android:id="@+id/registerInfoActivityEditTextLastEducationDegreeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|top"
@@ -263,14 +263,14 @@
             </LinearLayout>
 
             <RadioGroup
-                android:id="@+id/registerActivityRadioGroupLastEducationDegree"
+                android:id="@+id/registerInfoActivityRadioGroupLastEducationDegree"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-8dp">
 
                 <RadioButton
-                    android:id="@+id/registerActivityRadioButtonLastEducationDegreePrimary"
+                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreePrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="0dip"
@@ -279,7 +279,7 @@
                     android:text="@string/last_education_degree_primary"/>
 
                 <RadioButton
-                    android:id="@+id/registerActivityRadioButtonLastEducationDegreeSecondary"
+                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreeSecondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="0dip"
@@ -289,7 +289,7 @@
                     android:text="@string/last_education_degree_secondary"/>
 
                 <RadioButton
-                    android:id="@+id/registerActivityRadioButtonLastEducationDegreeBachelor"
+                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreeBachelor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="0dip"
@@ -299,7 +299,7 @@
                     android:text="@string/last_education_degree_bachelor"/>
 
                 <RadioButton
-                    android:id="@+id/registerActivityRadioButtonLastEducationDegreeMaster"
+                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreeMaster"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="0dip"
@@ -309,7 +309,7 @@
                     android:text="@string/last_education_degree_master"/>
 
                 <RadioButton
-                    android:id="@+id/registerActivityRadioButtonLastEducationDegreePhd"
+                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreePhd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="0dip"

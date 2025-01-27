@@ -50,17 +50,17 @@ class RegisterInfoActivity : AppCompatActivity() {
     private fun initViews() {
         initEditTexts()
         initRadioGroupMaritalStatus()
-        mRadioGroupLastEducationDegree = findViewById(R.id.registerActivityRadioGroupLastEducationDegree)
+        mRadioGroupLastEducationDegree = findViewById(R.id.registerInfoActivityRadioGroupLastEducationDegree)
     }
 
     private fun initEditTexts() {
-        mEditTextName = findViewById(R.id.registerActivityEditTextName)
-        mEditTextEmail = findViewById(R.id.registerActivityEditTextEmail)
-        mEditTextUsername = findViewById(R.id.registerActivityEditTextUsername)
+        mEditTextName = findViewById(R.id.registerInfoActivityEditTextName)
+        mEditTextEmail = findViewById(R.id.registerInfoActivityEditTextEmail)
+        mEditTextUsername = findViewById(R.id.registerInfoActivityEditTextUsername)
     }
 
     private fun initRadioGroupMaritalStatus() {
-        mRadioGroupMaritalStatus = findViewById(R.id.registerActivityRadioGroupMaritalStatus)
+        mRadioGroupMaritalStatus = findViewById(R.id.registerInfoActivityRadioGroupMaritalStatus)
 
         /*
         for (i in 0..<mRadioGroupMaritalStatus.childCount)
@@ -120,7 +120,6 @@ class RegisterInfoActivity : AppCompatActivity() {
 
             Log.i(SAVE_REGISTER_INFO, "Saved")
 
-            finish()
         } catch (ex: IOException) {
             Log.e(SAVE_REGISTER_INFO, ex.message ?: "")
             Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
@@ -186,9 +185,7 @@ class RegisterInfoActivity : AppCompatActivity() {
         }
     }
 
-    fun onSaveButtonClicked(view: View) {
-        saveUserInfoCallback()
-    }
+    fun onSaveButtonClicked(view: View) = saveUserInfoCallback()
 
     fun onClearButtonClicked(view: View) = mRadioGroupLastEducationDegree.clearCheck()
 
@@ -204,7 +201,7 @@ class RegisterInfoActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_close_title)
             .setMessage(R.string.alert_dialog_close_message)
-            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveUserInfoCallback() }
+            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveUserInfoCallback(); finish() }
             .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
             .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
             .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
