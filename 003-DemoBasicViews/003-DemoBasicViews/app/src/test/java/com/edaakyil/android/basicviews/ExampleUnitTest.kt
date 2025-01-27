@@ -1,4 +1,4 @@
-package com.edaakyil.app.android.basicviews
+package com.edaakyil.android.basicviews
 
 import org.junit.Test
 

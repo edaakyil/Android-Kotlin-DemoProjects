@@ -1,4 +1,4 @@
-package com.edaakyil.app.android.basicviews
+package com.edaakyil.android.basicviews
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

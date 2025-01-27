@@ -13,6 +13,9 @@
         android:theme="@style/Theme._003DemoBasicViewsFindViewByIdAccess"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -22,8 +25,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:exported="true"/>
+            android:name=".RegisterInfoActivity"
+            android:exported="true" />
         <activity
             android:name=".ManagementActivity"
             android:exported="false" />

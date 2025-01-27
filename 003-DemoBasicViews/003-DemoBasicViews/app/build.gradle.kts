@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.edaakyil.app.android.basicviews"
+    namespace = "com.edaakyil.android.basicviews"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.edaakyil.app.android.basicviews"
+        applicationId = "com.edaakyil.android.basicviews"
         minSdk = 24
         targetSdk = 37
         versionCode = 1

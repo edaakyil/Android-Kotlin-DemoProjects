@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registerActivityLinearLayoutMain"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterInfoActivity">
 
     <TextView
-        android:id="@+id/mainActivityTextViewRegisterTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-condensed-medium"
-        android:text="@string/register_activity_text_view_title"
+        android:text="@string/register_info_activity_text_view_title"
         android:textAlignment="center"
         android:textSize="32sp"
         android:textStyle="bold" />
@@ -30,20 +29,65 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/load_user_info_prompt"/>
-
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="onLoadButtonClicked"
-                android:text="@string/button_load_text"/>
+                android:layout_marginEnd="4dp"
+                android:gravity="bottom">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:gravity="top|center_horizontal"
+                    android:text="@string/load_user_info_prompt"
+                    android:textAlignment="center"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:minHeight="0dp"
+                    android:onClick="onLoadButtonClicked"
+                    android:text="@string/button_load_text"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:gravity="bottom">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="top|center_horizontal"
+                    android:text="@string/save_user_info_prompt"
+                    android:textAlignment="center"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/registerInfoActivitySaveButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:minHeight="0dp"
+                    android:onClick="onSaveButtonClicked"
+                    android:text="@string/button_save_text" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -69,7 +113,6 @@
             android:id="@+id/registerActivityEditTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:paddingVertical="12dp"
             android:hint="@string/edit_text_email_hint"
             android:inputType="textEmailAddress"
@@ -80,6 +123,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:minHeight="0dip"
             android:padding="0dp">
 
@@ -99,7 +143,8 @@
                     android:id="@+id/registerActivityEditTextMaritalStatusTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal|top"
+                    android:gravity="top"
                     android:padding="8dp"
                     android:hint="@string/marital_status_title"
                     android:textSize="16sp" />
@@ -118,7 +163,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
+                android:layout_marginTop="-12dp"
                 android:minHeight="0dip"
                 android:checkedButton="@id/registerActivityRadioButtonMaritalStatusSingle">
 
@@ -176,13 +221,13 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-12dp"
-            android:layout_marginBottom="24dp">
+            android:layout_marginTop="-12dp">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp">
 
                 <View
                     android:id="@+id/divider3"
@@ -195,7 +240,7 @@
                     android:id="@+id/registerActivityEditTextLastEducationDegreeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_gravity="center_horizontal|top"
                     android:padding="8dp"
                     android:hint="@string/last_education_degree_title"
                     android:textSize="16sp" />
@@ -221,7 +266,8 @@
                 android:id="@+id/registerActivityRadioGroupLastEducationDegree"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp">
 
                 <RadioButton
                     android:id="@+id/registerActivityRadioButtonLastEducationDegreePrimary"
@@ -276,59 +322,40 @@
 
         </LinearLayout>
 
-
         <Button
-            android:id="@+id/mainActivityButtonRegister"
+            android:id="@+id/registerInfoActivityContinueButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
             android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="8dp"
+            android:paddingVertical="8dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dip"
-            android:onClick="onRegisterButtonClicked"
-            android:paddingVertical="8dp"
-            android:text="@string/button_register_text"
-            android:textSize="18sp"
+            android:onClick="onContinueButtonClicked"
+            android:text="@string/button_continue_text"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:cornerRadius="8dp"
             app:strokeColor="#4CAF50" />
 
         <Button
-            android:id="@+id/mainActivityButtonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
             android:layout_marginHorizontal="32dp"
+            android:paddingVertical="8dp"
             android:elevation="30dp"
             android:insetLeft="0dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dip"
             android:onClick="onCloseButtonClicked"
-            android:paddingVertical="8dp"
             android:text="@string/button_close_text"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:cornerRadius="8dp"
             app:strokeColor="#4CAF50" />
 
-
     </LinearLayout>
 
 </LinearLayout>
-
-
-    <!--
-    <RadioButton
-    android:id="@+id/registerActivityRadioButtonSingle"
-    android:checked="true"
-    android:layout_weight="1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:button="@null"
-    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
-    android:gravity="center_horizontal|bottom"
-    android:text="@string/single"/>
-    -->

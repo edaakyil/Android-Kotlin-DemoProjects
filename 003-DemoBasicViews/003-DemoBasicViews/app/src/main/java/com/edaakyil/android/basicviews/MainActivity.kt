@@ -1,4 +1,4 @@
-package com.edaakyil.app.android.basicviews
+package com.edaakyil.android.basicviews
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -17,6 +17,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.edaakyil.android.basicviews.constant.PASSWORD
+import com.edaakyil.android.basicviews.constant.USERNAME
 import com.edaakyil.app.android.basicviews.constant.*
 
 class MainActivity : AppCompatActivity() {
@@ -154,7 +156,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onRegisterButtonClicked(vew: View) {
-        Intent(this,RegisterActivity::class.java).apply { startActivity(this) }
+        Intent(this, RegisterInfoActivity::class.java).apply { startActivity(this) }
     }
 
     fun onCloseButtonClicked(view: View) {
