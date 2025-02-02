@@ -62,11 +62,6 @@ class RegisterInfoActivity : AppCompatActivity() {
     private fun initRadioGroupMaritalStatus() {
         mRadioGroupMaritalStatus = findViewById(R.id.registerInfoActivityRadioGroupMaritalStatus)
 
-        /*
-        for (i in 0..<mRadioGroupMaritalStatus.childCount)
-        mRadioGroupMaritalStatus.getChildAt(i).tag = MARITAL_STATUS_TAGS[i]
-        */
-
         (0..<mRadioGroupMaritalStatus.childCount).forEach { mRadioGroupMaritalStatus.getChildAt(it).tag = MARITAL_STATUS_TAGS[it] }
 
         mRadioGroupMaritalStatus.setOnCheckedChangeListener { _, id -> Toast.makeText(this, "Checked: ${findViewById<RadioButton>(id).text}", Toast.LENGTH_SHORT).show() }
@@ -95,11 +90,32 @@ class RegisterInfoActivity : AppCompatActivity() {
         bw.write("${mUserInfo.email}$DELIMITER")
         bw.write("${mUserInfo.maritalStatus}$DELIMITER")
         bw.write("${mUserInfo.lastEducationDegree}")
-
-        Toast.makeText(this, R.string.user_successfully_saved_prompt, Toast.LENGTH_SHORT).show()
     }
 
-    private fun saveUserInfoCallback() {
+    private fun saveData(close: Boolean) {
+        BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeUserInfo)
+
+        Log.i(SAVE_REGISTER_INFO, "User saved successfully")
+        Toast.makeText(this, R.string.user_successfully_saved_prompt, Toast.LENGTH_SHORT).show()
+
+        if (close)
+            finish()
+    }
+
+    private fun selectOptionIfUserSaved(close: Boolean) {
+        Log.w(SAVE_REGISTER_INFO, "user already exists")
+        //Toast.makeText(this, R.string.username_already_saved_prompt, Toast.LENGTH_SHORT).show()
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.alert_dialog_user_already_saved_title)
+            .setMessage(R.string.alert_dialog_user_already_saved_message)
+            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveData(close) }
+            .setNegativeButton(R.string.alert_dialog_cancel) { _, _ -> }
+            .create()
+            .show()
+    }
+
+    private fun saveUserInfo(close: Boolean) {
         try {
             fillUserInfoModel()
 
@@ -110,16 +126,10 @@ class RegisterInfoActivity : AppCompatActivity() {
 
             val file = File(filesDir, "${mUserInfo.username}.txt")
 
-            if (file.exists()) {
-                Log.w(SAVE_REGISTER_INFO, "user already exists")
-                Toast.makeText(this, R.string.username_already_saved_prompt, Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeUserInfo)  // function/method reference
-
-            Log.i(SAVE_REGISTER_INFO, "Saved")
-
+            if (!file.exists())
+                saveData(close)
+            else
+                selectOptionIfUserSaved(close)
         } catch (ex: IOException) {
             Log.e(SAVE_REGISTER_INFO, ex.message ?: "")
             Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
@@ -185,7 +195,7 @@ class RegisterInfoActivity : AppCompatActivity() {
         }
     }
 
-    fun onSaveButtonClicked(view: View) = saveUserInfoCallback()
+    fun onSaveButtonClicked(view: View) = saveUserInfo(false)
 
     fun onClearButtonClicked(view: View) = mRadioGroupLastEducationDegree.clearCheck()
 
@@ -201,7 +211,7 @@ class RegisterInfoActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_title_alert)
             .setMessage(R.string.alert_dialog_close_message)
-            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveUserInfoCallback(); finish() }
+            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveUserInfo(true) }
             .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
             .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
             .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
