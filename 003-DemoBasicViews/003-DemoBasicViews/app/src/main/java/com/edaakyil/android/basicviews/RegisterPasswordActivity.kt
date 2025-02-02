@@ -10,8 +10,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.os.Build
-import com.edaakyil.android.basicviews.constant.REGISTER_INFO
+import android.util.Log
+import android.widget.Toast
+import com.edaakyil.android.basicviews.constant.USER_INFO
+import com.edaakyil.android.basicviews.constant.USERS_FILE_PATH
+import com.edaakyil.android.basicviews.constant.USERS_FORMAT
 import com.edaakyil.android.basicviews.model.UserInfoModel
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.ObjectOutputStream
+
+const val REGISTER_USER_INFO = "REGISTER_USER_INFO"
 
 class RegisterPasswordActivity : AppCompatActivity() {
     private lateinit var mTextViewUsername: TextView
@@ -34,8 +44,8 @@ class RegisterPasswordActivity : AppCompatActivity() {
 
     private fun initialize() {
         mUserInfo = when {
-            Build.VERSION.SDK_INT < 33 -> intent.getSerializableExtra(REGISTER_INFO) as UserInfoModel
-            else -> intent.getSerializableExtra(REGISTER_INFO, UserInfoModel::class.java)!!
+            Build.VERSION.SDK_INT < 33 -> intent.getSerializableExtra(USER_INFO) as UserInfoModel
+            else -> intent.getSerializableExtra(USER_INFO, UserInfoModel::class.java)!!
         }
         initViews()
     }
@@ -49,6 +59,21 @@ class RegisterPasswordActivity : AppCompatActivity() {
     private fun initTextViewUsername() {
         mTextViewUsername = findViewById(R.id.registerPasswordActivityTextViewUsername)
         mTextViewUsername.text = resources.getString(R.string.register_password_activity_text_view_username).format(mUserInfo.username)
+    }
+
+    // Save işleminde Serialization kullanacağız
+    private fun registerUser() {
+        try {
+            ObjectOutputStream(FileOutputStream(File(filesDir, USERS_FILE_PATH), true)).use { it.writeObject(mUserInfo) }
+            File(filesDir, USERS_FORMAT.format("${mUserInfo.username}.txt")).delete()
+        } catch (ex: IOException) {
+            Log.e(REGISTER_USER_INFO, ex.message ?: "")
+            Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
+        } catch (ex: Exception) {
+            Log.e(REGISTER_USER_INFO, ex.message, ex)
+            Toast.makeText(this, R.string.problem_occurred_prompt, Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     fun onRegisterButtonClicked(view: View) {
@@ -65,9 +90,11 @@ class RegisterPasswordActivity : AppCompatActivity() {
             return
         }
 
-        if (password == confirmPassword)
+        if (password == confirmPassword) {
             mUserInfo.password = password
-        else
+            registerUser()
+            Toast.makeText(this, R.string.user_successfully_registered_prompt, Toast.LENGTH_SHORT).show()
+        } else
             AlertDialog.Builder(this)
                 .setTitle(R.string.alert_dialog_title_alert)
                 .setMessage(R.string.alert_dialog_confirm_password_message)

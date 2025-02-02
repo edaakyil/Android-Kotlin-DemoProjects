@@ -12,7 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.edaakyil.android.basicviews.constant.MARITAL_STATUS_TAGS
-import com.edaakyil.android.basicviews.constant.REGISTER_INFO
+import com.edaakyil.android.basicviews.constant.USER_INFO
 import com.edaakyil.android.basicviews.constant.USERS_FORMAT
 import com.edaakyil.android.basicviews.model.UserInfoModel
 import java.io.BufferedReader
@@ -25,9 +25,9 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.nio.charset.StandardCharsets
 
-const val SAVE_REGISTER_INFO = "SAVE_REGISTER_INFO"
-const val LOAD_REGISTER_INFO = "LOAD_REGISTER_INFO"
-const val DELIMITER = ":"
+private const val SAVE_REGISTER_INFO = "SAVE_REGISTER_INFO"
+private const val LOAD_REGISTER_INFO = "LOAD_REGISTER_INFO"
+private const val DELIMITER = ":"
 
 class RegisterInfoActivity : AppCompatActivity() {
     private lateinit var mEditTextName: EditText
@@ -204,7 +204,7 @@ class RegisterInfoActivity : AppCompatActivity() {
 
     fun onContinueButtonClicked(view: View) {
         fillUserInfoModel()
-        Intent(this, RegisterPasswordActivity::class.java).apply { putExtra(REGISTER_INFO, mUserInfo); startActivity(this) }
+        Intent(this, RegisterPasswordActivity::class.java).apply { putExtra(USER_INFO, mUserInfo); startActivity(this) }
         finish()
 
         Toast.makeText(this, "${mUserInfo.maritalStatus}, ${mUserInfo.lastEducationDegree}", Toast.LENGTH_SHORT).show()
