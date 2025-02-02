@@ -13,10 +13,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.edaakyil.android.basicviews.constant.MARITAL_STATUS_TAGS
 import com.edaakyil.android.basicviews.constant.REGISTER_INFO
+import com.edaakyil.android.basicviews.constant.USERS
 import com.edaakyil.android.basicviews.model.UserInfoModel
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.FileWriter
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -93,7 +97,7 @@ class RegisterInfoActivity : AppCompatActivity() {
     }
 
     private fun saveData(close: Boolean) {
-        BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeUserInfo)
+        BufferedWriter(OutputStreamWriter(FileOutputStream(File(filesDir, "$USERS/${mUserInfo.username}.txt")), StandardCharsets.UTF_8)).use(::writeUserInfo)
 
         Log.i(SAVE_REGISTER_INFO, "User saved successfully")
         Toast.makeText(this, R.string.user_successfully_saved_prompt, Toast.LENGTH_SHORT).show()
@@ -124,7 +128,7 @@ class RegisterInfoActivity : AppCompatActivity() {
                 return
             }
 
-            val file = File(filesDir, "${mUserInfo.username}.txt")
+            val file = File(filesDir, "$USERS/${mUserInfo.username}.txt")
 
             if (!file.exists())
                 saveData(close)
@@ -176,14 +180,14 @@ class RegisterInfoActivity : AppCompatActivity() {
                 return
             }
 
-            val file = File(filesDir, "$username.txt")
+            val file = File(filesDir, "$USERS/$username.txt")
 
             if (!file.exists()) {
                 Toast.makeText(this, R.string.username_not_found_prompt, Toast.LENGTH_SHORT).show()
                 return
             }
 
-            BufferedReader(InputStreamReader(openFileInput("$username.txt"), StandardCharsets.UTF_8)).use(::fillUI)
+            BufferedReader(InputStreamReader(FileInputStream(File(filesDir, "$USERS/$username.txt")), StandardCharsets.UTF_8)).use(::fillUI)
 
             Toast.makeText(this, R.string.user_successfully_loaded_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: IOException) {
