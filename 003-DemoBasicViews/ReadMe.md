@@ -214,6 +214,51 @@ File(filesDir, "users/${mUserInfo.username}.txt").delete()
 
 * Serializable kullanırak dosyaya kaydedilen verilerin okunması:
 Bizim uygulamamızda her bir user info, farklı ObjectOutputStream'ler kullanılarak dosyaya kaydedildiği için bizim de bu verileri okurken farklı ObjectInputStream'ler ile okumamız gerek yani okuma işleminde her adımda ObjectInputStream yaratmamız gerek
+
+```kt
+private fun userExistsCallback(fis: FileInputStream): Boolean {
+    var result = false
+
+    try {
+        // EOFException oluşana kadar döngüye gireceğiz ve her adımda readObject yapıcaz
+        // EOFException, dosyanın sonuna gelmek yani EOFException ile dosyanın sonuna gelinip gelinmediği kontrol ediliyor
+        // EOFException'nın fırlatılırsa bu dosyanın sonuna gelindi demektir yani okuma bitti demek
+        while (true) {
+            // Her adımda ObjectInputStream'in yaratılması gerekiyor
+            val ois = ObjectInputStream(fis)
+            val userInfo = ois.readObject() as UserInfoModel
+
+            if (userInfo.username == mUserInfo.username) { // Eğer koşul doğruysa demek ki bizim user'ımız mevcut demektir yani bu user daha önce kaydedilmiş
+                result = true
+                break
+            }
+        }
+    } catch (_: EOFException) {
+        // Dosyanın sonuna gelindiğinde yani EOFException fırlatıldıdığında dönğü sonlanıcak
+    }
+
+    return result
+}
+
+private fun userExists(): Boolean {
+    var result = false
+
+    try {
+        result = FileInputStream(File(filesDir, USERS_FILE_PATH)).use(::userExistsCallback)  // use, içerisindeki ifadenin değerine geri döner
+    } catch (ex: IOException) {
+        Log.e(USER_INFO_EXIST_LOG_TAG, ex.message ?: "")
+        Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
+    } catch (ex: Exception) {
+        Log.e(USER_INFO_EXIST_LOG_TAG, ex.message, ex)
+        Toast.makeText(this, R.string.problem_occurred_prompt, Toast.LENGTH_SHORT).show()
+    }
+
+    return result
+}
+```
+
+
+**NOT:**
 ```kt
 val fis = FileInputStream(File(filesDir, USERS_FILE_PATH))
 fis.use { 
