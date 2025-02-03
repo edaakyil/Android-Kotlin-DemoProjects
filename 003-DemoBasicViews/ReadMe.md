@@ -1,4 +1,5 @@
 # 003-DemoBasicViews
+<<<<<<< HEAD
 
 ## Ders 31
 * Write data from UI to internal memory
@@ -441,3 +442,5 @@ ___
 
 
 
+=======
+>>>>>>> parent of 2e71286 (Updated ReadMe file)
