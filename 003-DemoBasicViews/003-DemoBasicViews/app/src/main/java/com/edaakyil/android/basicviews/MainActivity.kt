@@ -22,6 +22,7 @@ import com.edaakyil.android.basicviews.constant.PASSWORD
 import com.edaakyil.android.basicviews.constant.USERNAME
 import com.edaakyil.android.basicviews.data.service.UserService
 import com.edaakyil.android.basicviews.model.UserLoginInfoModel
+import com.edaakyil.data.exception.DataServiceException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mButtonLogin: Button
@@ -87,26 +88,32 @@ class MainActivity : AppCompatActivity() {
     private fun checkUser() = mUserService.existsByUsernameAndPassword(mUserLoginInfo.username, mUserLoginInfo.password)
 
     private fun doLogin() {
-        mTextViewAcceptStatus.text = ""
+        try {
+            mTextViewAcceptStatus.text = ""
 
-        if (!mCheckBoxAnonymous.isChecked) {
-            fillUserLoginInfoModel()
+            if (!mCheckBoxAnonymous.isChecked) {
+                fillUserLoginInfoModel()
 
-            if (checkUser())
-                Intent(this, ManagementActivity::class.java).apply {
-                    putExtra(USERNAME, mUserLoginInfo.username)
-                    putExtra(PASSWORD, mUserLoginInfo.password) // edaakyil
-                    startActivity(this)
-                }
-            else
-                AlertDialog.Builder(this)
-                    .setTitle(R.string.alert_dialog_user_login_problem_title)
-                    .setMessage(R.string.alert_dialog_user_login_problem_message)
-                    .setPositiveButton(R.string.alert_dialog_ok) { _, _ -> }
-                    .create()
-                    .show()
-        } else {
-            Intent(this, ManagementActivity::class.java).apply { startActivity(this) }
+                if (checkUser())
+                    Intent(this, ManagementActivity::class.java).apply {
+                        putExtra(USERNAME, mUserLoginInfo.username)
+                        putExtra(PASSWORD, mUserLoginInfo.password) // edaakyil
+                        startActivity(this)
+                    }
+                else
+                    AlertDialog.Builder(this)
+                        .setTitle(R.string.alert_dialog_user_login_problem_title)
+                        .setMessage(R.string.alert_dialog_user_login_problem_message)
+                        .setPositiveButton(R.string.alert_dialog_ok) { _, _ -> }
+                        .create()
+                        .show()
+            } else {
+                Intent(this, ManagementActivity::class.java).apply { startActivity(this) }
+            }
+        } catch (ex: DataServiceException) {
+            Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
+        } catch (ex: Exception) {
+            Toast.makeText(this, R.string.problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         }
     }
 
