@@ -3,6 +3,7 @@ package com.edaakyil.android.basicviews.data.service
 import android.content.Context
 import com.edaakyil.android.basicviews.constant.USERS_FORMAT
 import com.edaakyil.android.basicviews.model.UserRegisterInfoModel
+import com.edaakyil.data.exception.DataServiceException
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
@@ -27,9 +28,13 @@ class UserService(context: Context) {
     }
 
     fun saveUserData(userRegisterInfo: UserRegisterInfoModel) {
-        val username = userRegisterInfo.username
-        BufferedWriter(OutputStreamWriter(FileOutputStream(File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))), StandardCharsets.UTF_8))
-            .use { writeUserRegisterInfo(it, userRegisterInfo) }
+        try {
+            val username = userRegisterInfo.username
+            BufferedWriter(OutputStreamWriter(FileOutputStream(File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))), StandardCharsets.UTF_8))
+                .use { writeUserRegisterInfo(it, userRegisterInfo) }
+        } catch (ex: IOException) {
+            throw DataServiceException("UserService.saveUserData", ex)
+        }
     }
 
     private fun readRegisteringUserInfo(br: BufferedReader, username: String): UserRegisterInfoModel {
@@ -40,20 +45,36 @@ class UserService(context: Context) {
     }
 
     fun findByUsername(username: String): UserRegisterInfoModel? {
-        val file = File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))
+        try {
+            val file = File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))
 
-        return if (file.exists()) BufferedReader(InputStreamReader(FileInputStream(file), StandardCharsets.UTF_8)).use { readRegisteringUserInfo(it, username) } else null
+            return if (file.exists()) BufferedReader(InputStreamReader(FileInputStream(file), StandardCharsets.UTF_8)).use { readRegisteringUserInfo(it, username) } else null
+        } catch (ex: IOException) {
+            throw DataServiceException("UserService.findByUsername", ex)
+        }
     }
 
     fun registerUser(userRegisterInfo: UserRegisterInfoModel) {
-
+        try {
+            TODO("Not yet implemented!...")
+        } catch (ex: IOException) {
+            throw DataServiceException("UserService.registerUser", ex)
+        }
     }
 
     fun existsByUsername(username: String): Boolean {
-        TODO()
+        try {
+            return File(mContext.filesDir, USERS_FORMAT.format("$username.txt")).exists()
+        } catch (ex: IOException) {
+            throw DataServiceException("UserService.existsByUsername", ex)
+        }
     }
 
     fun existsByUsernameAndPassword(username: String, password: String): Boolean {
-        TODO()
+        try {
+            TODO("Not yet implemented!...")
+        } catch (ex: IOException) {
+            throw DataServiceException("UserService.existsByUsernameAndPassword", ex)
+        }
     }
 }

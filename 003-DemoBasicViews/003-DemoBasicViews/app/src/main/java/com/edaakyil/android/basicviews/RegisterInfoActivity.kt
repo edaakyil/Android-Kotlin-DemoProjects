@@ -16,8 +16,7 @@ import com.edaakyil.android.basicviews.constant.USER_INFO
 import com.edaakyil.android.basicviews.constant.USERS_FORMAT
 import com.edaakyil.android.basicviews.data.service.UserService
 import com.edaakyil.android.basicviews.model.UserRegisterInfoModel
-import java.io.File
-import java.io.IOException
+import com.edaakyil.data.exception.DataServiceException
 
 private const val SAVE_USER_INFO_LOG_TAG = "SAVE_USER_INFO"
 private const val LOAD_USER_INFO_LOG_TAG = "LOAD_USER_INFO"
@@ -105,7 +104,7 @@ class RegisterInfoActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun saveUserInfo(close: Boolean) {
+    private fun saveUserRegisterInfo(close: Boolean) {
         try {
             fillUserRegisterInfoModel()
 
@@ -114,13 +113,12 @@ class RegisterInfoActivity : AppCompatActivity() {
                 return
             }
 
-            val file = File(filesDir, USERS_FORMAT.format("${mUserRegisterInfo.username}.txt"))
 
-            if (!file.exists())
+            if (!mUserService.existsByUsername(mUserRegisterInfo.username))
                 saveData(close)
             else
                 selectOptionIfUserSaved(close)
-        } catch (ex: IOException) {
+        } catch (ex: DataServiceException) {
             Log.e(SAVE_USER_INFO_LOG_TAG, ex.message ?: "")
             Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
@@ -160,7 +158,7 @@ class RegisterInfoActivity : AppCompatActivity() {
             fillUI()
 
             Toast.makeText(this, R.string.user_successfully_loaded_prompt, Toast.LENGTH_SHORT).show()
-        } catch (ex: IOException) {
+        } catch (ex: DataServiceException) {
             Log.e(LOAD_USER_INFO_LOG_TAG, ex.message ?: "")
             Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
@@ -169,7 +167,7 @@ class RegisterInfoActivity : AppCompatActivity() {
         }
     }
 
-    fun onSaveButtonClicked(view: View) = saveUserInfo(false)
+    fun onSaveButtonClicked(view: View) = saveUserRegisterInfo(false)
 
     fun onClearButtonClicked(view: View) = mRadioGroupLastEducationDegree.clearCheck()
 
@@ -185,7 +183,7 @@ class RegisterInfoActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_title_alert)
             .setMessage(R.string.alert_dialog_close_message)
-            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveUserInfo(true) }
+            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveUserRegisterInfo(true) }
             .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
             .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
             .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
