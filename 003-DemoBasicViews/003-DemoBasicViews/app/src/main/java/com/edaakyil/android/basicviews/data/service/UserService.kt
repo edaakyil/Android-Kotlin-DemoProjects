@@ -86,6 +86,27 @@ class UserService(context: Context) {
         }
     }
 
+    private fun userFilterCallback(fis: FileInputStream, predicate: (UserRegisterInfoModel) -> Boolean): Boolean {
+        var result = false
+
+        try {
+            while (true) {
+                val ois = ObjectInputStream(fis)
+                val userInfo = ois.readObject() as UserRegisterInfoModel
+
+                if (predicate(userInfo)) {
+                    result = true
+                    break
+                }
+            }
+        } catch (_: EOFException) {
+
+        }
+
+        return result
+    }
+
+    /*
     private fun userExistsCallback(fis: FileInputStream, username: String): Boolean {
         var result = false
 
@@ -109,13 +130,14 @@ class UserService(context: Context) {
 
         return result
     }
+    */
 
     /**
      * For Register user
      */
     fun existsByUsername(username: String): Boolean {
         try {
-            return FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userExistsCallback(it, username) } // use, içerisindeki ifadenin değerine geri döner
+            return FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { it.username == username } }
         } catch (ex: IOException) {
             throw DataServiceException("UserService.existsByUsername", ex)
         }
@@ -126,7 +148,7 @@ class UserService(context: Context) {
      */
     fun existsByUsernameAndPassword(username: String, password: String): Boolean {
         try {
-            TODO("Not yet implemented!...")
+            return FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { it.username == username && it.password == password } }
         } catch (ex: IOException) {
             throw DataServiceException("UserService.existsByUsernameAndPassword", ex)
         }

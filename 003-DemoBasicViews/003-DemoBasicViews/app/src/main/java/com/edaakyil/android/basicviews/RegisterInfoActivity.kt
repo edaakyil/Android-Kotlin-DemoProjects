@@ -64,9 +64,9 @@ class RegisterInfoActivity : AppCompatActivity() {
     }
 
     private fun fillUserRegisterInfoModel() {
-        val name = mEditTextName.text.toString()
-        val email = mEditTextEmail.text.toString()
-        val username = mEditTextUsername.text.toString()
+        val name = mEditTextName.text.toString().trim()
+        val email = mEditTextEmail.text.toString().trim()
+        val username = mEditTextUsername.text.toString().trim()
         val maritalStatus = findViewById<RadioButton>(mRadioGroupMaritalStatus.checkedRadioButtonId).tag as Char
         val lastEducationDegreeId = mRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
@@ -112,7 +112,6 @@ class RegisterInfoActivity : AppCompatActivity() {
                 return
             }
 
-
             if (!mUserService.isUserSaved(mUserRegisterInfo.username))
                 saveData(close)
             else
@@ -139,7 +138,7 @@ class RegisterInfoActivity : AppCompatActivity() {
 
     fun onLoadButtonClicked(view: View) {
         try {
-            val username = mEditTextUsername.text.toString()
+            val username = mEditTextUsername.text.toString().trim()
 
             if (username.isBlank()) {
                 Toast.makeText(this, R.string.username_missing_prompt, Toast.LENGTH_SHORT).show()
