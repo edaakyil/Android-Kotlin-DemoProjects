@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.edaakyil.android.basicviews.constant.PASSWORD
 import com.edaakyil.android.basicviews.constant.USERNAME
+import com.edaakyil.android.basicviews.data.service.UserService
 import com.edaakyil.android.basicviews.model.UserLoginInfoModel
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var mSwitchAccept: Switch
     private lateinit var mUserLoginInfo: UserLoginInfoModel
+    private lateinit var mUserService: UserService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
+        mUserService = UserService(this)
         initViews()
     }
 
@@ -81,9 +84,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * checkUser bir dosya açıcak
      */
-    private fun checkUser(): Boolean {
-        TODO("Not yet implemented!...")
-    }
+    private fun checkUser() = mUserService.existsByUsernameAndPassword(mUserLoginInfo.username, mUserLoginInfo.password)
 
     private fun doLogin() {
         mTextViewAcceptStatus.text = ""

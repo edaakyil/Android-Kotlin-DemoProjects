@@ -60,6 +60,9 @@ class UserService(context: Context) {
         return result
     }
 
+    /**
+     * It filters users by their qualification desired
+     */
     private fun findUsersByFilter(fis: FileInputStream, predicate: (UserRegisterInfoModel) -> Boolean): List<UserRegisterInfoModel> {
         val users = ArrayList<UserRegisterInfoModel>()
 
