@@ -14,20 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.edaakyil.android.basicviews.constant.MARITAL_STATUS_TAGS
 import com.edaakyil.android.basicviews.constant.USER_INFO
 import com.edaakyil.android.basicviews.constant.USERS_FORMAT
-import com.edaakyil.android.basicviews.model.UserInfoModel
-import java.io.BufferedReader
-import java.io.BufferedWriter
+import com.edaakyil.android.basicviews.data.service.UserService
+import com.edaakyil.android.basicviews.model.UserRegisterInfoModel
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-import java.nio.charset.StandardCharsets
 
-private const val SAVE_REGISTER_INFO = "SAVE_REGISTER_INFO"
-private const val LOAD_REGISTER_INFO = "LOAD_REGISTER_INFO"
-private const val DELIMITER = ":"
+private const val SAVE_USER_INFO_LOG_TAG = "SAVE_USER_INFO"
+private const val LOAD_USER_INFO_LOG_TAG = "LOAD_USER_INFO"
 
 class RegisterInfoActivity : AppCompatActivity() {
     private lateinit var mEditTextName: EditText
@@ -35,7 +28,8 @@ class RegisterInfoActivity : AppCompatActivity() {
     private lateinit var mEditTextUsername: EditText
     private lateinit var mRadioGroupMaritalStatus: RadioGroup
     private lateinit var mRadioGroupLastEducationDegree: RadioGroup
-    private lateinit var mUserInfo: UserInfoModel
+    private lateinit var mUserRegisterInfo: UserRegisterInfoModel
+    private lateinit var mUserService: UserService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +40,8 @@ class RegisterInfoActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        mUserInfo = UserInfoModel()
+        mUserRegisterInfo = UserRegisterInfoModel()
+        mUserService = UserService(this)
         initViews()
     }
 
@@ -70,7 +65,7 @@ class RegisterInfoActivity : AppCompatActivity() {
         mRadioGroupMaritalStatus.setOnCheckedChangeListener { _, id -> Toast.makeText(this, "Checked: ${findViewById<RadioButton>(id).text}", Toast.LENGTH_SHORT).show() }
     }
 
-    private fun fillUserInfoModel() {
+    private fun fillUserRegisterInfoModel() {
         val name = mEditTextName.text.toString()
         val email = mEditTextEmail.text.toString()
         val username = mEditTextUsername.text.toString()
@@ -78,7 +73,7 @@ class RegisterInfoActivity : AppCompatActivity() {
         val lastEducationDegreeId = mRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
 
-        mUserInfo.also {
+        mUserRegisterInfo.also {
             it.name = name
             it.email = email
             it.username = username
@@ -87,18 +82,10 @@ class RegisterInfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeUserInfo(bw: BufferedWriter) {
-        bw.write("${mUserInfo.username}$DELIMITER")
-        bw.write("${mUserInfo.name}$DELIMITER")
-        bw.write("${mUserInfo.email}$DELIMITER")
-        bw.write("${mUserInfo.maritalStatus}$DELIMITER")
-        bw.write("${mUserInfo.lastEducationDegree}")
-    }
-
     private fun saveData(close: Boolean) {
-        BufferedWriter(OutputStreamWriter(FileOutputStream(File(filesDir, USERS_FORMAT.format("${mUserInfo.username}.txt"))), StandardCharsets.UTF_8)).use(::writeUserInfo)
+        mUserService.saveUserData(mUserRegisterInfo)
 
-        Log.i(SAVE_REGISTER_INFO, "User saved successfully")
+        Log.i(SAVE_USER_INFO_LOG_TAG, "User saved successfully")
         Toast.makeText(this, R.string.user_successfully_saved_prompt, Toast.LENGTH_SHORT).show()
 
         if (close)
@@ -106,7 +93,7 @@ class RegisterInfoActivity : AppCompatActivity() {
     }
 
     private fun selectOptionIfUserSaved(close: Boolean) {
-        Log.w(SAVE_REGISTER_INFO, "user already exists")
+        Log.w(SAVE_USER_INFO_LOG_TAG, "user already exists")
         //Toast.makeText(this, R.string.username_already_saved_prompt, Toast.LENGTH_SHORT).show()
 
         AlertDialog.Builder(this)
@@ -120,52 +107,35 @@ class RegisterInfoActivity : AppCompatActivity() {
 
     private fun saveUserInfo(close: Boolean) {
         try {
-            fillUserInfoModel()
+            fillUserRegisterInfoModel()
 
-            if (mUserInfo.username.isBlank()) {
+            if (mUserRegisterInfo.username.isBlank()) {
                 Toast.makeText(this, R.string.username_missing_prompt, Toast.LENGTH_SHORT).show()
                 return
             }
 
-            val file = File(filesDir, USERS_FORMAT.format("${mUserInfo.username}.txt"))
+            val file = File(filesDir, USERS_FORMAT.format("${mUserRegisterInfo.username}.txt"))
 
             if (!file.exists())
                 saveData(close)
             else
                 selectOptionIfUserSaved(close)
         } catch (ex: IOException) {
-            Log.e(SAVE_REGISTER_INFO, ex.message ?: "")
+            Log.e(SAVE_USER_INFO_LOG_TAG, ex.message ?: "")
             Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
-            Log.e(SAVE_REGISTER_INFO, ex.message, ex)
+            Log.e(SAVE_USER_INFO_LOG_TAG, ex.message, ex)
             Toast.makeText(this, R.string.problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         }
     }
 
-    /** Read the exist user's information from internal memory
-     *
-     */
-    private fun readUserInfo(br: BufferedReader): List<String> {
-        val str = br.readLine() ?: throw IOException()  // line(satır) okuma
-
-        // line'ı split etme
-        val info = str.split(DELIMITER) // Java version: str.split("[ ]+")
-
-        return info
-    }
-
-    /** Fill the exist user's information to the UI
-     *
-     */
-    private fun fillUI(br: BufferedReader) {
-        val existUserInfo = readUserInfo(br)
-
-        mEditTextName.setText(existUserInfo[1])
-        mEditTextEmail.setText(existUserInfo[2])
-        (mRadioGroupMaritalStatus.getChildAt(MARITAL_STATUS_TAGS.indexOf(existUserInfo[3][0])) as RadioButton).isChecked = true
+    private fun fillUI() {
+        mEditTextName.setText(mUserRegisterInfo.name)
+        mEditTextEmail.setText(mUserRegisterInfo.email)
+        (mRadioGroupMaritalStatus.getChildAt(MARITAL_STATUS_TAGS.indexOf(mUserRegisterInfo.maritalStatus)) as RadioButton).isChecked = true
 
         mRadioGroupLastEducationDegree.clearCheck()
-        val lastEducationDegreeId = existUserInfo[4].toInt()
+        val lastEducationDegreeId = mUserRegisterInfo.lastEducationDegree
         if(lastEducationDegreeId != 0)
             (mRadioGroupLastEducationDegree.getChildAt(lastEducationDegreeId - 1) as RadioButton).isChecked = true
     }
@@ -179,21 +149,22 @@ class RegisterInfoActivity : AppCompatActivity() {
                 return
             }
 
-            val file = File(filesDir, USERS_FORMAT.format("$username.txt"))
+            val ri = mUserService.findByUsername(username)
 
-            if (!file.exists()) {
+            if (ri == null) {
                 Toast.makeText(this, R.string.username_not_found_prompt, Toast.LENGTH_SHORT).show()
                 return
             }
 
-            BufferedReader(InputStreamReader(FileInputStream(file), StandardCharsets.UTF_8)).use(::fillUI)
+            mUserRegisterInfo = ri // smart cast
+            fillUI()
 
             Toast.makeText(this, R.string.user_successfully_loaded_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: IOException) {
-            Log.e(LOAD_REGISTER_INFO, ex.message ?: "")
+            Log.e(LOAD_USER_INFO_LOG_TAG, ex.message ?: "")
             Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
-            Log.e(LOAD_REGISTER_INFO, ex.message, ex)
+            Log.e(LOAD_USER_INFO_LOG_TAG, ex.message, ex)
             Toast.makeText(this, R.string.problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         }
     }
@@ -203,11 +174,11 @@ class RegisterInfoActivity : AppCompatActivity() {
     fun onClearButtonClicked(view: View) = mRadioGroupLastEducationDegree.clearCheck()
 
     fun onContinueButtonClicked(view: View) {
-        fillUserInfoModel()
-        Intent(this, RegisterPasswordActivity::class.java).apply { putExtra(USER_INFO, mUserInfo); startActivity(this) }
+        fillUserRegisterInfoModel()
+        Intent(this, RegisterPasswordActivity::class.java).apply { putExtra(USER_INFO, mUserRegisterInfo); startActivity(this) }
         finish()
 
-        Toast.makeText(this, "${mUserInfo.maritalStatus}, ${mUserInfo.lastEducationDegree}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${mUserRegisterInfo.maritalStatus}, ${mUserRegisterInfo.lastEducationDegree}", Toast.LENGTH_SHORT).show()
     }
 
     fun onCloseButtonClicked(view: View) {

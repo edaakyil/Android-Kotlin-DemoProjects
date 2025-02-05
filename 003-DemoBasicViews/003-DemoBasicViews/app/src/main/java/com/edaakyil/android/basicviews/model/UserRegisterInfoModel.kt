@@ -2,7 +2,7 @@ package com.edaakyil.android.basicviews.model
 
 import java.io.Serializable
 
-data class UserInfoModel(
+data class UserRegisterInfoModel(
     var name: String = "",
     var username: String = "",
     var email: String = "",

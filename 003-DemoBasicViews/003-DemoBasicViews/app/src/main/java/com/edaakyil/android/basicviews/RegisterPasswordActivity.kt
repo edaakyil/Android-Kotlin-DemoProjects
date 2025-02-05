@@ -15,7 +15,7 @@ import android.widget.Toast
 import com.edaakyil.android.basicviews.constant.USER_INFO
 import com.edaakyil.android.basicviews.constant.USERS_FILE_PATH
 import com.edaakyil.android.basicviews.constant.USERS_FORMAT
-import com.edaakyil.android.basicviews.model.UserInfoModel
+import com.edaakyil.android.basicviews.model.UserRegisterInfoModel
 import java.io.EOFException
 import java.io.File
 import java.io.FileInputStream
@@ -31,7 +31,7 @@ class RegisterPasswordActivity : AppCompatActivity() {
     private lateinit var mTextViewUsername: TextView
     private lateinit var mEditTextPassword: EditText
     private lateinit var mEditTextConfirmPassword: EditText
-    private lateinit var mUserInfo: UserInfoModel
+    private lateinit var mUserRegisterInfo: UserRegisterInfoModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +47,11 @@ class RegisterPasswordActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        mUserInfo = when {
-            Build.VERSION.SDK_INT < 33 -> intent.getSerializableExtra(USER_INFO) as UserInfoModel
-            else -> intent.getSerializableExtra(USER_INFO, UserInfoModel::class.java)!!
+        mUserRegisterInfo = when {
+            Build.VERSION.SDK_INT < 33 -> intent.getSerializableExtra(USER_INFO) as UserRegisterInfoModel
+            else -> intent.getSerializableExtra(USER_INFO, UserRegisterInfoModel::class.java)!!
         }
+
         initViews()
     }
 
@@ -62,7 +63,7 @@ class RegisterPasswordActivity : AppCompatActivity() {
 
     private fun initTextViewUsername() {
         mTextViewUsername = findViewById(R.id.registerPasswordActivityTextViewUsername)
-        mTextViewUsername.text = resources.getString(R.string.register_password_activity_text_view_username).format(mUserInfo.username)
+        mTextViewUsername.text = resources.getString(R.string.register_password_activity_text_view_username).format(mUserRegisterInfo.username)
     }
 
     private fun userExistsCallback(fis: FileInputStream): Boolean {
@@ -75,9 +76,9 @@ class RegisterPasswordActivity : AppCompatActivity() {
             while (true) {
                 // Her adımda ObjectInputStream'in yaratılması gerekiyor
                 val ois = ObjectInputStream(fis)
-                val userInfo = ois.readObject() as UserInfoModel
+                val userInfo = ois.readObject() as UserRegisterInfoModel
 
-                if (userInfo.username == mUserInfo.username) { // Eğer koşul doğruysa demek ki bizim user'ımız mevcut demektir yani bu user daha önce kaydedilmiş
+                if (userInfo.username == mUserRegisterInfo.username) { // Eğer koşul doğruysa demek ki bizim user'ımız mevcut demektir yani bu user daha önce kaydedilmiş
                     result = true
                     break
                 }
@@ -111,8 +112,8 @@ class RegisterPasswordActivity : AppCompatActivity() {
             // Her registerUserInfo çağrıldığında data'lar farklı ObjectOutputStream'ler kullanılarak yazılıyor.
             // Böylelikle her bir data farklı ObjectOutputStream'ler kullanılarak yaratılıyor.
             // Yani her registerUserInfo çağrısında yeni bir ObjectOutputStream yaratılıyor
-            ObjectOutputStream(FileOutputStream(File(filesDir, USERS_FILE_PATH), true)).use { it.writeObject(mUserInfo) }
-            File(filesDir, USERS_FORMAT.format("${mUserInfo.username}.txt")).delete()
+            ObjectOutputStream(FileOutputStream(File(filesDir, USERS_FILE_PATH), true)).use { it.writeObject(mUserRegisterInfo) }
+            File(filesDir, USERS_FORMAT.format("${mUserRegisterInfo.username}.txt")).delete()
         } catch (ex: IOException) {
             Log.e(REGISTER_USER_INFO_LOG_TAG, ex.message ?: "")
             Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
@@ -128,8 +129,9 @@ class RegisterPasswordActivity : AppCompatActivity() {
             return
         }
 
-        mUserInfo.password = password
+        mUserRegisterInfo.password = password
         registerUserInfo()
+
         Toast.makeText(this, R.string.user_successfully_registered_prompt, Toast.LENGTH_SHORT).show()
     }
 
