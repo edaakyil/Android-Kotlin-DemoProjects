@@ -13,18 +13,12 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import com.edaakyil.android.basicviews.constant.USER_INFO
-import com.edaakyil.android.basicviews.constant.USERS_FILE_PATH
 import com.edaakyil.android.basicviews.constant.USERS_FORMAT
+import com.edaakyil.android.basicviews.data.service.UserService
 import com.edaakyil.android.basicviews.model.UserRegisterInfoModel
-import java.io.EOFException
+import com.edaakyil.data.exception.DataServiceException
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
 
-private const val REGISTER_USER_INFO_LOG_TAG = "REGISTER_USER_INFO"
 private const val USER_INFO_EXIST_LOG_TAG = "USER_INFO_EXIST"
 
 class RegisterPasswordActivity : AppCompatActivity() {
@@ -32,6 +26,7 @@ class RegisterPasswordActivity : AppCompatActivity() {
     private lateinit var mEditTextPassword: EditText
     private lateinit var mEditTextConfirmPassword: EditText
     private lateinit var mUserRegisterInfo: UserRegisterInfoModel
+    private lateinit var mUserService: UserService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +42,7 @@ class RegisterPasswordActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
+        mUserService = UserService(this)
         mUserRegisterInfo = when {
             Build.VERSION.SDK_INT < 33 -> intent.getSerializableExtra(USER_INFO) as UserRegisterInfoModel
             else -> intent.getSerializableExtra(USER_INFO, UserRegisterInfoModel::class.java)!!
@@ -66,36 +62,12 @@ class RegisterPasswordActivity : AppCompatActivity() {
         mTextViewUsername.text = resources.getString(R.string.register_password_activity_text_view_username).format(mUserRegisterInfo.username)
     }
 
-    private fun userExistsCallback(fis: FileInputStream): Boolean {
-        var result = false
-
-        try {
-            // EOFException oluşana kadar döngüye gireceğiz ve her adımda readObject yapıcaz
-            // EOFException, dosyanın sonuna gelmek yani EOFException ile dosyanın sonuna gelinip gelinmediği kontrol ediliyor
-            // EOFException'nın fırlatılırsa bu dosyanın sonuna gelindi demektir yani okuma bitti demek
-            while (true) {
-                // Her adımda ObjectInputStream'in yaratılması gerekiyor
-                val ois = ObjectInputStream(fis)
-                val userInfo = ois.readObject() as UserRegisterInfoModel
-
-                if (userInfo.username == mUserRegisterInfo.username) { // Eğer koşul doğruysa demek ki bizim user'ımız mevcut demektir yani bu user daha önce kaydedilmiş
-                    result = true
-                    break
-                }
-            }
-        } catch (_: EOFException) {
-            // Dosyanın sonuna gelindiğinde yani EOFException fırlatıldıdığında dönğü sonlanıcak
-        }
-
-        return result
-    }
-
     private fun userExists(): Boolean {
         var result = false
 
         try {
-            result = FileInputStream(File(filesDir, USERS_FILE_PATH)).use(::userExistsCallback)  // use, içerisindeki ifadenin değerine geri döner
-        } catch (ex: IOException) {
+            result = mUserService.existsByUsername(mUserRegisterInfo.username)
+        } catch (ex: DataServiceException) {
             Log.e(USER_INFO_EXIST_LOG_TAG, ex.message ?: "")
             Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: Exception) {
@@ -106,23 +78,6 @@ class RegisterPasswordActivity : AppCompatActivity() {
         return result
     }
 
-    // Save işleminde Serialization kullanacağız
-    private fun registerUserInfo() {
-        try {
-            // Her registerUserInfo çağrıldığında data'lar farklı ObjectOutputStream'ler kullanılarak yazılıyor.
-            // Böylelikle her bir data farklı ObjectOutputStream'ler kullanılarak yaratılıyor.
-            // Yani her registerUserInfo çağrısında yeni bir ObjectOutputStream yaratılıyor
-            ObjectOutputStream(FileOutputStream(File(filesDir, USERS_FILE_PATH), true)).use { it.writeObject(mUserRegisterInfo) }
-            File(filesDir, USERS_FORMAT.format("${mUserRegisterInfo.username}.txt")).delete()
-        } catch (ex: IOException) {
-            Log.e(REGISTER_USER_INFO_LOG_TAG, ex.message ?: "")
-            Toast.makeText(this, R.string.data_problem_occurred_prompt, Toast.LENGTH_SHORT).show()
-        } catch (ex: Exception) {
-            Log.e(REGISTER_USER_INFO_LOG_TAG, ex.message, ex)
-            Toast.makeText(this, R.string.problem_occurred_prompt, Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun registerUser(password: String) {
         if (userExists()) {
             Toast.makeText(this, R.string.user_already_registered_prompt, Toast.LENGTH_SHORT).show()
@@ -130,7 +85,7 @@ class RegisterPasswordActivity : AppCompatActivity() {
         }
 
         mUserRegisterInfo.password = password
-        registerUserInfo()
+        mUserService.registerUserInfo(mUserRegisterInfo)
 
         Toast.makeText(this, R.string.user_successfully_registered_prompt, Toast.LENGTH_SHORT).show()
     }
@@ -149,9 +104,11 @@ class RegisterPasswordActivity : AppCompatActivity() {
             return
         }
 
-        if (password == confirmPassword)
+        if (password == confirmPassword) {
             registerUser(password)
-        else
+            File(filesDir, USERS_FORMAT.format("${mUserRegisterInfo.username}.txt")).delete()  // edaakyil
+            finish()
+        } else
             AlertDialog.Builder(this)
                 .setTitle(R.string.alert_dialog_title_alert)
                 .setMessage(R.string.alert_dialog_confirm_password_message)

@@ -13,7 +13,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.edaakyil.android.basicviews.constant.MARITAL_STATUS_TAGS
 import com.edaakyil.android.basicviews.constant.USER_INFO
-import com.edaakyil.android.basicviews.constant.USERS_FORMAT
 import com.edaakyil.android.basicviews.data.service.UserService
 import com.edaakyil.android.basicviews.model.UserRegisterInfoModel
 import com.edaakyil.data.exception.DataServiceException
@@ -114,7 +113,7 @@ class RegisterInfoActivity : AppCompatActivity() {
             }
 
 
-            if (!mUserService.existsByUsername(mUserRegisterInfo.username))
+            if (!mUserService.isUserSaved(mUserRegisterInfo.username))
                 saveData(close)
             else
                 selectOptionIfUserSaved(close)
