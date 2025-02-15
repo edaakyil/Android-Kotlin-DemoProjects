@@ -37,10 +37,12 @@ class ManagementActivity : AppCompatActivity() {
 
     private fun initUserInfo() {
         mTextViewUsername = findViewById(R.id.managementActivityTextViewUsername)
-        mTextViewUsername.text = "Username: " + (intent.getStringExtra(USERNAME) ?: resources.getText(R.string.anonymous))
+        mTextViewUsername.text = resources.getString(R.string.username, intent.getStringExtra(USERNAME) ?: R.string.anonymous)
+        //mTextViewUsername.text = "Username: " + (intent.getStringExtra(USERNAME) ?: resources.getText(R.string.anonymous))
 
         mTextViewPassword = findViewById(R.id.managementActivityTextViewPassword) // edaakyil
-        mTextViewPassword.text = "Password: " + (intent.getStringExtra(PASSWORD) ?: resources.getText(R.string.anonymous)) // edaakyil
+        mTextViewPassword.text = resources.getString(R.string.password, intent.getStringExtra(PASSWORD) ?: R.string.anonymous) // edaakyil
+        //mTextViewPassword.text = "Password: " + (intent.getStringExtra(PASSWORD) ?: resources.getText(R.string.anonymous)) // edaakyil
     }
 
     fun onUsersButtonClicked(view: View) {
