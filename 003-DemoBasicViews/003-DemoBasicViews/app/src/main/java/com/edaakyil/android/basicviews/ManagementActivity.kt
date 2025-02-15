@@ -1,5 +1,6 @@
 package com.edaakyil.android.basicviews
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -46,7 +47,7 @@ class ManagementActivity : AppCompatActivity() {
     }
 
     fun onUsersButtonClicked(view: View) {
-
+        Intent(this, UsersActivity::class.java).apply { startActivity(this) }
     }
 
     fun onUserOperationsButtonClicked(view: View) {

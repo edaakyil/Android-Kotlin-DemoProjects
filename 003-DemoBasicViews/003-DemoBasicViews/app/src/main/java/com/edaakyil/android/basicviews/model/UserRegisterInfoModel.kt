@@ -9,4 +9,6 @@ data class UserRegisterInfoModel(
     var maritalStatus: Char = 'S',
     var lastEducationDegree: Int = 0,
     var password: String = ""
-) : Serializable
+) : Serializable {
+    override fun toString() = username
+}

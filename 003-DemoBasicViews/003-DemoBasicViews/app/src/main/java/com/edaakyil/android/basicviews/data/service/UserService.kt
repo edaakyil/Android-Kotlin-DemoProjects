@@ -11,6 +11,7 @@ import java.io.BufferedWriter
 import java.io.EOFException
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
@@ -63,7 +64,7 @@ class UserService(context: Context) {
     /**
      * It filters users by their qualification desired
      */
-    private fun findUsersByFilter(fis: FileInputStream, predicate: (UserRegisterInfoModel) -> Boolean): List<UserRegisterInfoModel> {
+    private fun findUsersBy(fis: FileInputStream, predicate: (UserRegisterInfoModel) -> Boolean): List<UserRegisterInfoModel> {
         val users = ArrayList<UserRegisterInfoModel>()
 
         try {
@@ -74,6 +75,41 @@ class UserService(context: Context) {
                 if (predicate(ri))
                     users.add(ri)
             }
+        } catch (_: EOFException) {
+
+        }
+
+        return users
+    }
+
+    fun findByUsername(username: String): UserRegisterInfoModel? {
+        try {
+            val file = File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))
+
+            return if (file.exists()) BufferedReader(InputStreamReader(FileInputStream(file), StandardCharsets.UTF_8)).use { readRegisteringUserInfo(it, username) } else null
+        } catch (_: FileNotFoundException) {
+            return null
+        } catch (ex: IOException) {
+            throw DataServiceException("UserService.findByUsername", ex)
+        }
+    }
+
+    fun findUsers(count: Int): List<UserRegisterInfoModel> {
+        val users = ArrayList<UserRegisterInfoModel>()
+        var n = 0
+
+        try {
+            val fis = FileInputStream(File(mContext.filesDir, USERS_FILE_PATH))
+
+            while (true) {
+                val ois = ObjectInputStream(fis)
+                val ri = ois.readObject() as UserRegisterInfoModel
+
+                if (n++ != count)
+                    users.add(ri)
+            }
+        } catch (_: FileNotFoundException) {
+            // Buraya bir şey yazmadık çünkü FileNotFoundException durumunda bunu doğrudan atlatacağız yani liste boş gelecek
         } catch (_: EOFException) {
 
         }
@@ -113,6 +149,8 @@ class UserService(context: Context) {
     fun existsByUsername(username: String): Boolean {
         try {
             return FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { it.username == username } }
+        } catch (_: FileNotFoundException) {
+            return false
         } catch (ex: IOException) {
             throw DataServiceException("UserService.existsByUsername", ex)
         }
@@ -124,6 +162,8 @@ class UserService(context: Context) {
     fun existsByUsernameAndPassword(username: String, password: String): Boolean {
         try {
             return FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { it.username == username && it.password == password } }
+        } catch (_: FileNotFoundException) {
+            return false
         } catch (ex: IOException) {
             throw DataServiceException("UserService.existsByUsernameAndPassword", ex)
         }
@@ -134,16 +174,6 @@ class UserService(context: Context) {
         val info = str.split(DELIMITER)  // line'ı split etme
 
         return UserRegisterInfoModel(info[1], username, info[2], info[3][0], info[4].toInt())
-    }
-
-    fun findByUsername(username: String): UserRegisterInfoModel? {
-        try {
-            val file = File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))
-
-            return if (file.exists()) BufferedReader(InputStreamReader(FileInputStream(file), StandardCharsets.UTF_8)).use { readRegisteringUserInfo(it, username) } else null
-        } catch (ex: IOException) {
-            throw DataServiceException("UserService.findByUsername", ex)
-        }
     }
 
     private fun writeUserRegisterInfo(bw: BufferedWriter, userRegisterInfo: UserRegisterInfoModel) {
