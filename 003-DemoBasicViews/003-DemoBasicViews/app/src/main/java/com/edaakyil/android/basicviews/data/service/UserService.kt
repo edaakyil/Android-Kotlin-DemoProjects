@@ -147,10 +147,10 @@ class UserService(context: Context) {
      * For Register user
      */
     fun existsByUsername(username: String): Boolean {
-        try {
-            return FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { it.username == username } }
+        return try {
+            FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { user -> user.username == username } }
         } catch (_: FileNotFoundException) {
-            return false
+            false
         } catch (ex: IOException) {
             throw DataServiceException("UserService.existsByUsername", ex)
         }
@@ -160,10 +160,10 @@ class UserService(context: Context) {
      * For Login
      */
     fun existsByUsernameAndPassword(username: String, password: String): Boolean {
-        try {
-            return FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { it.username == username && it.password == password } }
+        return try {
+            FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { user -> user.username == username && user.password == password } }
         } catch (_: FileNotFoundException) {
-            return false
+            false
         } catch (ex: IOException) {
             throw DataServiceException("UserService.existsByUsernameAndPassword", ex)
         }
