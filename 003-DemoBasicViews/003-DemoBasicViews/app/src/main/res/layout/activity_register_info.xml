@@ -158,61 +158,11 @@
 
             </LinearLayout>
 
-            <RadioGroup
-                android:id="@+id/registerInfoActivityRadioGroupMaritalStatus"
-                android:orientation="horizontal"
+            <Spinner
+                android:id="@+id/registerInfoActivitySpinnerMaritalStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-12dp"
-                android:minHeight="0dip"
-                android:checkedButton="@id/registerInfoActivityRadioButtonMaritalStatusSingle">
-
-                <RadioButton
-                    android:id="@+id/registerInfoActivityRadioButtonMaritalStatusSingle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:drawableBottom="@android:drawable/btn_radio"
-                    android:drawablePadding="-5dp"
-                    android:gravity="top|center_horizontal"
-                    android:scaleX=".8"
-                    android:scaleY=".8"
-                    android:text="@string/marital_status_single"
-                    android:textSize="16sp" />
-
-                <RadioButton
-                    android:id="@+id/registerInfoActivityRadioButtonMaritalStatusMarried"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:drawableBottom="@android:drawable/btn_radio"
-                    android:drawablePadding="-5dp"
-                    android:gravity="top|center_horizontal"
-                    android:scaleX=".8"
-                    android:scaleY=".8"
-                    android:text="@string/marital_status_married"
-                    android:textSize="16sp" />
-
-                <RadioButton
-                    android:id="@+id/registerInfoActivityRadioButtonMaritalStatusDivorced"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:drawableBottom="@android:drawable/btn_radio"
-                    android:drawablePadding="-5dp"
-                    android:gravity="top|center_horizontal"
-                    android:scaleX=".8"
-                    android:scaleY=".8"
-                    android:text="@string/marital_status_divorced"
-                    android:textSize="16sp" />
-
-            </RadioGroup>
+                android:layout_marginTop="-12dp" />
 
         </LinearLayout>
 
@@ -221,7 +171,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-12dp">
+            android:layout_marginTop="-8dp">
 
             <LinearLayout
                 android:orientation="horizontal"

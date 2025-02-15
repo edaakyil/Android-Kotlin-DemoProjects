@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -20,11 +23,11 @@ import com.edaakyil.data.exception.DataServiceException
 private const val SAVE_USER_INFO_LOG_TAG = "SAVE_USER_INFO"
 private const val LOAD_USER_INFO_LOG_TAG = "LOAD_USER_INFO"
 
-class RegisterInfoActivity : AppCompatActivity() {
+class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var mEditTextName: EditText
     private lateinit var mEditTextEmail: EditText
     private lateinit var mEditTextUsername: EditText
-    private lateinit var mRadioGroupMaritalStatus: RadioGroup
+    private lateinit var mSpinnerMaritalStatus: Spinner
     private lateinit var mRadioGroupLastEducationDegree: RadioGroup
     private lateinit var mUserRegisterInfo: UserRegisterInfoModel
     private lateinit var mUserService: UserService
@@ -37,6 +40,14 @@ class RegisterInfoActivity : AppCompatActivity() {
         initialize()
     }
 
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p2: Long) {
+        Toast.makeText(this, mSpinnerMaritalStatus.selectedItem as String, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
+
     private fun initialize() {
         mUserRegisterInfo = UserRegisterInfoModel()
         mUserService = UserService(this)
@@ -45,7 +56,7 @@ class RegisterInfoActivity : AppCompatActivity() {
 
     private fun initViews() {
         initEditTexts()
-        initRadioGroupMaritalStatus()
+        initSpinnerMaritalStatus()
         mRadioGroupLastEducationDegree = findViewById(R.id.registerInfoActivityRadioGroupLastEducationDegree)
     }
 
@@ -55,19 +66,20 @@ class RegisterInfoActivity : AppCompatActivity() {
         mEditTextUsername = findViewById(R.id.registerInfoActivityEditTextUsername)
     }
 
-    private fun initRadioGroupMaritalStatus() {
-        mRadioGroupMaritalStatus = findViewById(R.id.registerInfoActivityRadioGroupMaritalStatus)
+    private fun initSpinnerMaritalStatus() {
+        val maritalStatus = arrayOf(resources.getString(R.string.marital_status_single), resources.getString(R.string.marital_status_married), resources.getString(R.string.marital_status_divorced))
 
-        (0..<mRadioGroupMaritalStatus.childCount).forEach { mRadioGroupMaritalStatus.getChildAt(it).tag = MARITAL_STATUS_TAGS[it] }
-
-        mRadioGroupMaritalStatus.setOnCheckedChangeListener { _, id -> Toast.makeText(this, "Checked: ${findViewById<RadioButton>(id).text}", Toast.LENGTH_SHORT).show() }
+        mSpinnerMaritalStatus = findViewById<Spinner>(R.id.registerInfoActivitySpinnerMaritalStatus).apply {
+            adapter = ArrayAdapter(this@RegisterInfoActivity, android.R.layout.simple_spinner_dropdown_item, maritalStatus)
+            onItemSelectedListener = this@RegisterInfoActivity  // this is Spinner
+        }
     }
 
     private fun fillUserRegisterInfoModel() {
         val name = mEditTextName.text.toString().trim()
         val email = mEditTextEmail.text.toString().trim()
         val username = mEditTextUsername.text.toString().trim()
-        val maritalStatus = findViewById<RadioButton>(mRadioGroupMaritalStatus.checkedRadioButtonId).tag as Char
+        val maritalStatus = MARITAL_STATUS_TAGS[mSpinnerMaritalStatus.selectedItemPosition]
         val lastEducationDegreeId = mRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
 
@@ -128,7 +140,7 @@ class RegisterInfoActivity : AppCompatActivity() {
     private fun fillUI() {
         mEditTextName.setText(mUserRegisterInfo.name)
         mEditTextEmail.setText(mUserRegisterInfo.email)
-        (mRadioGroupMaritalStatus.getChildAt(MARITAL_STATUS_TAGS.indexOf(mUserRegisterInfo.maritalStatus)) as RadioButton).isChecked = true
+        mSpinnerMaritalStatus.setSelection(MARITAL_STATUS_TAGS.indexOf(mUserRegisterInfo.maritalStatus))
 
         mRadioGroupLastEducationDegree.clearCheck()
         val lastEducationDegreeId = mUserRegisterInfo.lastEducationDegree
