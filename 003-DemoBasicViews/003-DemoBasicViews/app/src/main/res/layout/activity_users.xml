@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="number"
+        android:hint="@string/edit_text_count_hint"/>
 
     <Button
         android:layout_width="match_parent"

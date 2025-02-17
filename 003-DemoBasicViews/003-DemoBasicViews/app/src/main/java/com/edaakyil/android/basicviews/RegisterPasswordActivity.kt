@@ -96,7 +96,7 @@ class RegisterPasswordActivity : AppCompatActivity() {
 
         if (password.isBlank()) {
             AlertDialog.Builder(this)
-                .setTitle(R.string.alert_dialog_title_alert)
+                .setTitle(R.string.alert_dialog_alert_title)
                 .setMessage(R.string.alert_dialog_empty_password_message)
                 .setPositiveButton(R.string.alert_dialog_ok) { _, _ -> mEditTextConfirmPassword.text.clear() }
                 .create()
@@ -110,7 +110,7 @@ class RegisterPasswordActivity : AppCompatActivity() {
             finish()
         } else
             AlertDialog.Builder(this)
-                .setTitle(R.string.alert_dialog_title_alert)
+                .setTitle(R.string.alert_dialog_alert_title)
                 .setMessage(R.string.alert_dialog_confirm_password_message)
                 .setPositiveButton(R.string.alert_dialog_ok) { _, _ -> }
                 .create()

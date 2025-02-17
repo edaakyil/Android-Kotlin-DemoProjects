@@ -191,7 +191,7 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     fun onCloseButtonClicked(view: View) {
         AlertDialog.Builder(this)
-            .setTitle(R.string.alert_dialog_title_alert)
+            .setTitle(R.string.alert_dialog_alert_title)
             .setMessage(R.string.alert_dialog_close_message)
             .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveUserRegisterInfo(true) }
             .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }

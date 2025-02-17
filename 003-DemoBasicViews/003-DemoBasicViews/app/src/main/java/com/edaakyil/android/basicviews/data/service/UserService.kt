@@ -98,6 +98,9 @@ class UserService(context: Context) {
         val users = ArrayList<UserRegisterInfoModel>()
         var n = 0
 
+        if (count <= 0)
+            throw DataServiceException("Count must be positive", NumberFormatException("Count must be positive"))
+
         try {
             val fis = FileInputStream(File(mContext.filesDir, USERS_FILE_PATH))
 
@@ -105,8 +108,10 @@ class UserService(context: Context) {
                 val ois = ObjectInputStream(fis)
                 val ri = ois.readObject() as UserRegisterInfoModel
 
-                if (n++ != count)
-                    users.add(ri)
+                if (n++ == count)
+                    break
+
+                users.add(ri)
             }
         } catch (_: FileNotFoundException) {
             // Buraya bir şey yazmadık çünkü FileNotFoundException durumunda bunu doğrudan atlatacağız yani liste boş gelecek

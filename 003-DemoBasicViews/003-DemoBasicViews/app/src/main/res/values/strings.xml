@@ -25,6 +25,7 @@
     <string name="edit_text_password_hint">Input password</string>
     <string name="edit_text_confirm_password_hint">Confirm password</string>
     <string name="edit_text_email_hint">Input your email</string>
+    <string name="edit_text_count_hint">Input user count</string>
 
     <!-- AlertDialog -->
     <string name="alert_dialog_ok">OK</string>
@@ -33,7 +34,7 @@
     <string name="alert_dialog_close">Close</string>
     <string name="alert_dialog_update">Update</string> <!-- edaakyil -->
     <string name="alert_dialog_cancel">Cancel</string>
-    <string name="alert_dialog_title_alert">Alert</string>
+    <string name="alert_dialog_alert_title">ALERT</string>
     <string name="alert_dialog_confirm_password_title">Confirm Password</string>
     <string name="alert_dialog_close_message">Save data?</string>
     <string name="alert_dialog_user_already_saved_title">User already saved</string>
@@ -70,6 +71,7 @@
     <string name="problem_occurred_prompt">Problem occurred</string>
     <string name="load_user_info_prompt">Load your existing information</string>
     <string name="save_user_info_prompt">Save your information</string>
+    <string name="invalid_count_value_prompt">Invalid count value</string>
 
     <!--    Common  -->
     <string name="clear">Clear</string>
