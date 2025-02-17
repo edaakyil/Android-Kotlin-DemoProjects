@@ -100,7 +100,7 @@ class UserService(context: Context) {
         var n = 0
 
         if (count <= 0)
-            throw DataServiceException("Count must be positive", NumberFormatException("Count must be positive"))
+            return users
 
         try {
             val fis = FileInputStream(File(mContext.filesDir, USERS_FILE_PATH))
@@ -210,5 +210,9 @@ class UserService(context: Context) {
         } catch (ex: IOException) {
             throw DataServiceException("UserService.registerUser", ex)
         }
+    }
+
+    fun updateUser(user: UserRegisterInfoModel) {
+        TODO("Not yet implemented!...")
     }
 }

@@ -72,6 +72,7 @@
     <string name="load_user_info_prompt">Load your existing information</string>
     <string name="save_user_info_prompt">Save your information</string>
     <string name="invalid_count_value_prompt">Invalid count value</string>
+    <string name="value_must_be_positive_prompt">Value must be positive</string>
 
     <!--    Common  -->
     <string name="clear">Clear</string>

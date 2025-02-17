@@ -55,17 +55,22 @@ class UsersActivity : AppCompatActivity() {
     fun onLoadUsersButtonClicked(view: View) {
         try {
             val countStr = mEditTextCount.text.toString().trim()
+            mEditTextCount.text.clear()
+
             var count = DEFAULT_USER_COUNT  // max value of count (default value)
 
             if (countStr.isNotBlank())
                 count = countStr.toInt()
 
+            if (count <= 0) {
+                Toast.makeText(this, R.string.value_must_be_positive_prompt, Toast.LENGTH_SHORT).show()
+                return
+            }
+
             val users = mUserService.findUsers(count)  // Must be asynchronous
 
             mArrayAdapterUsers = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
                 .apply { mListViewUsers.adapter = this }
-
-            mEditTextCount.text.clear()
         } catch (_: NumberFormatException) {
             AlertDialog.Builder(this)
                 .setTitle(R.string.alert_dialog_alert_title)
