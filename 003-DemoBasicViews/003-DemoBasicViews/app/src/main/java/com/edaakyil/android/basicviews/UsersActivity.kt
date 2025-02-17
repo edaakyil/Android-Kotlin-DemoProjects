@@ -41,8 +41,15 @@ class UsersActivity : AppCompatActivity() {
         initListViewUsers()
     }
 
+    private fun itemClickListenerCallback(position: Int) {
+        val user = mArrayAdapterUsers.getItem(position)
+
+        Toast.makeText(this, user?.name, Toast.LENGTH_SHORT).show()
+    }
+
     private fun initListViewUsers() {
         mListViewUsers = findViewById(R.id.usersActivityListViewUsers)
+        mListViewUsers.setOnItemClickListener { _, _, position, _ -> itemClickListenerCallback(position) }
     }
 
     fun onLoadUsersButtonClicked(view: View) {
