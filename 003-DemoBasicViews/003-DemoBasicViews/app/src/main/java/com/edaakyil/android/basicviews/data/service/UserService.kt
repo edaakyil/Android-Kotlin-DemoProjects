@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.edaakyil.android.basicviews.constant.USERS_FILE_PATH
 import com.edaakyil.android.basicviews.constant.USERS_FORMAT
+import com.edaakyil.android.basicviews.model.UserModel
 import com.edaakyil.android.basicviews.model.UserRegisterInfoModel
 import com.edaakyil.data.exception.DataServiceException
 import java.io.BufferedReader
@@ -94,8 +95,8 @@ class UserService(context: Context) {
         }
     }
 
-    fun findUsers(count: Int): List<UserRegisterInfoModel> {
-        val users = ArrayList<UserRegisterInfoModel>()
+    fun findUsers(count: Int): List<UserModel> {
+        val users = ArrayList<UserModel>()
         var n = 0
 
         if (count <= 0)
@@ -111,7 +112,7 @@ class UserService(context: Context) {
                 if (n++ == count)
                     break
 
-                users.add(ri)
+                users.add(UserModel().apply { username = ri.username; name = ri.name; email = ri.email; maritalStatus = ri.maritalStatus; lastEducationDegree = ri.lastEducationDegree })
             }
         } catch (_: FileNotFoundException) {
             // Buraya bir şey yazmadık çünkü FileNotFoundException durumunda bunu doğrudan atlatacağız yani liste boş gelecek

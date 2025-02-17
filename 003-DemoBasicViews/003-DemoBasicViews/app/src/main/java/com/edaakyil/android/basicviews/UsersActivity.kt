@@ -12,14 +12,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.edaakyil.android.basicviews.constant.DEFAULT_USER_COUNT
 import com.edaakyil.android.basicviews.data.service.UserService
-import com.edaakyil.android.basicviews.model.UserRegisterInfoModel
+import com.edaakyil.android.basicviews.model.UserModel
 import com.edaakyil.data.exception.DataServiceException
 
 class UsersActivity : AppCompatActivity() {
     private lateinit var mTextViewUser: TextView
     private lateinit var mEditTextCount: EditText
     private lateinit var mListViewUsers: ListView
-    private lateinit var mArrayAdapterUsers: ArrayAdapter<UserRegisterInfoModel>
+    private lateinit var mArrayAdapterUsers: ArrayAdapter<UserModel>
     private lateinit var mUserService: UserService
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +57,8 @@ class UsersActivity : AppCompatActivity() {
 
             mArrayAdapterUsers = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
                 .apply { mListViewUsers.adapter = this }
+
+            mEditTextCount.text.clear()
         } catch (_: NumberFormatException) {
             AlertDialog.Builder(this)
                 .setTitle(R.string.alert_dialog_alert_title)
