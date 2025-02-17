@@ -54,6 +54,9 @@ class UsersActivity : AppCompatActivity() {
 
     fun onLoadUsersButtonClicked(view: View) {
         try {
+            if (this::mArrayAdapterUsers.isInitialized)
+                mArrayAdapterUsers.clear()
+
             val countStr = mEditTextCount.text.toString().trim()
             mEditTextCount.text.clear()
 
