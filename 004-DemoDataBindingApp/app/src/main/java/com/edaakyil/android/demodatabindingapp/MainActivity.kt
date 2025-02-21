@@ -23,6 +23,7 @@ import com.edaakyil.android.demodatabindingapp.constant.PASSWORD
 import com.edaakyil.android.demodatabindingapp.constant.USERNAME
 import com.edaakyil.android.demodatabindingapp.data.service.UserService
 import com.edaakyil.android.demodatabindingapp.databinding.ActivityMainBinding
+import com.edaakyil.android.demodatabindingapp.model.MainActivityActionModel
 import com.edaakyil.android.demodatabindingapp.model.UserLoginInfoModel
 import com.edaakyil.data.exception.DataServiceException
 
@@ -33,8 +34,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mButtonClearAll: Button // edaakyil
     private lateinit var mLinearLayoutUsername: LinearLayout // edaakyil
     private lateinit var mLinearLayoutPassword: LinearLayout // edaakyil
-    private lateinit var mEditTextUsername: EditText
-    private lateinit var mEditTextPassword: EditText
     private lateinit var mCheckBoxAnonymous: CheckBox
     private lateinit var mTextViewAcceptStatus: TextView
     private lateinit var mLinearLayoutLoginArea: LinearLayout
@@ -59,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.userLoginInfo = UserLoginInfoModel()
+        mBinding.action = MainActivityActionModel(this)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainActivityLinearLayoutMain)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -179,12 +179,11 @@ class MainActivity : AppCompatActivity() {
         mTextViewAcceptStatus.text = ""
     }
 
-    fun onRegisterButtonClicked(vew: View) {
+    fun onRegisterButtonClicked() {
         Intent(this, RegisterInfoActivity::class.java).apply { startActivity(this) }
     }
 
-    fun onCloseButtonClicked(view: View) {
-        // Toast.makeText(this, R.string.close_prompt, Toast.LENGTH_LONG).show()
+    fun onCloseButtonClicked() {
         Toast.makeText(this, resources.getString(R.string.close_prompt), Toast.LENGTH_SHORT).show()
         finish()
     }

@@ -4,7 +4,9 @@
 
     <data>
         <import type="com.edaakyil.android.demodatabindingapp.model.UserLoginInfoModel"/>
+        <import type="com.edaakyil.android.demodatabindingapp.model.MainActivityActionModel"/>
         <variable name="userLoginInfo" type="UserLoginInfoModel"/>
+        <variable name="action" type="MainActivityActionModel"/>
     </data>
 
     <LinearLayout
@@ -193,7 +195,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dip"
-            android:onClick="onRegisterButtonClicked"
+            android:onClick="@{ _ -> action.onRegisterButtonClicked() }"
             android:paddingVertical="8dp"
             android:text="@string/button_register_text"
             android:textSize="18sp"
@@ -212,7 +214,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="0dip"
-            android:onClick="onCloseButtonClicked"
+            android:onClick="@{ _ -> action.onCloseButtonClicked() }"
             android:paddingVertical="8dp"
             android:text="@string/button_close_text"
             android:textSize="18sp"
