@@ -163,19 +163,19 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.main_activity_click_title_prompt, Toast.LENGTH_SHORT).show()
     }
 
-    fun onClearUsernameTextButtonClicked(view: View) {
+    fun onClearUsernameTextButtonClicked() {
         mBinding.mainActivityEditTextUsername.text.clear()
         //mBinding.userLoginInfo = mBinding.userLoginInfo!!.copy(username = "") //mBinding.userLoginInfo = mBinding.userLoginInfo!!.copy().apply { username = "" }
     }
 
-    fun onClearPasswordTextButtonClicked(view: View) {
+    fun onClearPasswordTextButtonClicked() {
         mBinding.mainActivityEditTextPassword.text.clear()
         //mBinding.userLoginInfo = mBinding.userLoginInfo!!.copy(password = "") //mBinding.userLoginInfo = mBinding.userLoginInfo!!.copy().apply { password = "" }
     }
 
-    fun onClearAllButtonClicked(view: View) {
-        onClearUsernameTextButtonClicked(view)
-        onClearPasswordTextButtonClicked(view)
+    fun onClearAllButtonClicked() {
+        onClearUsernameTextButtonClicked()
+        onClearPasswordTextButtonClicked()
         mTextViewAcceptStatus.text = ""
     }
 
@@ -186,10 +186,5 @@ class MainActivity : AppCompatActivity() {
     fun onCloseButtonClicked() {
         Toast.makeText(this, resources.getString(R.string.close_prompt), Toast.LENGTH_SHORT).show()
         finish()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Toast.makeText(this, "Destroying...", Toast.LENGTH_SHORT).show()
     }
 }

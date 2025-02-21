@@ -83,7 +83,7 @@
                     android:layout_weight="1"
                     android:padding="12dp"
                     android:hint="@string/edit_text_username_hint"
-                    android:text="@={userLoginInfo.username}"
+                    android:text="@={ userLoginInfo.username }"
                     android:inputType="text"
                     android:textSize="18sp" />
 
@@ -95,7 +95,7 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:minHeight="0dp"
-                    android:onClick="onClearUsernameTextButtonClicked"
+                    android:onClick="@{ _ -> action.onClearUsernameTextButtonClicked() }"
                     android:text="@string/clear"
                     android:textAlignment="center"
                     android:textSize="16sp" />
@@ -117,7 +117,7 @@
                     android:layout_weight="1"
                     android:padding="12dp"
                     android:hint="@string/edit_text_password_hint"
-                    android:text="@={userLoginInfo.password}"
+                    android:text="@={ userLoginInfo.password }"
                     android:inputType="textPassword"
                     android:textSize="18sp" />
 
@@ -129,7 +129,7 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:minHeight="0dp"
-                    android:onClick="onClearPasswordTextButtonClicked"
+                    android:onClick="@{ _ -> action.onClearPasswordTextButtonClicked() }"
                     android:text="@string/clear"
                     android:textAlignment="center"
                     android:textSize="16sp" />
@@ -159,7 +159,7 @@
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:minHeight="0dip"
-                android:onClick="onClearAllButtonClicked"
+                android:onClick="@{ _ -> action.onClearAllButtonClicked() }"
                 android:paddingVertical="8dp"
                 android:text="@string/button_clear_all_text"
                 android:textSize="18sp"
