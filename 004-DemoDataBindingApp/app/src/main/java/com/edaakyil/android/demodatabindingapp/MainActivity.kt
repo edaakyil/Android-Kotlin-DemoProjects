@@ -149,8 +149,8 @@ class MainActivity : AppCompatActivity() {
         doLogin()
     }
 
-    fun onTitleTextClicked(view: View) {
-        val text: TextView = findViewById(R.id.mainActivityTextViewLoginTitle)
+    fun onTitleTextClicked() {
+        val text: TextView = mBinding.mainActivityTextViewLoginTitle
         text.setTextColor(Color.parseColor("#DC7676"))
 
         Toast.makeText(this, R.string.main_activity_click_title_prompt, Toast.LENGTH_SHORT).show()

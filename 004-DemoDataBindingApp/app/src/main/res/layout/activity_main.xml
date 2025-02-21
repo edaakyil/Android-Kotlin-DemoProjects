@@ -50,7 +50,7 @@
                 android:textAlignment="center"
                 android:textSize="32sp"
                 android:textStyle="bold|italic"
-                android:onClick="onTitleTextClicked"/>
+                android:onClick="@{ _ -> action.onTitleTextClicked() }"/>
 
             <TextView
                 android:id="@+id/mainActivityTextViewAcceptStatus"
