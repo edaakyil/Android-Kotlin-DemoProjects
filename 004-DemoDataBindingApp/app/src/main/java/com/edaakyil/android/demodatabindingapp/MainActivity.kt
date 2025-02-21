@@ -5,9 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
@@ -29,8 +27,6 @@ import com.edaakyil.data.exception.DataServiceException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mButtonRegister: Button
-    private lateinit var mButtonClearAll: Button // edaakyil
     private lateinit var mLinearLayoutUsername: LinearLayout // edaakyil
     private lateinit var mLinearLayoutPassword: LinearLayout // edaakyil
     private lateinit var mCheckBoxAnonymous: CheckBox
@@ -66,8 +62,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        mButtonRegister = findViewById(R.id.mainActivityButtonRegister)
-        mButtonClearAll = findViewById(R.id.mainActivityButtonClearAll) // edaakyil
         mLinearLayoutUsername = findViewById(R.id.mainActivityLinearLayoutUsername) // edaakyil
         mLinearLayoutPassword = findViewById(R.id.mainActivityLinearLayoutPassword) // edaakyil
         mTextViewAcceptStatus = findViewById(R.id.mainActivityTextViewAcceptStatus)
@@ -113,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
     // edaakyil
     private fun anonymousCheckBoxCheckedChangeCallback(isChecked: Boolean) {
-        mButtonClearAll.isEnabled = !isChecked
+        mBinding.mainActivityButtonClearAll.isEnabled = !isChecked
         (0..<mLinearLayoutUsername.childCount).forEach { mLinearLayoutUsername.getChildAt(it).isEnabled = !isChecked }
         (0..<mLinearLayoutPassword.childCount).forEach { mLinearLayoutPassword.getChildAt(it).isEnabled = !isChecked }
     }
