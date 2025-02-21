@@ -29,7 +29,6 @@ import com.edaakyil.data.exception.DataServiceException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mButtonLogin: Button
     private lateinit var mButtonRegister: Button
     private lateinit var mButtonClearAll: Button // edaakyil
     private lateinit var mLinearLayoutUsername: LinearLayout // edaakyil
@@ -77,7 +76,6 @@ class MainActivity : AppCompatActivity() {
         initOpenLoginAreaToggleButton()
         initAnonymousCheckBox() // edaakyil
         initAcceptSwitch()
-        initLoginButton()
     }
 
     /**
@@ -113,15 +111,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loginButtonClickedCallback() {
-        doLogin()
-    }
-
-    private fun initLoginButton() {
-        mButtonLogin = findViewById(R.id.mainActivityButtonLogin)
-        mButtonLogin.setOnClickListener { loginButtonClickedCallback() }
-    }
-
     // edaakyil
     private fun anonymousCheckBoxCheckedChangeCallback(isChecked: Boolean) {
         mButtonClearAll.isEnabled = !isChecked
@@ -146,7 +135,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun acceptSwitchCheckedChangeCallback(isChecked: Boolean) {
-        mButtonLogin.isEnabled = isChecked
+        mBinding.mainActivityButtonLogin.isEnabled = isChecked
         mTextViewAcceptStatus.text = resources.getText(if (isChecked) R.string.accepted_status_message else R.string.not_accepted_status_message)
         mSwitchAccept.text = resources.getText(if (isChecked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
     }
@@ -154,6 +143,10 @@ class MainActivity : AppCompatActivity() {
     private fun initAcceptSwitch() {
         mSwitchAccept = findViewById(R.id.mainActivitySwitchAccept)
         mSwitchAccept.setOnCheckedChangeListener { _, isChecked -> acceptSwitchCheckedChangeCallback(isChecked) }
+    }
+
+    fun onLoginButtonClicked() {
+        doLogin()
     }
 
     fun onTitleTextClicked(view: View) {

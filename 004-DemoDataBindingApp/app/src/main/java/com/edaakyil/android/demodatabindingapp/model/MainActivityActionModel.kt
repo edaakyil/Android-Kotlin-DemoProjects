@@ -8,6 +8,7 @@ class MainActivityActionModel(activity: MainActivity) {
     fun onClearAllButtonClicked() = mActivity.onClearAllButtonClicked()
     fun onClearUsernameTextButtonClicked() = mActivity.onClearUsernameTextButtonClicked()
     fun onClearPasswordTextButtonClicked() = mActivity.onClearPasswordTextButtonClicked()
+    fun onLoginButtonClicked() = mActivity.onLoginButtonClicked()
     fun onRegisterButtonClicked() = mActivity.onRegisterButtonClicked()
     fun onCloseButtonClicked() = mActivity.onCloseButtonClicked()
 }
