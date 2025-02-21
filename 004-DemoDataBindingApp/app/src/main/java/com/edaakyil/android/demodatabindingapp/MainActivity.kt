@@ -68,8 +68,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         mButtonRegister = findViewById(R.id.mainActivityButtonRegister)
-        mEditTextUsername = findViewById(R.id.mainActivityEditTextUsername)
-        mEditTextPassword = findViewById(R.id.mainActivityEditTextPassword)
         mButtonClearAll = findViewById(R.id.mainActivityButtonClearAll) // edaakyil
         mLinearLayoutUsername = findViewById(R.id.mainActivityLinearLayoutUsername) // edaakyil
         mLinearLayoutPassword = findViewById(R.id.mainActivityLinearLayoutPassword) // edaakyil
@@ -94,8 +92,8 @@ class MainActivity : AppCompatActivity() {
             if (!mCheckBoxAnonymous.isChecked) {
                 if (checkUser())
                     Intent(this, ManagementActivity::class.java).apply {
-                        putExtra(USERNAME, mBinding.userLoginInfo?.username)
-                        putExtra(PASSWORD, mBinding.userLoginInfo?.password) // edaakyil
+                        putExtra(USERNAME, mBinding.userLoginInfo?.username?.trim())
+                        putExtra(PASSWORD, mBinding.userLoginInfo?.password?.trim()) // edaakyil
                         startActivity(this)
                     }
                 else
@@ -165,9 +163,15 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.main_activity_click_title_prompt, Toast.LENGTH_SHORT).show()
     }
 
-    fun onClearUsernameTextButtonClicked(view: View) = mEditTextUsername.setText("") // mEditTextUsername.text.clear()
+    fun onClearUsernameTextButtonClicked(view: View) {
+        mBinding.mainActivityEditTextUsername.text.clear()
+        //mBinding.userLoginInfo = mBinding.userLoginInfo!!.copy(username = "") //mBinding.userLoginInfo = mBinding.userLoginInfo!!.copy().apply { username = "" }
+    }
 
-    fun onClearPasswordTextButtonClicked(view: View) = mEditTextPassword.setText("")  // mEditTextPassword.text.clear()
+    fun onClearPasswordTextButtonClicked(view: View) {
+        mBinding.mainActivityEditTextPassword.text.clear()
+        //mBinding.userLoginInfo = mBinding.userLoginInfo!!.copy(password = "") //mBinding.userLoginInfo = mBinding.userLoginInfo!!.copy().apply { password = "" }
+    }
 
     fun onClearAllButtonClicked(view: View) {
         onClearUsernameTextButtonClicked(view)

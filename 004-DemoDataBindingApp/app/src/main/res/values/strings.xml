@@ -11,6 +11,7 @@
     <string name="button_close_text">Close</string>
     <string name="button_save_text">Save</string>
     <string name="button_clear_text">Clear</string>
+    <string name="button_clear_all_text">Clear All</string>
     <string name="button_register_text">Register</string>
     <string name="button_continue_text">Continue</string>
     <string name="button_users_text">Users</string>

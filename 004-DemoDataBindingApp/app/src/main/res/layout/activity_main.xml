@@ -159,7 +159,7 @@
                 android:minHeight="0dip"
                 android:onClick="onClearAllButtonClicked"
                 android:paddingVertical="8dp"
-                android:text="@string/button_clear_text"
+                android:text="@string/button_clear_all_text"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:cornerRadius="8dp"
