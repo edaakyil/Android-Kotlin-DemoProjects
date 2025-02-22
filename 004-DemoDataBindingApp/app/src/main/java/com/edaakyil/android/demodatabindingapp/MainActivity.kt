@@ -16,7 +16,6 @@ import com.edaakyil.android.demodatabindingapp.constant.PASSWORD
 import com.edaakyil.android.demodatabindingapp.constant.USERNAME
 import com.edaakyil.android.demodatabindingapp.data.service.UserService
 import com.edaakyil.android.demodatabindingapp.databinding.ActivityMainBinding
-import com.edaakyil.android.demodatabindingapp.model.MainActivityActionModel
 import com.edaakyil.android.demodatabindingapp.model.UserLoginInfoModel
 import com.edaakyil.data.exception.DataServiceException
 
@@ -47,8 +46,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initModels() {
+        mBinding.activity = this
         mBinding.userLoginInfo = UserLoginInfoModel()
-        mBinding.action = MainActivityActionModel(this)
         mBinding.nonAnonymousAreasEnable = true
         mBinding.loginAreaLayoutVisible = View.GONE
         mBinding.statusText = resources.getString(R.string.not_accepted_status_message)
