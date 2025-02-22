@@ -5,8 +5,10 @@
     <data>
         <import type="com.edaakyil.android.demodatabindingapp.model.UserLoginInfoModel"/>
         <import type="com.edaakyil.android.demodatabindingapp.model.MainActivityActionModel"/>
+        <import type="com.edaakyil.android.demodatabindingapp.MainActivity"/>
         <variable name="userLoginInfo" type="UserLoginInfoModel"/>
         <variable name="action" type="MainActivityActionModel"/>
+        <variable name="activity" type="MainActivity"/>
     </data>
 
     <LinearLayout
@@ -19,7 +21,6 @@
         tools:context=".MainActivity">
 
         <ToggleButton
-            android:id="@+id/mainActivityToggleButtonOpenLoginArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
@@ -192,7 +193,6 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/mainActivityButtonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -209,7 +209,6 @@
             app:strokeColor="#4CAF50" />
 
         <Button
-            android:id="@+id/mainActivityButtonClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
