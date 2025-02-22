@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.userLoginInfo = UserLoginInfoModel()
         mBinding.action = MainActivityActionModel(this)
-        mBinding.buttonLoginEnable = false
+        mBinding.loginButtonEnable = false
+        mBinding.nonAnonymousAreasEnable = true
         mBinding.mainActivityLinearLayoutLoginArea.visibility = View.GONE
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainActivityLinearLayoutMain)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -84,9 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     // edaakyil
     fun onAnonymousCheckBoxCheckedChange(checked: Boolean) {
-        mBinding.mainActivityButtonClearAll.isEnabled = !checked
-        (0..<mBinding.mainActivityLinearLayoutUsername.childCount).forEach { mBinding.mainActivityLinearLayoutUsername.getChildAt(it).isEnabled = !checked }
-        (0..<mBinding.mainActivityLinearLayoutPassword.childCount).forEach { mBinding.mainActivityLinearLayoutPassword.getChildAt(it).isEnabled = !checked }
+        mBinding.nonAnonymousAreasEnable = !checked
     }
 
     fun onLoginAreaToggleButtonCheckedChange(checked: Boolean) {
@@ -94,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onAcceptSwitchCheckedChange(isChecked: Boolean) {
-        mBinding.buttonLoginEnable = isChecked
+        mBinding.loginButtonEnable = isChecked
         mBinding.mainActivityTextViewAcceptStatus.text = resources.getText(if (isChecked) R.string.accepted_status_message else R.string.not_accepted_status_message)
         mBinding.mainActivitySwitchAccept.text = resources.getText(if (isChecked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
     }
