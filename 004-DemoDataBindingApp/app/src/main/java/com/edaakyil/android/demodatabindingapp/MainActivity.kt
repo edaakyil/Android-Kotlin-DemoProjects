@@ -38,15 +38,19 @@ class MainActivity : AppCompatActivity() {
     private fun initBinding() {
         enableEdgeToEdge()
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        mBinding.userLoginInfo = UserLoginInfoModel()
-        mBinding.action = MainActivityActionModel(this)
-        mBinding.nonAnonymousAreasEnable = true
-        mBinding.loginAreaLayoutVisible = View.GONE
+        initModels()
         ViewCompat.setOnApplyWindowInsetsListener(mBinding.mainActivityLinearLayoutMain) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun initModels() {
+        mBinding.userLoginInfo = UserLoginInfoModel()
+        mBinding.action = MainActivityActionModel(this)
+        mBinding.nonAnonymousAreasEnable = true
+        mBinding.loginAreaLayoutVisible = View.GONE
     }
 
     /**
