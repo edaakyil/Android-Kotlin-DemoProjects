@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.userLoginInfo = UserLoginInfoModel()
         mBinding.action = MainActivityActionModel(this)
+        mBinding.buttonLoginEnable = false
         mBinding.mainActivityLinearLayoutLoginArea.visibility = View.GONE
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainActivityLinearLayoutMain)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onAcceptSwitchCheckedChange(isChecked: Boolean) {
-        mBinding.mainActivityButtonLogin.isEnabled = isChecked
+        mBinding.buttonLoginEnable = isChecked
         mBinding.mainActivityTextViewAcceptStatus.text = resources.getText(if (isChecked) R.string.accepted_status_message else R.string.not_accepted_status_message)
         mBinding.mainActivitySwitchAccept.text = resources.getText(if (isChecked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
     }

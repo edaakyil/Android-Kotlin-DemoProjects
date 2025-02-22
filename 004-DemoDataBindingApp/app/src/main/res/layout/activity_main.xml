@@ -9,6 +9,7 @@
         <variable name="userLoginInfo" type="UserLoginInfoModel"/>
         <variable name="action" type="MainActivityActionModel"/>
         <variable name="activity" type="MainActivity"/>
+        <variable name="buttonLoginEnable" type="boolean"/>
     </data>
 
     <LinearLayout
@@ -173,7 +174,6 @@
                 app:strokeColor="#4CAF50" />
 
             <Button
-                android:id="@+id/mainActivityButtonLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
@@ -182,7 +182,7 @@
                 android:elevation="20dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:enabled="false"
+                android:enabled="@{buttonLoginEnable}"
                 android:onClick="@{ _ -> action.onLoginButtonClicked() }"
                 android:text="@string/button_login_text"
                 android:textSize="18sp"
