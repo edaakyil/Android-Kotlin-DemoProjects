@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     private fun initialize() {
         initBinding()
         mUserService = UserService(this)
-        initViews()
     }
 
     private fun initBinding() {
@@ -41,17 +40,12 @@ class MainActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.userLoginInfo = UserLoginInfoModel()
         mBinding.action = MainActivityActionModel(this)
+        mBinding.mainActivityLinearLayoutLoginArea.visibility = View.GONE
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainActivityLinearLayoutMain)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
-
-    private fun initViews() {
-        initOpenLoginAreaToggleButton()
-        initAnonymousCheckBox() // edaakyil
-        initAcceptSwitch()
     }
 
     /**
@@ -88,34 +82,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     // edaakyil
-    private fun anonymousCheckBoxCheckedChangeCallback(isChecked: Boolean) {
-        mBinding.mainActivityButtonClearAll.isEnabled = !isChecked
-        (0..<mBinding.mainActivityLinearLayoutUsername.childCount).forEach { mBinding.mainActivityLinearLayoutUsername.getChildAt(it).isEnabled = !isChecked }
-        (0..<mBinding.mainActivityLinearLayoutPassword.childCount).forEach { mBinding.mainActivityLinearLayoutPassword.getChildAt(it).isEnabled = !isChecked }
+    fun onAnonymousCheckBoxCheckedChange(checked: Boolean) {
+        mBinding.mainActivityButtonClearAll.isEnabled = !checked
+        (0..<mBinding.mainActivityLinearLayoutUsername.childCount).forEach { mBinding.mainActivityLinearLayoutUsername.getChildAt(it).isEnabled = !checked }
+        (0..<mBinding.mainActivityLinearLayoutPassword.childCount).forEach { mBinding.mainActivityLinearLayoutPassword.getChildAt(it).isEnabled = !checked }
     }
 
-    // edaakyil
-    private fun initAnonymousCheckBox() {
-        mBinding.mainActivityCheckBoxAnonymous.setOnCheckedChangeListener { _, isChecked -> anonymousCheckBoxCheckedChangeCallback(isChecked) }
+    fun onLoginAreaToggleButtonCheckedChange(checked: Boolean) {
+        mBinding.mainActivityLinearLayoutLoginArea.visibility = if (checked) View.VISIBLE else View.GONE
     }
 
-    private fun openLoginAreaToggleButtonCheckedChangeCallback(isChecked: Boolean) {
-        //Toast.makeText(this, isChecked.toString(), Toast.LENGTH_SHORT).show()
-        mBinding.mainActivityLinearLayoutLoginArea.visibility = if (isChecked) View.VISIBLE else View.GONE
-    }
-
-    private fun initOpenLoginAreaToggleButton() {
-        mBinding.mainActivityToggleButtonOpenLoginArea.setOnCheckedChangeListener { _, isChecked -> openLoginAreaToggleButtonCheckedChangeCallback(isChecked) }
-    }
-
-    private fun acceptSwitchCheckedChangeCallback(isChecked: Boolean) {
+    fun onAcceptSwitchCheckedChange(isChecked: Boolean) {
         mBinding.mainActivityButtonLogin.isEnabled = isChecked
         mBinding.mainActivityTextViewAcceptStatus.text = resources.getText(if (isChecked) R.string.accepted_status_message else R.string.not_accepted_status_message)
         mBinding.mainActivitySwitchAccept.text = resources.getText(if (isChecked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
-    }
-
-    private fun initAcceptSwitch() {
-        mBinding.mainActivitySwitchAccept.setOnCheckedChangeListener { _, isChecked -> acceptSwitchCheckedChangeCallback(isChecked) }
     }
 
     fun onLoginButtonClicked() {

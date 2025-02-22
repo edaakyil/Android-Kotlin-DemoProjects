@@ -26,15 +26,16 @@
             android:minHeight="0dip"
             android:paddingVertical="16dp"
             android:textOff="@string/toggle_button_text_off"
-            android:textOn="@string/toggle_button_text_on" />
+            android:textOn="@string/toggle_button_text_on"
+            android:checked="false"
+            android:onCheckedChanged="@{ (_, checked) -> action.onLoginAreaToggleButtonCheckedChange(checked) }"/>
 
         <LinearLayout
             android:id="@+id/mainActivityLinearLayoutLoginArea"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:visibility="gone">
+            android:layout_marginHorizontal="32dp">
 
             <TextView
                 android:id="@+id/mainActivityTextViewLoginTitle"
@@ -67,7 +68,8 @@
                 android:layout_marginBottom="8dp"
                 android:minHeight="0dip"
                 android:padding="0dp"
-                android:text="@string/anonymous"/>
+                android:text="@string/anonymous"
+                android:onCheckedChanged="@{ (_, checked) -> action.onAnonymousCheckBoxCheckedChange(checked) }"/>
 
             <LinearLayout
                 android:id="@+id/mainActivityLinearLayoutUsername"
@@ -150,7 +152,8 @@
                 android:checked="false"
                 android:text="@string/main_activity_switch_accept_text"
                 android:textSize="16sp"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                android:onCheckedChanged="@{ (_, checked) -> action.onAcceptSwitchCheckedChange(checked) }"
+                tools:ignore="UseSwitchCompatOrMaterialXml"/>
 
             <Button
                 android:id="@+id/mainActivityButtonClearAll"
