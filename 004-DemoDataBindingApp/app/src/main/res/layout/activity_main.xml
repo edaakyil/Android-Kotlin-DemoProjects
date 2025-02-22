@@ -10,6 +10,7 @@
         <variable name="action" type="MainActivityActionModel"/>
         <variable name="activity" type="MainActivity"/>
         <variable name="loginButtonEnable" type="boolean"/>
+        <variable name="anonymousChecked" type="boolean"/>
         <variable name="nonAnonymousAreasEnable" type="boolean"/>
         <variable name="loginAreaLayoutVisible" type="int"/>
         <variable name="statusText" type="String"/>
@@ -66,13 +67,13 @@
                 android:text="@{statusText}"/>
 
             <CheckBox
-                android:id="@+id/mainActivityCheckBoxAnonymous"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:minHeight="0dip"
                 android:padding="0dp"
                 android:text="@string/anonymous"
+                android:checked="@={anonymousChecked}"
                 android:onCheckedChanged="@{ (_, checked) -> action.onAnonymousCheckBoxCheckedChange(checked) }"/>
 
             <LinearLayout

@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         try {
             mBinding.statusText = ""
 
-            if (!mBinding.mainActivityCheckBoxAnonymous.isChecked) {
+            if (!mBinding.anonymousChecked) {
                 if (checkUser())
                     Intent(this, ManagementActivity::class.java).apply {
                         putExtra(USERNAME, mBinding.userLoginInfo?.username?.trim())
