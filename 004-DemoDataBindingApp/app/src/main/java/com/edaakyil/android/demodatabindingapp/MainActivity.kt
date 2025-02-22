@@ -1,16 +1,11 @@
 package com.edaakyil.android.demodatabindingapp
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.ToggleButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -27,8 +22,6 @@ import com.edaakyil.data.exception.DataServiceException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private lateinit var mSwitchAccept: Switch
     private lateinit var mUserService: UserService
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,12 +111,11 @@ class MainActivity : AppCompatActivity() {
     private fun acceptSwitchCheckedChangeCallback(isChecked: Boolean) {
         mBinding.mainActivityButtonLogin.isEnabled = isChecked
         mBinding.mainActivityTextViewAcceptStatus.text = resources.getText(if (isChecked) R.string.accepted_status_message else R.string.not_accepted_status_message)
-        mSwitchAccept.text = resources.getText(if (isChecked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
+        mBinding.mainActivitySwitchAccept.text = resources.getText(if (isChecked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
     }
 
     private fun initAcceptSwitch() {
-        mSwitchAccept = findViewById(R.id.mainActivitySwitchAccept)
-        mSwitchAccept.setOnCheckedChangeListener { _, isChecked -> acceptSwitchCheckedChangeCallback(isChecked) }
+        mBinding.mainActivitySwitchAccept.setOnCheckedChangeListener { _, isChecked -> acceptSwitchCheckedChangeCallback(isChecked) }
     }
 
     fun onLoginButtonClicked() {
