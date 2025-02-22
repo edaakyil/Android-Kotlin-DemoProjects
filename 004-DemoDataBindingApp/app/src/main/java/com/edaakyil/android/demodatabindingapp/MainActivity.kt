@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun doLogin() {
         try {
-            mBinding.mainActivityTextViewAcceptStatus.text = ""
+            mBinding.statusText = ""
 
             if (!mBinding.mainActivityCheckBoxAnonymous.isChecked) {
                 if (checkUser())
@@ -95,10 +95,10 @@ class MainActivity : AppCompatActivity() {
         mBinding.loginAreaLayoutVisible = if (checked) View.VISIBLE else View.GONE
     }
 
-    fun onAcceptSwitchCheckedChange(isChecked: Boolean) {
-        mBinding.loginButtonEnable = isChecked
-        mBinding.mainActivityTextViewAcceptStatus.text = resources.getText(if (isChecked) R.string.accepted_status_message else R.string.not_accepted_status_message)
-        mBinding.mainActivitySwitchAccept.text = resources.getText(if (isChecked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
+    fun onAcceptSwitchCheckedChange(checked: Boolean) {
+        mBinding.loginButtonEnable = checked
+        mBinding.statusText = resources.getString(if (checked) R.string.accepted_status_message else R.string.not_accepted_status_message)
+        mBinding.statusSwitchText = resources.getString(if (checked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
     }
 
     fun onLoginButtonClicked() {
@@ -125,7 +125,6 @@ class MainActivity : AppCompatActivity() {
     fun onClearAllButtonClicked() {
         onClearUsernameTextButtonClicked()
         onClearPasswordTextButtonClicked()
-        mBinding.mainActivityTextViewAcceptStatus.text = ""
     }
 
     fun onRegisterButtonClicked() {
@@ -137,3 +136,5 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 }
+
+//android:text="@string/not_accepted_status_message"/>
