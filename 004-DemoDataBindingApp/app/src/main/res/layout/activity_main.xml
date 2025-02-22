@@ -11,6 +11,7 @@
         <variable name="activity" type="MainActivity"/>
         <variable name="loginButtonEnable" type="boolean"/>
         <variable name="nonAnonymousAreasEnable" type="boolean"/>
+        <variable name="loginAreaLayoutVisible" type="int"/>
     </data>
 
     <LinearLayout
@@ -30,15 +31,14 @@
             android:paddingVertical="16dp"
             android:textOff="@string/toggle_button_text_off"
             android:textOn="@string/toggle_button_text_on"
-            android:checked="false"
             android:onCheckedChanged="@{ (_, checked) -> action.onLoginAreaToggleButtonCheckedChange(checked) }"/>
 
         <LinearLayout
-            android:id="@+id/mainActivityLinearLayoutLoginArea"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp">
+            android:layout_marginHorizontal="32dp"
+            android:visibility="@{loginAreaLayoutVisible}">
 
             <TextView
                 android:id="@+id/mainActivityTextViewLoginTitle"

@@ -40,9 +40,8 @@ class MainActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.userLoginInfo = UserLoginInfoModel()
         mBinding.action = MainActivityActionModel(this)
-        mBinding.loginButtonEnable = false
         mBinding.nonAnonymousAreasEnable = true
-        mBinding.mainActivityLinearLayoutLoginArea.visibility = View.GONE
+        mBinding.loginAreaLayoutVisible = View.GONE
         ViewCompat.setOnApplyWindowInsetsListener(mBinding.mainActivityLinearLayoutMain) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -89,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onLoginAreaToggleButtonCheckedChange(checked: Boolean) {
-        mBinding.mainActivityLinearLayoutLoginArea.visibility = if (checked) View.VISIBLE else View.GONE
+        mBinding.loginAreaLayoutVisible = if (checked) View.VISIBLE else View.GONE
     }
 
     fun onAcceptSwitchCheckedChange(isChecked: Boolean) {
