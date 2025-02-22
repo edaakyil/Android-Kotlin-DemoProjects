@@ -27,12 +27,6 @@ import com.edaakyil.data.exception.DataServiceException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mLinearLayoutUsername: LinearLayout // edaakyil
-    private lateinit var mLinearLayoutPassword: LinearLayout // edaakyil
-    private lateinit var mCheckBoxAnonymous: CheckBox
-    private lateinit var mTextViewAcceptStatus: TextView
-    private lateinit var mLinearLayoutLoginArea: LinearLayout
-    private lateinit var mToggleButtonOpenLoginArea: ToggleButton
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var mSwitchAccept: Switch
     private lateinit var mUserService: UserService
@@ -62,11 +56,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        mLinearLayoutUsername = findViewById(R.id.mainActivityLinearLayoutUsername) // edaakyil
-        mLinearLayoutPassword = findViewById(R.id.mainActivityLinearLayoutPassword) // edaakyil
-        mTextViewAcceptStatus = findViewById(R.id.mainActivityTextViewAcceptStatus)
-        mLinearLayoutLoginArea = findViewById<LinearLayout?>(R.id.mainActivityLinearLayoutLoginArea).apply { visibility = View.GONE }
-
         initOpenLoginAreaToggleButton()
         initAnonymousCheckBox() // edaakyil
         initAcceptSwitch()
@@ -79,9 +68,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun doLogin() {
         try {
-            mTextViewAcceptStatus.text = ""
+            mBinding.mainActivityTextViewAcceptStatus.text = ""
 
-            if (!mCheckBoxAnonymous.isChecked) {
+            if (!mBinding.mainActivityCheckBoxAnonymous.isChecked) {
                 if (checkUser())
                     Intent(this, ManagementActivity::class.java).apply {
                         putExtra(USERNAME, mBinding.userLoginInfo?.username?.trim())
@@ -108,29 +97,27 @@ class MainActivity : AppCompatActivity() {
     // edaakyil
     private fun anonymousCheckBoxCheckedChangeCallback(isChecked: Boolean) {
         mBinding.mainActivityButtonClearAll.isEnabled = !isChecked
-        (0..<mLinearLayoutUsername.childCount).forEach { mLinearLayoutUsername.getChildAt(it).isEnabled = !isChecked }
-        (0..<mLinearLayoutPassword.childCount).forEach { mLinearLayoutPassword.getChildAt(it).isEnabled = !isChecked }
+        (0..<mBinding.mainActivityLinearLayoutUsername.childCount).forEach { mBinding.mainActivityLinearLayoutUsername.getChildAt(it).isEnabled = !isChecked }
+        (0..<mBinding.mainActivityLinearLayoutPassword.childCount).forEach { mBinding.mainActivityLinearLayoutPassword.getChildAt(it).isEnabled = !isChecked }
     }
 
     // edaakyil
     private fun initAnonymousCheckBox() {
-        mCheckBoxAnonymous = findViewById(R.id.mainActivityCheckBoxAnonymous)
-        mCheckBoxAnonymous.setOnCheckedChangeListener { _, isChecked -> anonymousCheckBoxCheckedChangeCallback(isChecked) }
+        mBinding.mainActivityCheckBoxAnonymous.setOnCheckedChangeListener { _, isChecked -> anonymousCheckBoxCheckedChangeCallback(isChecked) }
     }
 
     private fun openLoginAreaToggleButtonCheckedChangeCallback(isChecked: Boolean) {
         //Toast.makeText(this, isChecked.toString(), Toast.LENGTH_SHORT).show()
-        mLinearLayoutLoginArea.visibility = if (isChecked) View.VISIBLE else View.GONE
+        mBinding.mainActivityLinearLayoutLoginArea.visibility = if (isChecked) View.VISIBLE else View.GONE
     }
 
     private fun initOpenLoginAreaToggleButton() {
-        mToggleButtonOpenLoginArea = findViewById(R.id.mainActivityToggleButtonOpenLoginArea)
-        mToggleButtonOpenLoginArea.setOnCheckedChangeListener { _, isChecked -> openLoginAreaToggleButtonCheckedChangeCallback(isChecked) }
+        mBinding.mainActivityToggleButtonOpenLoginArea.setOnCheckedChangeListener { _, isChecked -> openLoginAreaToggleButtonCheckedChangeCallback(isChecked) }
     }
 
     private fun acceptSwitchCheckedChangeCallback(isChecked: Boolean) {
         mBinding.mainActivityButtonLogin.isEnabled = isChecked
-        mTextViewAcceptStatus.text = resources.getText(if (isChecked) R.string.accepted_status_message else R.string.not_accepted_status_message)
+        mBinding.mainActivityTextViewAcceptStatus.text = resources.getText(if (isChecked) R.string.accepted_status_message else R.string.not_accepted_status_message)
         mSwitchAccept.text = resources.getText(if (isChecked) R.string.main_activity_switch_accepted_text else R.string.main_activity_switch_accept_text)
     }
 
@@ -163,7 +150,7 @@ class MainActivity : AppCompatActivity() {
     fun onClearAllButtonClicked() {
         onClearUsernameTextButtonClicked()
         onClearPasswordTextButtonClicked()
-        mTextViewAcceptStatus.text = ""
+        mBinding.mainActivityTextViewAcceptStatus.text = ""
     }
 
     fun onRegisterButtonClicked() {
