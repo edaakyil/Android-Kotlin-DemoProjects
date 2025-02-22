@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         mBinding.action = MainActivityActionModel(this)
         mBinding.nonAnonymousAreasEnable = true
         mBinding.loginAreaLayoutVisible = View.GONE
+        mBinding.statusText = resources.getString(R.string.not_accepted_status_message)
+        mBinding.statusSwitchText = resources.getString(R.string.main_activity_switch_accept_text)
     }
 
     /**
