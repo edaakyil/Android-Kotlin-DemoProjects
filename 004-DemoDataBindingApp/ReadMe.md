@@ -35,10 +35,19 @@ mBinding.password = "Password: " + (intent.getStringExtra(PASSWORD) ?: resources
 </div>
 <div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
 
-```kt
+```xml
+<variable name="spinnerAdapter" type="android.widget.ArrayAdapter&lt;String>"/>
 ```
-
-```kt
+```xml
+<variable name="spinnerAdapter" type="android.widget.ArrayAdapter&lt;String&gt;"/>
+```
+```xml
+<import type="android.widget.ArrayAdapter"/>
+<variable name="spinnerAdapter" type="ArrayAdapter&lt;String>"/>
+```
+```xml
+<import type="android.widget.ArrayAdapter"/>
+<variable name="spinnerAdapter" type="ArrayAdapter&lt;String&gt;"/>
 ```
 
 </div>

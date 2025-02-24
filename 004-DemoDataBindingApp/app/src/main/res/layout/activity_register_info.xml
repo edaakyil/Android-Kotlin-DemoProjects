@@ -3,8 +3,11 @@
     <data>
         <import type="com.edaakyil.android.demodatabindingapp.model.UserRegisterInfoModel"/>
         <import type="com.edaakyil.android.demodatabindingapp.RegisterInfoActivity"/>
+        <import type="android.widget.ArrayAdapter"/>
         <variable name="userRegisterInfo" type="UserRegisterInfoModel"/>
         <variable name="activity" type="RegisterInfoActivity"/>
+        <variable name="selectedSpinnerMaritalStatusItemPosition" type="int"/>
+        <variable name="spinnerMaritalStatusAdapter" type="ArrayAdapter&lt;String&gt;"/>
     </data>
 
     <LinearLayout
@@ -169,7 +172,9 @@
                     android:id="@+id/registerInfoActivitySpinnerMaritalStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-12dp" />
+                    android:layout_marginTop="-12dp"
+                    android:selectedItemPosition="@={selectedSpinnerMaritalStatusItemPosition}"
+                    android:adapter="@{spinnerMaritalStatusAdapter}"/>
 
             </LinearLayout>
 

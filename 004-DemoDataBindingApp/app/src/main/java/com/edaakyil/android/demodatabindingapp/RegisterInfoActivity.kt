@@ -33,7 +33,7 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p2: Long) {
-        Toast.makeText(this, mBinding.registerInfoActivitySpinnerMaritalStatus.selectedItem as String, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, mBinding.spinnerMaritalStatusAdapter!!.getItem(position), Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -43,7 +43,6 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     private fun initialize() {
         initBinding()
         mUserService = UserService(this)
-        initViews()
     }
 
     private fun initBinding() {
@@ -55,17 +54,15 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     private fun initModels() {
         mBinding.activity = this
         mBinding.userRegisterInfo = UserRegisterInfoModel()
+        initMaritalStatusModel()
     }
 
-    private fun initViews() {
-        initSpinnerMaritalStatus()
-    }
-
-    private fun initSpinnerMaritalStatus() {
+    private fun initMaritalStatusModel() {
         val maritalStatus = arrayOf(resources.getString(R.string.marital_status_single), resources.getString(R.string.marital_status_married), resources.getString(R.string.marital_status_divorced))
 
+        mBinding.spinnerMaritalStatusAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, maritalStatus)
+
         mBinding.registerInfoActivitySpinnerMaritalStatus.apply {
-            adapter = ArrayAdapter(this@RegisterInfoActivity, android.R.layout.simple_spinner_dropdown_item, maritalStatus)
             onItemSelectedListener = this@RegisterInfoActivity  // this is Spinner
         }
     }
@@ -74,7 +71,7 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         /*val name = mBinding.name.trim()
         val email = mBinding.email.trim()
         val username = mBinding.username.trim()*/
-        val maritalStatus = MARITAL_STATUS_TAGS[mBinding.registerInfoActivitySpinnerMaritalStatus.selectedItemPosition]
+        val maritalStatus = MARITAL_STATUS_TAGS[mBinding.selectedSpinnerMaritalStatusItemPosition]
         val lastEducationDegreeId = mBinding.registerInfoActivityRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
 
@@ -137,7 +134,7 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         val userInfo = mBinding.userRegisterInfo!!
         mBinding.registerInfoActivityEditTextName.setText(userInfo.name)
         mBinding.registerInfoActivityEditTextEmail.setText(userInfo.email)
-        mBinding.registerInfoActivitySpinnerMaritalStatus.setSelection(MARITAL_STATUS_TAGS.indexOf(userInfo.maritalStatus))
+        mBinding.selectedSpinnerMaritalStatusItemPosition = MARITAL_STATUS_TAGS.indexOf(userInfo.maritalStatus)
 
         mBinding.registerInfoActivityRadioGroupLastEducationDegree.clearCheck()
         val lastEducationDegreeId = userInfo.lastEducationDegree
