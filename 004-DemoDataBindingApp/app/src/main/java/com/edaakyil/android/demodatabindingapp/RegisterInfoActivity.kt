@@ -3,8 +3,6 @@ package com.edaakyil.android.demodatabindingapp
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
@@ -22,7 +20,7 @@ import com.edaakyil.data.exception.DataServiceException
 private const val SAVE_USER_INFO_LOG_TAG = "SAVE_USER_INFO"
 private const val LOAD_USER_INFO_LOG_TAG = "LOAD_USER_INFO"
 
-class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class RegisterInfoActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityRegisterInfoBinding
     private lateinit var mUserService: UserService
 
@@ -30,14 +28,6 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         super.onCreate(savedInstanceState)
 
         initialize()
-    }
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p2: Long) {
-        Toast.makeText(this, mBinding.spinnerMaritalStatusAdapter!!.getItem(position), Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 
     private fun initialize() {
@@ -60,15 +50,11 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     private fun initMaritalStatusModel() {
         val maritalStatus = arrayOf(resources.getString(R.string.marital_status_single), resources.getString(R.string.marital_status_married), resources.getString(R.string.marital_status_divorced))
 
-        mBinding.spinnerMaritalStatusAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, maritalStatus)
-
-        mBinding.registerInfoActivitySpinnerMaritalStatus.apply {
-            onItemSelectedListener = this@RegisterInfoActivity  // this is Spinner
-        }
+        mBinding.maritalStatusSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, maritalStatus)
     }
 
     private fun fillUserRegisterInfoModel() {
-        val maritalStatus = MARITAL_STATUS_TAGS[mBinding.selectedSpinnerMaritalStatusItemPosition]
+        val maritalStatus = MARITAL_STATUS_TAGS[mBinding.selectedMaritalStatusSpinnerItemPosition]
         val lastEducationDegreeId = mBinding.registerInfoActivityRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
 
@@ -129,7 +115,7 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         mBinding.registerInfoActivityEditTextName.setText(userInfo.name)
         mBinding.registerInfoActivityEditTextEmail.setText(userInfo.email)
         mBinding.registerInfoActivityEditTextUsername.setText(userInfo.username)
-        mBinding.selectedSpinnerMaritalStatusItemPosition = MARITAL_STATUS_TAGS.indexOf(userInfo.maritalStatus)
+        mBinding.selectedMaritalStatusSpinnerItemPosition = MARITAL_STATUS_TAGS.indexOf(userInfo.maritalStatus)
 
         mBinding.registerInfoActivityRadioGroupLastEducationDegree.clearCheck()
         val lastEducationDegreeId = userInfo.lastEducationDegree
@@ -177,6 +163,10 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     fun onSaveButtonClicked() = saveUserRegisterInfo(false)
 
     fun onClearButtonClicked() = mBinding.registerInfoActivityRadioGroupLastEducationDegree.clearCheck()
+
+    fun onMaritalStatusSpinnerItemSelected(position: Int) {
+        Toast.makeText(this, mBinding.maritalStatusSpinnerAdapter!!.getItem(position), Toast.LENGTH_SHORT).show()
+    }
 
     fun onContinueButtonClicked() {
         fillUserRegisterInfoModel()
