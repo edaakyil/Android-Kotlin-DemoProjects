@@ -112,12 +112,13 @@ class RegisterInfoActivity : AppCompatActivity() {
 
     private fun fillUI() {
         val userInfo = mBinding.userRegisterInfo!!
+
         mBinding.registerInfoActivityEditTextName.setText(userInfo.name)
         mBinding.registerInfoActivityEditTextEmail.setText(userInfo.email)
         mBinding.registerInfoActivityEditTextUsername.setText(userInfo.username)
         mBinding.selectedMaritalStatusSpinnerItemPosition = MARITAL_STATUS_TAGS.indexOf(userInfo.maritalStatus)
 
-        mBinding.registerInfoActivityRadioGroupLastEducationDegree.clearCheck()
+        onClearButtonClicked()
         val lastEducationDegreeId = userInfo.lastEducationDegree
         if(lastEducationDegreeId != 0)
             (mBinding.registerInfoActivityRadioGroupLastEducationDegree.getChildAt(lastEducationDegreeId - 1) as RadioButton).isChecked = true
