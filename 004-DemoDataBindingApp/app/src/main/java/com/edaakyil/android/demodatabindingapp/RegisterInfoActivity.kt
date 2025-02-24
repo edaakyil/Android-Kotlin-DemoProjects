@@ -6,17 +6,16 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.edaakyil.android.demodatabindingapp.constant.MARITAL_STATUS_TAGS
 import com.edaakyil.android.demodatabindingapp.constant.USER_INFO
 import com.edaakyil.android.demodatabindingapp.data.service.UserService
+import com.edaakyil.android.demodatabindingapp.databinding.ActivityRegisterInfoBinding
 import com.edaakyil.android.demodatabindingapp.model.UserRegisterInfoModel
 import com.edaakyil.data.exception.DataServiceException
 
@@ -24,24 +23,17 @@ private const val SAVE_USER_INFO_LOG_TAG = "SAVE_USER_INFO"
 private const val LOAD_USER_INFO_LOG_TAG = "LOAD_USER_INFO"
 
 class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    private lateinit var mEditTextName: EditText
-    private lateinit var mEditTextEmail: EditText
-    private lateinit var mEditTextUsername: EditText
-    private lateinit var mSpinnerMaritalStatus: Spinner
-    private lateinit var mRadioGroupLastEducationDegree: RadioGroup
-    private lateinit var mUserRegisterInfo: UserRegisterInfoModel
+    private lateinit var mBinding: ActivityRegisterInfoBinding
     private lateinit var mUserService: UserService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_register_info)
 
         initialize()
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p2: Long) {
-        Toast.makeText(this, mSpinnerMaritalStatus.selectedItem as String, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, mBinding.registerInfoActivitySpinnerMaritalStatus.selectedItem as String, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -49,51 +41,54 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     }
 
     private fun initialize() {
-        mUserRegisterInfo = UserRegisterInfoModel()
+        initBinding()
         mUserService = UserService(this)
         initViews()
     }
 
-    private fun initViews() {
-        initEditTexts()
-        initSpinnerMaritalStatus()
-        mRadioGroupLastEducationDegree = findViewById(R.id.registerInfoActivityRadioGroupLastEducationDegree)
+    private fun initBinding() {
+        enableEdgeToEdge()
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_register_info)
+        initModels()
     }
 
-    private fun initEditTexts() {
-        mEditTextName = findViewById(R.id.registerInfoActivityEditTextName)
-        mEditTextEmail = findViewById(R.id.registerInfoActivityEditTextEmail)
-        mEditTextUsername = findViewById(R.id.registerInfoActivityEditTextUsername)
+    private fun initModels() {
+        mBinding.activity = this
+        mBinding.userRegisterInfo = UserRegisterInfoModel()
+    }
+
+    private fun initViews() {
+        initSpinnerMaritalStatus()
     }
 
     private fun initSpinnerMaritalStatus() {
         val maritalStatus = arrayOf(resources.getString(R.string.marital_status_single), resources.getString(R.string.marital_status_married), resources.getString(R.string.marital_status_divorced))
 
-        mSpinnerMaritalStatus = findViewById<Spinner>(R.id.registerInfoActivitySpinnerMaritalStatus).apply {
+        mBinding.registerInfoActivitySpinnerMaritalStatus.apply {
             adapter = ArrayAdapter(this@RegisterInfoActivity, android.R.layout.simple_spinner_dropdown_item, maritalStatus)
             onItemSelectedListener = this@RegisterInfoActivity  // this is Spinner
         }
     }
 
     private fun fillUserRegisterInfoModel() {
-        val name = mEditTextName.text.toString().trim()
-        val email = mEditTextEmail.text.toString().trim()
-        val username = mEditTextUsername.text.toString().trim()
-        val maritalStatus = MARITAL_STATUS_TAGS[mSpinnerMaritalStatus.selectedItemPosition]
-        val lastEducationDegreeId = mRadioGroupLastEducationDegree.checkedRadioButtonId
+        /*val name = mBinding.name.trim()
+        val email = mBinding.email.trim()
+        val username = mBinding.username.trim()*/
+        val maritalStatus = MARITAL_STATUS_TAGS[mBinding.registerInfoActivitySpinnerMaritalStatus.selectedItemPosition]
+        val lastEducationDegreeId = mBinding.registerInfoActivityRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
 
-        mUserRegisterInfo.also {
-            it.name = name
+        mBinding.userRegisterInfo!!.also {
+            /*it.name = name
             it.email = email
-            it.username = username
+            it.username = username*/
             it.maritalStatus = maritalStatus
             it.lastEducationDegree = lastEducationDegree
         }
     }
 
     private fun saveData(close: Boolean) {
-        mUserService.saveUserData(mUserRegisterInfo)
+        mUserService.saveUserData(mBinding.userRegisterInfo!!)
 
         Log.i(SAVE_USER_INFO_LOG_TAG, "User saved successfully")
         Toast.makeText(this, R.string.user_successfully_saved_prompt, Toast.LENGTH_SHORT).show()
@@ -104,7 +99,6 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     private fun selectOptionIfUserSaved(close: Boolean) {
         Log.w(SAVE_USER_INFO_LOG_TAG, "user already exists")
-        //Toast.makeText(this, R.string.username_already_saved_prompt, Toast.LENGTH_SHORT).show()
 
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_user_already_saved_title)
@@ -119,12 +113,14 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         try {
             fillUserRegisterInfoModel()
 
-            if (mUserRegisterInfo.username.isBlank()) {
+            val username = mBinding.userRegisterInfo!!.username.trim()
+
+            if (username.isBlank()) {
                 Toast.makeText(this, R.string.username_missing_prompt, Toast.LENGTH_SHORT).show()
                 return
             }
 
-            if (!mUserService.isUserSaved(mUserRegisterInfo.username))
+            if (!mUserService.isUserSaved(username))
                 saveData(close)
             else
                 selectOptionIfUserSaved(close)
@@ -138,19 +134,20 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     }
 
     private fun fillUI() {
-        mEditTextName.setText(mUserRegisterInfo.name)
-        mEditTextEmail.setText(mUserRegisterInfo.email)
-        mSpinnerMaritalStatus.setSelection(MARITAL_STATUS_TAGS.indexOf(mUserRegisterInfo.maritalStatus))
+        val userInfo = mBinding.userRegisterInfo!!
+        mBinding.registerInfoActivityEditTextName.setText(userInfo.name)
+        mBinding.registerInfoActivityEditTextEmail.setText(userInfo.email)
+        mBinding.registerInfoActivitySpinnerMaritalStatus.setSelection(MARITAL_STATUS_TAGS.indexOf(userInfo.maritalStatus))
 
-        mRadioGroupLastEducationDegree.clearCheck()
-        val lastEducationDegreeId = mUserRegisterInfo.lastEducationDegree
+        mBinding.registerInfoActivityRadioGroupLastEducationDegree.clearCheck()
+        val lastEducationDegreeId = userInfo.lastEducationDegree
         if(lastEducationDegreeId != 0)
-            (mRadioGroupLastEducationDegree.getChildAt(lastEducationDegreeId - 1) as RadioButton).isChecked = true
+            (mBinding.registerInfoActivityRadioGroupLastEducationDegree.getChildAt(lastEducationDegreeId - 1) as RadioButton).isChecked = true
     }
 
-    fun onLoadButtonClicked(view: View) {
+    fun onLoadButtonClicked() {
         try {
-            val username = mEditTextUsername.text.toString().trim()
+            val username = mBinding.userRegisterInfo!!.username.trim()
 
             if (username.isBlank()) {
                 Toast.makeText(this, R.string.username_missing_prompt, Toast.LENGTH_SHORT).show()
@@ -164,9 +161,17 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 return
             }
 
-            mUserRegisterInfo = ri // smart cast
+            mBinding.userRegisterInfo!!.also {
+                it.name = ri.name
+                it.email = ri.email
+                it.username = ri.username
+                it.maritalStatus = ri.maritalStatus
+                it.lastEducationDegree = ri.lastEducationDegree
+            }
+
             fillUI()
 
+            Toast.makeText(this, mBinding.userRegisterInfo.toString(), Toast.LENGTH_SHORT).show()
             Toast.makeText(this, R.string.user_successfully_loaded_prompt, Toast.LENGTH_SHORT).show()
         } catch (ex: DataServiceException) {
             Log.e(LOAD_USER_INFO_LOG_TAG, ex.message ?: "")
@@ -177,19 +182,19 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
     }
 
-    fun onSaveButtonClicked(view: View) = saveUserRegisterInfo(false)
+    fun onSaveButtonClicked() = saveUserRegisterInfo(false)
 
-    fun onClearButtonClicked(view: View) = mRadioGroupLastEducationDegree.clearCheck()
+    fun onClearButtonClicked() = mBinding.registerInfoActivityRadioGroupLastEducationDegree.clearCheck()
 
-    fun onContinueButtonClicked(view: View) {
+    fun onContinueButtonClicked() {
         fillUserRegisterInfoModel()
-        Intent(this, RegisterPasswordActivity::class.java).apply { putExtra(USER_INFO, mUserRegisterInfo); startActivity(this) }
+        Intent(this, RegisterPasswordActivity::class.java).apply { putExtra(USER_INFO, mBinding.userRegisterInfo); startActivity(this) }
         finish()
 
-        Toast.makeText(this, "${mUserRegisterInfo.maritalStatus}, ${mUserRegisterInfo.lastEducationDegree}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${mBinding.userRegisterInfo?.maritalStatus}, ${mBinding.userRegisterInfo?.lastEducationDegree}", Toast.LENGTH_SHORT).show()
     }
 
-    fun onCloseButtonClicked(view: View) {
+    fun onCloseButtonClicked() {
         AlertDialog.Builder(this)
             .setTitle(R.string.alert_dialog_alert_title)
             .setMessage(R.string.alert_dialog_close_message)

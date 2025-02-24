@@ -1,311 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/registerInfoActivityLinearLayoutMain"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RegisterInfoActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="@string/register_info_activity_text_view_title"
-        android:textAlignment="center"
-        android:textSize="32sp"
-        android:textStyle="bold" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.edaakyil.android.demodatabindingapp.model.UserRegisterInfoModel"/>
+        <import type="com.edaakyil.android.demodatabindingapp.RegisterInfoActivity"/>
+        <variable name="userRegisterInfo" type="UserRegisterInfoModel"/>
+        <variable name="activity" type="RegisterInfoActivity"/>
+    </data>
 
     <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/registerInfoActivityLinearLayoutMain"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:backgroundTint="@color/pastel_silver_medal">
+        android:layout_height="match_parent"
+        tools:context=".RegisterInfoActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="@string/register_info_activity_text_view_title"
+            android:textAlignment="center"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="4dp"
-                android:gravity="bottom">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:gravity="top|center_horizontal"
-                    android:text="@string/load_user_info_prompt"
-                    android:textAlignment="center"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:paddingVertical="8dp"
-                    android:minHeight="0dp"
-                    android:onClick="onLoadButtonClicked"
-                    android:text="@string/button_load_text"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginStart="4dp"
-                android:gravity="bottom">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="top|center_horizontal"
-                    android:text="@string/save_user_info_prompt"
-                    android:textAlignment="center"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:id="@+id/registerInfoActivitySaveButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:paddingVertical="8dp"
-                    android:minHeight="0dp"
-                    android:onClick="onSaveButtonClicked"
-                    android:text="@string/button_save_text" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/registerInfoActivityEditTextUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="12dp"
-            android:hint="@string/edit_text_username_hint"
-            android:inputType="text"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/registerInfoActivityEditTextName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="12dp"
-            android:hint="@string/edit_text_name_hint"
-            android:inputType="text"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/registerInfoActivityEditTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="12dp"
-            android:hint="@string/edit_text_email_hint"
-            android:inputType="textEmailAddress"
-            android:textSize="16sp" />
-
-        <LinearLayout
-            android:id="@+id/registerInfoActivityLinearLayoutMaritalStatusMain"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:minHeight="0dip"
-            android:padding="0dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:id="@+id/divider1"
-                    android:layout_width="48dp"
-                    android:layout_height="2dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:background="?android:attr/listDivider" />
-
-                <TextView
-                    android:id="@+id/registerInfoActivityEditTextMaritalStatusTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|top"
-                    android:gravity="top"
-                    android:padding="8dp"
-                    android:hint="@string/marital_status_title"
-                    android:textSize="16sp" />
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:background="?android:attr/listDivider"/>
-
-            </LinearLayout>
-
-            <Spinner
-                android:id="@+id/registerInfoActivitySpinnerMaritalStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-12dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/registerInfoActivityLinearLayoutLastEducationDegreeMain"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-8dp">
+            android:layout_marginHorizontal="32dp"
+            android:backgroundTint="@color/pastel_silver_medal">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-8dp">
+                android:layout_marginBottom="8dp">
 
-                <View
-                    android:id="@+id/divider3"
-                    android:layout_width="48dp"
-                    android:layout_height="2dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:background="?android:attr/listDivider" />
-
-                <TextView
-                    android:id="@+id/registerInfoActivityEditTextLastEducationDegreeTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|top"
-                    android:padding="8dp"
-                    android:hint="@string/last_education_degree_title"
-                    android:textSize="16sp" />
-
-                <Button
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="top"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="8dp"
-                    android:drawablePadding="0dp"
-                    android:paddingHorizontal="0dp"
-                    android:insetLeft="32dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:onClick="onClearButtonClicked"
-                    android:text="@string/button_clear_text" />
+                    android:layout_marginEnd="4dp"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:gravity="top|center_horizontal"
+                        android:text="@string/load_user_info_prompt"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:paddingVertical="8dp"
+                        android:minHeight="0dp"
+                        android:onClick="@{ _ -> activity.onLoadButtonClicked() }"
+                        android:text="@string/button_load_text"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="top|center_horizontal"
+                        android:text="@string/save_user_info_prompt"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:paddingVertical="8dp"
+                        android:minHeight="0dp"
+                        android:onClick="@{ _ -> activity.onSaveButtonClicked() }"
+                        android:text="@string/button_save_text" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <RadioGroup
-                android:id="@+id/registerInfoActivityRadioGroupLastEducationDegree"
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:hint="@string/edit_text_username_hint"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:text="@={userRegisterInfo.username}"/>
+
+            <EditText
+                android:id="@+id/registerInfoActivityEditTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:hint="@string/edit_text_name_hint"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:text="@={userRegisterInfo.name}"/>
+
+            <EditText
+                android:id="@+id/registerInfoActivityEditTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:hint="@string/edit_text_email_hint"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp"
+                android:text="@={userRegisterInfo.email}"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:minHeight="0dip"
+                android:padding="0dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:id="@+id/divider1"
+                        android:layout_width="48dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|top"
+                        android:gravity="top"
+                        android:padding="8dp"
+                        android:hint="@string/marital_status_title"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:background="?android:attr/listDivider"/>
+
+                </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/registerInfoActivitySpinnerMaritalStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-12dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-8dp">
 
-                <RadioButton
-                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreePrimary"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="0dip"
-                    android:padding="4dp"
-                    android:tag="1"
-                    android:text="@string/last_education_degree_primary"/>
+                    android:layout_marginTop="-8dp">
 
-                <RadioButton
-                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreeSecondary"
+                    <View
+                        android:id="@+id/divider3"
+                        android:layout_width="48dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|top"
+                        android:padding="8dp"
+                        android:hint="@string/last_education_degree_title"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:layout_marginTop="8dp"
+                        android:drawablePadding="0dp"
+                        android:paddingHorizontal="0dp"
+                        android:insetLeft="32dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:onClick="@{ _ ->activity.onClearButtonClicked() }"
+                        android:text="@string/button_clear_text" />
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/registerInfoActivityRadioGroupLastEducationDegree"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="0dip"
-                    android:padding="4dp"
-                    android:textSize="13sp"
-                    android:tag="2"
-                    android:text="@string/last_education_degree_secondary"/>
+                    android:layout_marginTop="-8dp">
 
-                <RadioButton
-                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreeBachelor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="0dip"
-                    android:padding="4dp"
-                    android:textSize="13sp"
-                    android:tag="3"
-                    android:text="@string/last_education_degree_bachelor"/>
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="0dip"
+                        android:padding="4dp"
+                        android:tag="1"
+                        android:text="@string/last_education_degree_primary"/>
 
-                <RadioButton
-                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreeMaster"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="0dip"
-                    android:padding="4dp"
-                    android:textSize="13sp"
-                    android:tag="4"
-                    android:text="@string/last_education_degree_master"/>
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="0dip"
+                        android:padding="4dp"
+                        android:textSize="13sp"
+                        android:tag="2"
+                        android:text="@string/last_education_degree_secondary"/>
 
-                <RadioButton
-                    android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreePhd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="0dip"
-                    android:padding="4dp"
-                    android:textSize="13sp"
-                    android:tag="5"
-                    android:text="@string/last_education_degree_phd"/>
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="0dip"
+                        android:padding="4dp"
+                        android:textSize="13sp"
+                        android:tag="3"
+                        android:text="@string/last_education_degree_bachelor"/>
 
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreeMaster"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="0dip"
+                        android:padding="4dp"
+                        android:textSize="13sp"
+                        android:tag="4"
+                        android:text="@string/last_education_degree_master"/>
+
+                    <RadioButton
+                        android:id="@+id/registerInfoActivityRadioButtonLastEducationDegreePhd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="0dip"
+                        android:padding="4dp"
+                        android:textSize="13sp"
+                        android:tag="5"
+                        android:text="@string/last_education_degree_phd"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginVertical="8dp"
+                android:paddingVertical="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="0dip"
+                android:onClick="@{ _ -> activity.onContinueButtonClicked() }"
+                android:text="@string/button_continue_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:strokeColor="#4CAF50" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:paddingVertical="8dp"
+                android:elevation="30dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="0dip"
+                android:onClick="@{ _ -> activity.onCloseButtonClicked() }"
+                android:text="@string/button_close_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:strokeColor="#4CAF50" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/registerInfoActivityContinueButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginVertical="8dp"
-            android:paddingVertical="8dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dip"
-            android:onClick="onContinueButtonClicked"
-            android:text="@string/button_continue_text"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            app:strokeColor="#4CAF50" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:paddingVertical="8dp"
-            android:elevation="30dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dip"
-            android:onClick="onCloseButtonClicked"
-            android:text="@string/button_close_text"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            app:strokeColor="#4CAF50" />
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>
