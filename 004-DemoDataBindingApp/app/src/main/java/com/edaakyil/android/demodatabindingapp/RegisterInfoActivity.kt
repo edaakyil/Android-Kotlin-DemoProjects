@@ -68,17 +68,11 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     }
 
     private fun fillUserRegisterInfoModel() {
-        /*val name = mBinding.name.trim()
-        val email = mBinding.email.trim()
-        val username = mBinding.username.trim()*/
         val maritalStatus = MARITAL_STATUS_TAGS[mBinding.selectedSpinnerMaritalStatusItemPosition]
         val lastEducationDegreeId = mBinding.registerInfoActivityRadioGroupLastEducationDegree.checkedRadioButtonId
         val lastEducationDegree = if (lastEducationDegreeId != -1) findViewById<RadioButton>(lastEducationDegreeId).tag.toString().toInt() else 0
 
         mBinding.userRegisterInfo!!.also {
-            /*it.name = name
-            it.email = email
-            it.username = username*/
             it.maritalStatus = maritalStatus
             it.lastEducationDegree = lastEducationDegree
         }
@@ -134,6 +128,7 @@ class RegisterInfoActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         val userInfo = mBinding.userRegisterInfo!!
         mBinding.registerInfoActivityEditTextName.setText(userInfo.name)
         mBinding.registerInfoActivityEditTextEmail.setText(userInfo.email)
+        mBinding.registerInfoActivityEditTextUsername.setText(userInfo.username)
         mBinding.selectedSpinnerMaritalStatusItemPosition = MARITAL_STATUS_TAGS.indexOf(userInfo.maritalStatus)
 
         mBinding.registerInfoActivityRadioGroupLastEducationDegree.clearCheck()

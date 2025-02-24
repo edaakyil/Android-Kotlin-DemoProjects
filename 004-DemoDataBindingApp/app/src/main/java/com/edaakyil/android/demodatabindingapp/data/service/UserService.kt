@@ -183,16 +183,16 @@ class UserService(context: Context) {
     }
 
     private fun writeUserRegisterInfo(bw: BufferedWriter, userRegisterInfo: UserRegisterInfoModel) {
-        bw.write("${userRegisterInfo.username}$DELIMITER")
-        bw.write("${userRegisterInfo.name}$DELIMITER")
-        bw.write("${userRegisterInfo.email}$DELIMITER")
+        bw.write("${userRegisterInfo.username.trim()}$DELIMITER")
+        bw.write("${userRegisterInfo.name.trim()}$DELIMITER")
+        bw.write("${userRegisterInfo.email.trim()}$DELIMITER")
         bw.write("${userRegisterInfo.maritalStatus}$DELIMITER")
         bw.write("${userRegisterInfo.lastEducationDegree}")
     }
 
     fun saveUserData(userRegisterInfo: UserRegisterInfoModel) {
         try {
-            val username = userRegisterInfo.username
+            val username = userRegisterInfo.username.trim()
             BufferedWriter(OutputStreamWriter(FileOutputStream(File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))), StandardCharsets.UTF_8))
                 .use { writeUserRegisterInfo(it, userRegisterInfo) }
         } catch (ex: IOException) {
