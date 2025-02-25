@@ -1,37 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UsersActivity">
-    
-    <TextView
-        android:id="@+id/usersActivityTextViewUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    
-    <EditText
-        android:id="@+id/usersActivityEditTextCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="number"
-        android:hint="@string/edit_text_count_hint"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.edaakyil.android.demodatabindingapp.model.UserModel"/>
+        <import type="com.edaakyil.android.demodatabindingapp.UsersActivity"/>
+        <variable name="listViewAdapter" type="android.widget.ArrayAdapter&lt;UserModel&gt;"/>
+        <variable name="activity" type="UsersActivity"/>
+        <variable name="nameSelectedUser" type="String"/>
+        <variable name="countStr" type="String"/>
+    </data>
 
-    <Button
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:onClick="onLoadUsersButtonClicked"
-        android:text="@string/button_load_users_text"/>
+        android:layout_height="match_parent"
+        tools:context=".UsersActivity">
 
-    <ListView
-        android:id="@+id/usersActivityListViewUsers"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/usersActivityTextViewUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@{nameSelectedUser}"/>
 
-</LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="@string/edit_text_count_hint"
+            android:text="@={countStr}"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{ _ -> activity.onLoadUsersButtonClicked() }"
+            android:text="@string/button_load_users_text"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adapter="@{listViewAdapter}"
+            android:onItemClick="@{ (_, p1, position, p3) -> activity.onListViewItemClick(position)}"/>
+
+    </LinearLayout>
+</layout>
