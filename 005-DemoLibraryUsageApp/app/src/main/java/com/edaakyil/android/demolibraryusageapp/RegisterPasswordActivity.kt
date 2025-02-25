@@ -10,13 +10,11 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.edaakyil.android.basicviews.data.service.UserService
+import com.edaakyil.android.basicviews.data.service.exception.DataServiceException
+import com.edaakyil.android.basicviews.data.service.model.UserRegisterInfoModel
 import com.edaakyil.android.demolibraryusageapp.constant.USER_INFO
-import com.edaakyil.android.demolibraryusageapp.constant.USERS_FORMAT
-import com.edaakyil.android.demolibraryusageapp.data.service.UserService
 import com.edaakyil.android.demolibraryusageapp.databinding.ActivityRegisterPasswordBinding
-import com.edaakyil.android.demolibraryusageapp.model.UserRegisterInfoModel
-import com.edaakyil.data.exception.DataServiceException
-import java.io.File
 
 private const val USER_INFO_EXIST_LOG_TAG = "USER_INFO_EXIST"
 
@@ -101,7 +99,6 @@ class RegisterPasswordActivity : AppCompatActivity() {
 
         if (password == confirmPassword) {
             registerUser(password)
-            File(filesDir, USERS_FORMAT.format("${mBinding.userRegisterInfo?.username}.txt")).delete()  // edaakyil
             finish()
         } else
             AlertDialog.Builder(this)

@@ -1,4 +1,4 @@
-package com.edaakyil.data.exception;
+package com.edaakyil.android.basicviews.data.service.exception;
 
 import androidx.annotation.Nullable;
 

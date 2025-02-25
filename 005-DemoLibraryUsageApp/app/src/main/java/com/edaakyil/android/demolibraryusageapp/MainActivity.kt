@@ -12,12 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import com.edaakyil.android.basicviews.data.service.UserService
+import com.edaakyil.android.basicviews.data.service.exception.DataServiceException
+import com.edaakyil.android.basicviews.data.service.model.UserLoginInfoModel
 import com.edaakyil.android.demolibraryusageapp.constant.PASSWORD
 import com.edaakyil.android.demolibraryusageapp.constant.USERNAME
-import com.edaakyil.android.demolibraryusageapp.data.service.UserService
 import com.edaakyil.android.demolibraryusageapp.databinding.ActivityMainBinding
-import com.edaakyil.android.demolibraryusageapp.model.UserLoginInfoModel
-import com.edaakyil.data.exception.DataServiceException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -138,4 +138,3 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-//android:text="@string/not_accepted_status_message"/>

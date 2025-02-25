@@ -1,4 +1,4 @@
-package com.edaakyil.android.demolibraryusageapp.model
+package com.edaakyil.android.basicviews.data.service.model
 
 import java.time.LocalDateTime
 

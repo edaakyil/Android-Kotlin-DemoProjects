@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="com.edaakyil.android.demolibraryusageapp.model.UserRegisterInfoModel"/>
+        <import type="com.edaakyil.android.basicviews.data.service.model.UserRegisterInfoModel"/>
         <import type="com.edaakyil.android.demolibraryusageapp.RegisterInfoActivity"/>
         <import type="android.widget.ArrayAdapter"/>
         <variable name="userRegisterInfo" type="UserRegisterInfoModel"/>

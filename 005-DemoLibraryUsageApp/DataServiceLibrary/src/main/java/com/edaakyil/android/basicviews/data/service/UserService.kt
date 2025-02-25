@@ -1,12 +1,12 @@
-package com.edaakyil.android.demolibraryusageapp.data.service
+package com.edaakyil.android.basicviews.data.service
 
 import android.content.Context
 import android.util.Log
-import com.edaakyil.android.demolibraryusageapp.constant.USERS_FILE_PATH
-import com.edaakyil.android.demolibraryusageapp.constant.USERS_FORMAT
-import com.edaakyil.android.demolibraryusageapp.model.UserModel
-import com.edaakyil.android.demolibraryusageapp.model.UserRegisterInfoModel
-import com.edaakyil.data.exception.DataServiceException
+import com.edaakyil.android.basicviews.data.service.constant.USERS_FILE_PATH
+import com.edaakyil.android.basicviews.data.service.constant.USERS_FORMAT
+import com.edaakyil.android.basicviews.data.service.model.UserRegisterInfoModel
+import com.edaakyil.android.basicviews.data.service.model.UserModel
+import com.edaakyil.android.basicviews.data.service.exception.DataServiceException
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.EOFException
@@ -41,7 +41,6 @@ class UserService(context: Context) {
         }
     }
 
-    // Callback alan bir fonksiyon
     private fun userFilterCallback(fis: FileInputStream, predicate: (UserRegisterInfoModel) -> Boolean): Boolean {
         var result = false
 
@@ -115,39 +114,13 @@ class UserService(context: Context) {
                 users.add(UserModel().apply { username = ri.username; name = ri.name; email = ri.email; maritalStatus = ri.maritalStatus; lastEducationDegree = ri.lastEducationDegree })
             }
         } catch (_: FileNotFoundException) {
-            // Buraya bir şey yazmadık çünkü FileNotFoundException durumunda bunu doğrudan atlatacağız yani liste boş gelecek
+
         } catch (_: EOFException) {
 
         }
 
         return users
     }
-
-    /*
-    private fun userExistsCallback(fis: FileInputStream, username: String): Boolean {
-        var result = false
-
-        try {
-            // EOFException oluşana kadar döngüye gireceğiz ve her adımda readObject yapıcaz
-            // EOFException, dosyanın sonuna gelmek yani EOFException ile dosyanın sonuna gelinip gelinmediği kontrol ediliyor
-            // EOFException'nın fırlatılırsa bu dosyanın sonuna gelindi demektir yani okuma bitti demek
-            while (true) {
-                // Her adımda ObjectInputStream'in yaratılması gerekiyor
-                val ois = ObjectInputStream(fis)
-                val userInfo = ois.readObject() as UserRegisterInfoModel
-
-                if (userInfo.username == username) { // Eğer koşul doğruysa demek ki bizim user'ımız mevcut demektir yani bu user daha önce kaydedilmiş
-                    result = true
-                    break
-                }
-            }
-        } catch (_: EOFException) {
-            // Dosyanın sonuna gelindiğinde yani EOFException fırlatıldıdığında dönğü sonlanıcak
-        }
-
-        return result
-    }
-    */
 
     /**
      * For Register user
@@ -202,11 +175,8 @@ class UserService(context: Context) {
 
     fun registerUserInfo(userRegisterInfo: UserRegisterInfoModel) {
         try {
-            // Her registerUserInfo çağrıldığında data'lar farklı ObjectOutputStream'ler kullanılarak yazılıyor.
-            // Böylelikle her bir data farklı ObjectOutputStream'ler kullanılarak yaratılıyor.
-            // Yani her registerUserInfo çağrısında yeni bir ObjectOutputStream yaratılıyor
             ObjectOutputStream(FileOutputStream(File(mContext.filesDir, USERS_FILE_PATH), true)).use { it.writeObject(userRegisterInfo) }
-            //File(mContext.filesDir, USERS_FORMAT.format("${userRegisterInfo.username}.txt")).delete()  // oguzkaran
+            File(mContext.filesDir, USERS_FORMAT.format("${userRegisterInfo.username}.txt")).delete()
         } catch (ex: IOException) {
             throw DataServiceException("UserService.registerUser", ex)
         }

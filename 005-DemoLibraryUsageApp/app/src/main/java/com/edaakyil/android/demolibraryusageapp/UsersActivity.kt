@@ -7,11 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.edaakyil.android.basicviews.data.service.UserService
+import com.edaakyil.android.basicviews.data.service.exception.DataServiceException
+import com.edaakyil.android.basicviews.data.service.model.UserModel
 import com.edaakyil.android.demolibraryusageapp.constant.DEFAULT_USER_COUNT
-import com.edaakyil.android.demolibraryusageapp.data.service.UserService
 import com.edaakyil.android.demolibraryusageapp.databinding.ActivityUsersBinding
-import com.edaakyil.android.demolibraryusageapp.model.UserModel
-import com.edaakyil.data.exception.DataServiceException
 
 class UsersActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityUsersBinding
@@ -78,6 +78,7 @@ class UsersActivity : AppCompatActivity() {
         val user = mBinding.listViewAdapter!!.getItem(position)
 
         mBinding.nameSelectedUser = user?.name
+        //mBinding.nameSelectedUser = "Selected user: " + user?.name
 
         Toast.makeText(this, user?.name, Toast.LENGTH_SHORT).show()
     }

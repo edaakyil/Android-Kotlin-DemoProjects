@@ -10,12 +10,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.edaakyil.android.basicviews.data.service.UserService
+import com.edaakyil.android.basicviews.data.service.exception.DataServiceException
+import com.edaakyil.android.basicviews.data.service.model.UserRegisterInfoModel
 import com.edaakyil.android.demolibraryusageapp.constant.MARITAL_STATUS_TAGS
 import com.edaakyil.android.demolibraryusageapp.constant.USER_INFO
-import com.edaakyil.android.demolibraryusageapp.data.service.UserService
 import com.edaakyil.android.demolibraryusageapp.databinding.ActivityRegisterInfoBinding
-import com.edaakyil.android.demolibraryusageapp.model.UserRegisterInfoModel
-import com.edaakyil.data.exception.DataServiceException
 
 private const val SAVE_USER_INFO_LOG_TAG = "SAVE_USER_INFO"
 private const val LOAD_USER_INFO_LOG_TAG = "LOAD_USER_INFO"

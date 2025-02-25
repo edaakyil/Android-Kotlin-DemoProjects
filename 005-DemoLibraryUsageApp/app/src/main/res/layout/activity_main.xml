@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="com.edaakyil.android.demolibraryusageapp.model.UserLoginInfoModel"/>
+        <import type="com.edaakyil.android.basicviews.data.service.model.UserLoginInfoModel"/>
         <import type="com.edaakyil.android.demolibraryusageapp.MainActivity"/>
         <variable name="userLoginInfo" type="UserLoginInfoModel"/>
         <variable name="activity" type="MainActivity"/>
