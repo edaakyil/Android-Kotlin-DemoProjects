@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.edaakyil.android.demolibraryusageapp.ManagementActivity"/>
+        <variable name="activity" type="ManagementActivity"/>
+        <variable name="username" type="String"/>
+        <variable name="password" type="String"/>
+    </data>
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/managementActivityLinearLayoutMain"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ManagementActivity">
+
+        <TextView
+            android:id="@+id/mainActivityTextViewManagementTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="32dp"
+            android:fontFamily="casual"
+            android:shadowColor="#DC7676"
+            android:shadowDx="3"
+            android:shadowDy="2"
+            android:shadowRadius="1"
+            android:text="@string/management_activity_text_view_title"
+            android:textAlignment="center"
+            android:textSize="32sp"
+            android:textStyle="bold|italic"/>
+
+        <TextView
+            android:id="@+id/managementActivityTextViewUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginHorizontal="32dp"
+            android:textSize="18sp"
+            android:text="@{username}"/>
+
+        <TextView
+            android:id="@+id/managementActivityTextViewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginHorizontal="32dp"
+            android:textSize="18sp"
+            android:text="@{password}"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="32dp"
+            android:paddingVertical="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dip"
+            android:onClick="@{ _ -> activity.onUsersButtonClicked() }"
+            android:text="@string/button_users_text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:cornerRadius="8dp"
+            app:strokeColor="#4CAF50" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="32dp"
+            android:paddingVertical="8dp"
+            android:elevation="30dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dip"
+            android:onClick="@{ _ -> activity.onUserOperationsButtonClicked() }"
+            android:text="@string/button_user_operations_text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:cornerRadius="8dp"
+            app:strokeColor="#4CAF50" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="32dp"
+            android:paddingVertical="8dp"
+            android:elevation="30dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="0dip"
+            android:onClick="@{ _ -> activity.onCloseButtonClicked() }"
+            android:text="@string/button_close_text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:cornerRadius="8dp"
+            app:strokeColor="#4CAF50" />
+
+    </LinearLayout>
+</layout>
