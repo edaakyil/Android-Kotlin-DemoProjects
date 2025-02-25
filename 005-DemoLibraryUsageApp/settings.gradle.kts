@@ -23,4 +23,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "DemoLibraryUsageApp"
 include(":app")
- 
+include(":DataServiceLibrary")
