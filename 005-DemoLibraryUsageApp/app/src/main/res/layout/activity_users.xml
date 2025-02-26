@@ -15,11 +15,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
+        android:layout_marginHorizontal="32dp"
         tools:context=".UsersActivity">
 
         <TextView
-            android:id="@+id/usersActivityTextViewUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="54dp"
@@ -49,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adapter="@{listViewAdapter}"
-            android:onItemClick="@{ (_, p1, position, p3) -> activity.onListViewItemClick(position)}"/>
+            android:onItemClick="@{ (_, p1, position, p3) -> activity.onListViewItemClicked(position)}"/>
 
     </LinearLayout>
 </layout>

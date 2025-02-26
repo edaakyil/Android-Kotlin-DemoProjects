@@ -37,7 +37,7 @@ class UsersActivity : AppCompatActivity() {
     private fun initModels() {
         mBinding.activity = this
         mBinding.countStr = ""
-        mBinding.nameSelectedUser = ""
+        mBinding.nameSelectedUser = resources.getString(R.string.select_user_text)
         mBinding.listViewAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ArrayList<UserModel>())
     }
 
@@ -60,6 +60,7 @@ class UsersActivity : AppCompatActivity() {
             val users = mUserService.findUsers(count)  // Must be asynchronous
             mBinding.listViewAdapter!!.addAll(users)
             mBinding.countStr = ""
+            mBinding.nameSelectedUser = resources.getString(R.string.select_user_text)
         } catch (_: NumberFormatException) {
             AlertDialog.Builder(this)
                 .setTitle(R.string.alert_dialog_alert_title)
@@ -74,11 +75,11 @@ class UsersActivity : AppCompatActivity() {
         }
     }
 
-    fun onListViewItemClick(position: Int) {
+    fun onListViewItemClicked(position: Int) {
         val user = mBinding.listViewAdapter!!.getItem(position)
 
-        mBinding.nameSelectedUser = user?.name
-        //mBinding.nameSelectedUser = "Selected user: " + user?.name
+        //mBinding.nameSelectedUser = "Selected user: " + user?.name  //mBinding.nameSelectedUser = user?.name
+        mBinding.nameSelectedUser = resources.getString(R.string.selected_user_text).format(user?.name)
 
         Toast.makeText(this, user?.name, Toast.LENGTH_SHORT).show()
     }
