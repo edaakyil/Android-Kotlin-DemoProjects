@@ -6,7 +6,7 @@ import com.edaakyil.android.basicviews.data.service.constant.USERS_FILE_PATH
 import com.edaakyil.android.basicviews.data.service.constant.USERS_FORMAT
 import com.edaakyil.android.basicviews.data.service.model.UserRegisterInfoModel
 import com.edaakyil.android.basicviews.data.service.model.UserModel
-import com.edaakyil.android.basicviews.data.service.exception.DataServiceException
+import com.edaakyil.lib.java.data.exception.DataServiceException
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.EOFException

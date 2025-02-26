@@ -13,11 +13,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.edaakyil.android.basicviews.data.service.UserService
-import com.edaakyil.android.basicviews.data.service.exception.DataServiceException
 import com.edaakyil.android.basicviews.data.service.model.UserLoginInfoModel
 import com.edaakyil.android.demolibraryusageapp.constant.PASSWORD
 import com.edaakyil.android.demolibraryusageapp.constant.USERNAME
 import com.edaakyil.android.demolibraryusageapp.databinding.ActivityMainBinding
+import com.edaakyil.lib.java.data.exception.DataServiceException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding

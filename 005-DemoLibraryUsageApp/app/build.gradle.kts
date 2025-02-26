@@ -54,4 +54,5 @@ dependencies {
 
     implementation(project(":DataServiceLibrary"))
     implementation(files("libs/DateTimeUtilLib.aar"))
+    implementation(libs.com.edaakyil.lib.java.data)
 }

@@ -43,4 +43,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(libs.com.edaakyil.lib.java.data)  //implementation("com.edaakyil:com-edaakyil-lib-java-data-1.0.0")
 }
