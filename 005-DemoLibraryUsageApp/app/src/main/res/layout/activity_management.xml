@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
         <import type="com.edaakyil.android.demolibraryusageapp.ManagementActivity"/>
         <variable name="activity" type="ManagementActivity"/>
         <variable name="username" type="String"/>
         <variable name="password" type="String"/>
+        <variable name="datetime" type="String"/>
+        <variable name="date" type="String"/>
+        <variable name="time" type="String"/>
     </data>
 
     <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/managementActivityLinearLayoutMain"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -17,7 +22,6 @@
         tools:context=".ManagementActivity">
 
         <TextView
-            android:id="@+id/mainActivityTextViewManagementTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="32dp"
@@ -31,75 +35,121 @@
             android:textSize="32sp"
             android:textStyle="bold|italic"/>
 
-        <TextView
-            android:id="@+id/managementActivityTextViewUsername"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginHorizontal="32dp"
-            android:textSize="18sp"
-            android:text="@{username}"/>
+            android:layout_marginHorizontal="32dp">
 
-        <TextView
-            android:id="@+id/managementActivityTextViewPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="32dp"
-            android:textSize="18sp"
-            android:text="@{password}"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:textSize="18sp"
+                android:text="@{datetime}"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="4dp"
-            android:layout_marginHorizontal="32dp"
-            android:paddingVertical="8dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dip"
-            android:onClick="@{ _ -> activity.onUsersButtonClicked() }"
-            android:text="@string/button_users_text"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            app:strokeColor="#4CAF50" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="4dp"
-            android:layout_marginHorizontal="32dp"
-            android:paddingVertical="8dp"
-            android:elevation="30dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dip"
-            android:onClick="@{ _ -> activity.onUserOperationsButtonClicked() }"
-            android:text="@string/button_user_operations_text"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            app:strokeColor="#4CAF50" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"
+                    android:background="?android:attr/listDivider"
+                    android:backgroundTint="#000000"
+                    android:foregroundTint="#000000" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="4dp"
-            android:layout_marginHorizontal="32dp"
-            android:paddingVertical="8dp"
-            android:elevation="30dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dip"
-            android:onClick="@{ _ -> activity.onCloseButtonClicked() }"
-            android:text="@string/button_close_text"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            app:strokeColor="#4CAF50" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@{date}"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"
+                    android:background="?android:attr/listDivider"
+                    android:backgroundTint="#000000"
+                    android:foregroundTint="#000000" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@{time}"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:textSize="18sp"
+                android:text="@{username}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:textSize="18sp"
+                android:text="@{password}"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:paddingVertical="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="0dip"
+                android:onClick="@{ _ -> activity.onUsersButtonClicked() }"
+                android:text="@string/button_users_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:strokeColor="#4CAF50" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:paddingVertical="8dp"
+                android:elevation="30dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="0dip"
+                android:onClick="@{ _ -> activity.onUserOperationsButtonClicked() }"
+                android:text="@string/button_user_operations_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:strokeColor="#4CAF50" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:paddingVertical="8dp"
+                android:elevation="30dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="0dip"
+                android:onClick="@{ _ -> activity.onCloseButtonClicked() }"
+                android:text="@string/button_close_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:strokeColor="#4CAF50" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

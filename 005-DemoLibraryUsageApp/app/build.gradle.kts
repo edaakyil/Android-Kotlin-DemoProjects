@@ -53,4 +53,5 @@ dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     implementation(project(":DataServiceLibrary"))
+    implementation(files("libs/DateTimeUtilLib.aar"))
 }
