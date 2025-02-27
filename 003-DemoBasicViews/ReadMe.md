@@ -1,5 +1,5 @@
+
 # 003-DemoBasicViews
-<<<<<<< HEAD
 
 ## Ders 31
 * Write data from UI to internal memory
@@ -258,7 +258,6 @@ private fun userExists(): Boolean {
 }
 ```
 
-
 **NOT:**
 ```kt
 val fis = FileInputStream(File(filesDir, USERS_FILE_PATH))
@@ -269,151 +268,217 @@ fis.use {
 ```
 
 
+## Ders 32
+
+
+## Ders 33
+
+
+
 
 ___
 ___
 
 ## Code snippets examples
 
-> ```kt
-> val str = br.readLine()  
-> 
-> if (str == null)
->     throw IOException()
-> ```
-> 
-> ```kt
-> val str = br.readLine() ?: throw IOException()
-> ```
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
 
-<br>
+```kt
+val str = br.readLine()  
 
-> ```kt
-> BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfoModel.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use { writeUserInfo(it) }
-> ```
->
-> ```kt
-> BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeUserInfo)  // function/method reference
-> ```
+if (str == null)
+    throw IOException()
+```
 
-<br>
+```kt
+val str = br.readLine() ?: throw IOException()
+```
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
 
-> ```kt
->     fun onCloseButtonClicked(view: View) {
->        val dlg = AlertDialog.Builder(this)
->            .setTitle(R.string.alert_dialog_close_title)
->            .setMessage(R.string.alert_dialog_close_message)
->            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveAtCloseCallback() }
->            .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
->            .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
->            .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
->            .create()
->            .show()
->    }
-> ```
->
-> ```kt
->     fun onCloseButtonClicked(view: View) {
->        val dlg = AlertDialog.Builder(this)
->            .setTitle(R.string.alert_dialog_close_title)
->            .setMessage(R.string.alert_dialog_close_message)
->            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveAtCloseCallback() }
->            .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
->            .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
->            .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
->            .create()
-> 
->        dlg.show()
->    }
-> ```
->
-> ```kt
->     fun onCloseButtonClicked(view: View) {
->        AlertDialog.Builder(this)
->            .setTitle(R.string.alert_dialog_close_title)
->            .setMessage(R.string.alert_dialog_close_message)
->            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveAtCloseCallback() }
->            .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
->            .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
->            .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
->            .create()
->            .show()
->    }
-> ```
+```kt
+BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfoModel.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use { writeUserInfo(it) }
+```
 
-<br>
+```kt
+BufferedWriter(OutputStreamWriter(openFileOutput("${mUserInfo.username}.txt", MODE_PRIVATE), StandardCharsets.UTF_8)).use(::writeUserInfo)  // function/method reference
+```
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
 
-> ```kt
->         
-> for (i in 0..<mRadioGroupMaritalStatus.childCount)
->   mRadioGroupMaritalStatus.getChildAt(i).tag = MARITAL_STATUS_TAGS[i]
-> ```
->
-> ```kt
-> (0..<mRadioGroupMaritalStatus.childCount).forEach { mRadioGroupMaritalStatus.getChildAt(it).tag = MARITAL_STATUS_TAGS[it] }
-> ```
+```kt
+     fun onCloseButtonClicked(view: View) {
+        val dlg = AlertDialog.Builder(this)
+            .setTitle(R.string.alert_dialog_close_title)
+            .setMessage(R.string.alert_dialog_close_message)
+            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveAtCloseCallback() }
+            .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
+            .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
+            .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
+            .create()
+            .show()
+    }
+```
 
-<br>
+```kt
+     fun onCloseButtonClicked(view: View) {
+        val dlg = AlertDialog.Builder(this)
+            .setTitle(R.string.alert_dialog_close_title)
+            .setMessage(R.string.alert_dialog_close_message)
+            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveAtCloseCallback() }
+            .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
+            .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
+            .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
+            .create()
+ 
+        dlg.show()
+    }
+```
 
-> ```kt
-> ```
->
-> ```kt
-> ```
+```kt
+     fun onCloseButtonClicked(view: View) {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.alert_dialog_close_title)
+            .setMessage(R.string.alert_dialog_close_message)
+            .setPositiveButton(R.string.alert_dialog_save) { _, _ -> saveAtCloseCallback() }
+            .setNegativeButton(R.string.alert_dialog_close) { _, _ -> finish() }
+            .setNeutralButton(R.string.alert_dialog_cancel) { _, _ -> Toast.makeText(this, R.string.alert_dialog_cancel, Toast.LENGTH_SHORT).show() }
+           .setOnCancelListener { Toast.makeText(this, R.string.continue_register_prompt, Toast.LENGTH_SHORT).show() } // if setCancelable is false, this won't work
+           .create()
+           .show()
+   }
+```
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+ for (i in 0..<mRadioGroupMaritalStatus.childCount)
+   mRadioGroupMaritalStatus.getChildAt(i).tag = MARITAL_STATUS_TAGS[i]
+ ```
+
+ ```kt
+ (0..<mRadioGroupMaritalStatus.childCount).forEach { mRadioGroupMaritalStatus.getChildAt(it).tag = MARITAL_STATUS_TAGS[it] }
+ ```
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+ ```kt
+private fun initialize() {
+    initViews()
+}
+ ```
+
+ ```kt
+private fun initialize() = initViews()
+ ```
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+val USERS = "users"
+val USERS_FORMAT = "$USERS/%s"
+
+val file = File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))
+
+BufferedReader(InputStreamReader(FileInputStream(File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))), StandardCharsets.UTF_8)).use(::fillUI)
+```
+
+```kt
+val USERS = "users"
+val USERS_FORMAT = "$USERS/%s"
+
+val file = File(mContext.filesDir, USERS_FORMAT.format("$username.txt"))
+
+BufferedReader(InputStreamReader(FileInputStream(file), StandardCharsets.UTF_8)).use(::fillUI)
+```
+
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+findViewById<Spinner>(R.id.registerInfoActivitySpinnerMaritalStatus).adapter = mArrayAdapterMaritalStatus
+```
+
+```kt
+findViewById<Spinner>(R.id.registerInfoActivitySpinnerMaritalStatus).apply { adapter = mArrayAdapterMaritalStatus }
+```
+
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+fun existsByUsername(username: String): Boolean {
+    try {
+        return FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { it.username == username } }
+    } catch (_: FileNotFoundException) {
+        return false
+    } catch (ex: IOException) {
+        throw DataServiceException("UserService.existsByUsername", ex)
+    }
+}
+```
+
+```kt
+fun existsByUsername(username: String): Boolean {
+    return try {
+        FileInputStream(File(mContext.filesDir, USERS_FILE_PATH)).use { userFilterCallback(it) { it.username == username } }
+    } catch (_: FileNotFoundException) {
+        false
+    } catch (ex: IOException) {
+        throw DataServiceException("UserService.existsByUsername", ex)
+    }
+}
+```
+
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+```
+
+```kt
+```
+
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+```
+
+```kt
+```
+
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+```
+
+```kt
+```
+
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+```
+
+```kt
+```
+
+</div>
+<div style="background-color:#f6f6f9;padding:10px 20px;margin:2em 0;border:solid #eee 1px;">
+
+```kt
+```
+
+```kt
+```
+
+</div>
 
 
 
-<br>
-
-> ```kt
-> ```
->
-> ```kt
-> ```
-
-<br>
-
-> ```kt
-> ```
->
-> ```kt
-> ```
-
-
-
-<br>
-
-> ```kt
-> ```
->
-> ```kt
-> ```
-
-<br>
-
-> ```kt
-> ```
->
-> ```kt
-> ```
-
-
-
-<br>
-
-> ```kt
-> ```
->
-> ```kt
-> ```
-
-<br>
-
-> ```kt
-> ```
->
-> ```kt
-> ```
 
 
 
@@ -440,7 +505,3 @@ ___
 
 
 
-
-
-=======
->>>>>>> parent of 2e71286 (Updated ReadMe file)

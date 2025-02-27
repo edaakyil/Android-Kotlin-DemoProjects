@@ -17,7 +17,7 @@ import com.edaakyil.android.basicviews.data.service.model.UserLoginInfoModel
 import com.edaakyil.android.demolibraryusageapp.constant.PASSWORD
 import com.edaakyil.android.demolibraryusageapp.constant.USERNAME
 import com.edaakyil.android.demolibraryusageapp.databinding.ActivityMainBinding
-import com.edaakyil.lib.java.data.exception.DataServiceException
+import com.edaakyil.java.data.exception.service.DataServiceException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding

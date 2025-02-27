@@ -11,7 +11,7 @@ import com.edaakyil.android.basicviews.data.service.UserService
 import com.edaakyil.android.basicviews.data.service.model.UserModel
 import com.edaakyil.android.demolibraryusageapp.constant.DEFAULT_USER_COUNT
 import com.edaakyil.android.demolibraryusageapp.databinding.ActivityUsersBinding
-import com.edaakyil.lib.java.data.exception.DataServiceException
+import com.edaakyil.java.data.exception.service.DataServiceException
 
 class UsersActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityUsersBinding
@@ -43,6 +43,7 @@ class UsersActivity : AppCompatActivity() {
 
     fun onLoadUsersButtonClicked() {
         try {
+            mBinding.nameSelectedUser = resources.getString(R.string.select_user_text)
             mBinding.listViewAdapter!!.clear()
 
             val countStr = mBinding.countStr!!.trim()
@@ -60,7 +61,6 @@ class UsersActivity : AppCompatActivity() {
             val users = mUserService.findUsers(count)  // Must be asynchronous
             mBinding.listViewAdapter!!.addAll(users)
             mBinding.countStr = ""
-            mBinding.nameSelectedUser = resources.getString(R.string.select_user_text)
         } catch (_: NumberFormatException) {
             AlertDialog.Builder(this)
                 .setTitle(R.string.alert_dialog_alert_title)

@@ -14,7 +14,7 @@ import com.edaakyil.android.basicviews.data.service.UserService
 import com.edaakyil.android.basicviews.data.service.model.UserRegisterInfoModel
 import com.edaakyil.android.demolibraryusageapp.constant.USER_INFO
 import com.edaakyil.android.demolibraryusageapp.databinding.ActivityRegisterPasswordBinding
-import com.edaakyil.lib.java.data.exception.DataServiceException
+import com.edaakyil.java.data.exception.service.DataServiceException
 
 private const val USER_INFO_EXIST_LOG_TAG = "USER_INFO_EXIST"
 
