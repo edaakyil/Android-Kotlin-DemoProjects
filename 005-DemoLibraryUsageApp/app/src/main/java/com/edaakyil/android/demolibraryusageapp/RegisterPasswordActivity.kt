@@ -29,19 +29,19 @@ class RegisterPasswordActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        initBinding()
-        mUserService = UserService(this)
-    }
-
-    private fun initBinding() {
         enableEdgeToEdge()
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_register_password)
-        initModels()
+        initBinding()
         ViewCompat.setOnApplyWindowInsetsListener(mBinding.registerPasswordActivityLinearLayoutMain) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        mUserService = UserService(this)
+    }
+
+    private fun initBinding() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_register_password)
+        initModels()
     }
 
     private fun initModels() {

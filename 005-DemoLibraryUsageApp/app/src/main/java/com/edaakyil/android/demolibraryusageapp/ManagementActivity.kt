@@ -23,18 +23,18 @@ class ManagementActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        initBinding()
-    }
-
-    private fun initBinding() {
         enableEdgeToEdge()
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_management)
-        initModels()
+        initBinding()
         ViewCompat.setOnApplyWindowInsetsListener(mBinding.managementActivityLinearLayoutMain) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun initBinding() {
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_management)
+        initModels()
     }
 
     private fun initModels() {

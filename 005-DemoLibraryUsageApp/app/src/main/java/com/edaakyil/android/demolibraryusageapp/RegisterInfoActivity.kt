@@ -31,12 +31,12 @@ class RegisterInfoActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
+        enableEdgeToEdge()
         initBinding()
         mUserService = UserService(this)
     }
 
     private fun initBinding() {
-        enableEdgeToEdge()
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_register_info)
         initModels()
     }
