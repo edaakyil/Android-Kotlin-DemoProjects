@@ -9,7 +9,7 @@
         <variable name="activity" type="ManagementActivity"/>
         <variable name="username" type="String"/>
         <variable name="password" type="String"/>
-        <variable name="datetime" type="String"/>
+        <variable name="dateTime" type="String"/>
         <variable name="date" type="String"/>
         <variable name="time" type="String"/>
     </data>
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
-                android:text="@{datetime}"/>
+                android:text="@{dateTime}"/>
 
             <LinearLayout
                 android:orientation="horizontal"

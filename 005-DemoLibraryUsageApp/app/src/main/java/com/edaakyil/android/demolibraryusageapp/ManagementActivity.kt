@@ -42,7 +42,7 @@ class ManagementActivity : AppCompatActivity() {
         val now = LocalDateTime.now()
         mBinding.date = resources.getString(R.string.date_text).format(DateTimeFormatterUtil.DATE_FORMATTER_TR.format(now))
         mBinding.time = resources.getString(R.string.time_text).format(DateTimeFormatterUtil.TIME_FORMATTER_TR.format(now))
-        mBinding.datetime = resources.getString(R.string.date_time_text).format(DateTimeFormatterUtil.DATETIME_FORMATTER_TR.format(now))
+        mBinding.dateTime = resources.getString(R.string.date_time_text).format(DateTimeFormatterUtil.DATETIME_FORMATTER_TR.format(now))
         mBinding.username = resources.getString(R.string.username, intent.getStringExtra(USERNAME) ?: resources.getString(R.string.anonymous))
         mBinding.password = resources.getString(R.string.password, intent.getStringExtra(PASSWORD) ?: resources.getString(R.string.anonymous))
     }
