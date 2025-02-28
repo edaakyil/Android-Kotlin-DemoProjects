@@ -2,6 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="com.edaakyil.android.demopaymentapp.MainActivity"/>
+        <variable name="activity" type="MainActivity"/>
         <variable name="dateTime" type="String"/>
     </data>
 
@@ -12,12 +14,20 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="32dp"
         tools:context=".MainActivity">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="@{dateTime}" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_login_text"
+            android:onClick="@{ _ -> activity.onLoginButtonClicked()}"/>
 
     </LinearLayout>
 

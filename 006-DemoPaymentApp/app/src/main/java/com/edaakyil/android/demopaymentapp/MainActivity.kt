@@ -1,11 +1,13 @@
 package com.edaakyil.android.demopaymentapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import com.edaakyil.android.demopaymentapp.application.module.datetime.annotation.DateTimeFormatterInterceptor
 import com.edaakyil.android.demopaymentapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var dateTime: LocalDateTime
 
     @Inject
+    @DateTimeFormatterInterceptor
     lateinit var dateTimeFormatter: DateTimeFormatter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initModels() {
+        mBinding.activity = this
         mBinding.dateTime = dateTimeFormatter.format(dateTime)
+    }
+
+    fun onLoginButtonClicked() {
+        Intent(this, LoginActivity::class.java).apply { startActivity(this) }
     }
 }
