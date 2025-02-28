@@ -1,6 +1,7 @@
 package com.edaakyil.android.demopaymentapp.application.module.datetime
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import dagger.Module
 import dagger.Provides
@@ -14,6 +15,7 @@ import java.time.LocalDateTime
 object LocalDateTimeModule {
     @Provides
     fun provideLocalDateTime(@ApplicationContext context: Context): LocalDateTime {
+        Log.i("datetime-module", "Created provideLocalDateTime")
         Toast.makeText(context, "Created provideLocalDateTime", Toast.LENGTH_SHORT).show()
 
         return LocalDateTime.now()
