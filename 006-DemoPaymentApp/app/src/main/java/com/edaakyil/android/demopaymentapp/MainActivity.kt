@@ -7,9 +7,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.edaakyil.android.demopaymentapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
+
+    @Inject
+    lateinit var dateTime: LocalDateTime
+
+    @Inject
+    lateinit var dateTimeFormatter: DateTimeFormatter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,5 +40,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initBinding() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        initModels()
+    }
+
+    private fun initModels() {
+        mBinding.dateTime = dateTimeFormatter.format(dateTime)
     }
 }
