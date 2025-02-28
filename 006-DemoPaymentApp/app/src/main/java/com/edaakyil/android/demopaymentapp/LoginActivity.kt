@@ -6,10 +6,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import com.edaakyil.android.demopaymentapp.application.module.datetime.annotation.DateFormatterInterceptor
 import com.edaakyil.android.demopaymentapp.databinding.ActivityLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityLoginBinding
+
+    @Inject
+    lateinit var date: LocalDate
+
+    @Inject
+    @DateFormatterInterceptor
+    lateinit var dateFormatter: DateTimeFormatter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +46,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initModels() {
-
+        mBinding.date = dateFormatter.format(date)
     }
 }

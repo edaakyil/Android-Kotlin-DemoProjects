@@ -19,8 +19,8 @@ object DateTimeFormatterModule {
     @Singleton
     @DateTimeFormatterInterceptor
     fun provideDateTimeFormatter(@ApplicationContext context: Context): DateTimeFormatter {
-        Log.i("formatter-module", "Created provideDateTimeFormatter")
-        Toast.makeText(context, "Created provideDateTimeFormatter", Toast.LENGTH_SHORT).show()
+        Log.i("datetime-formatter-module", "Created provideDateTimeFormatter")
+        Toast.makeText(context, "Created provideDateTimeFormatter", Toast.LENGTH_LONG).show()
 
         return DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
     }
