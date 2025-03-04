@@ -10,7 +10,7 @@ import javax.inject.Named
 
 @Module
 @InstallIn(ActivityComponent::class)
-abstract class DesertPaymentBaseProductModule {
+abstract class DesertModule {
     @Binds
     @Named("desert")
     abstract fun bindDesertProduct(desert: Desert): BaseProduct
