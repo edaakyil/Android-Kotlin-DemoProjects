@@ -25,6 +25,10 @@ class PaymentActivity : AppCompatActivity() {
     @Named("drinkPayment")
     lateinit var paymentDrink: IProductPayment
 
+    @Inject
+    @Named("menuPayment")
+    lateinit var paymentMenu: IProductPayment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,6 +36,7 @@ class PaymentActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Food -> ${paymentFood.calculatePayment(200.9)}", Toast.LENGTH_SHORT).show()
         Toast.makeText(this, "Drink -> ${paymentDrink.calculatePayment(1.0)}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Menu -> ${paymentMenu.calculatePayment(2.0)}", Toast.LENGTH_SHORT).show()
     }
 
     private fun initialize() {
