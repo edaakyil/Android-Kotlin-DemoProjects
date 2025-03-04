@@ -1,17 +1,17 @@
 package com.edaakyil.android.lib.payment.product.module
 
+import com.edaakyil.android.lib.payment.product.BaseProduct
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import com.edaakyil.android.lib.payment.product.Food
-import com.edaakyil.android.lib.payment.product.IProductPayment
 import javax.inject.Named
 
 @Module
 @InstallIn(ActivityComponent::class)
-abstract class FoodPaymentModule {
+abstract class FoodPaymentBaseProductModule {
     @Binds
-    @Named("foodPayment")
-    abstract fun bindFoodPayment(food: Food) : IProductPayment
+    @Named("food")
+    abstract fun bindFoodProduct(food: Food) : BaseProduct
 }

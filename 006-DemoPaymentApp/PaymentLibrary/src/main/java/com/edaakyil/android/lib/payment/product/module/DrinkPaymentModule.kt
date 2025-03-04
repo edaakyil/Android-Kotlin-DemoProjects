@@ -4,7 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import com.edaakyil.android.lib.payment.product.DrinkPayment
+import com.edaakyil.android.lib.payment.product.Drink
 import com.edaakyil.android.lib.payment.product.IProductPayment
 import javax.inject.Named
 
@@ -13,5 +13,5 @@ import javax.inject.Named
 abstract class DrinkPaymentModule {
     @Binds
     @Named("drinkPayment")
-    abstract fun bindDrinkPayment(drinkPayment: DrinkPayment): IProductPayment
+    abstract fun bindDrinkPayment(drink: Drink): IProductPayment
 }

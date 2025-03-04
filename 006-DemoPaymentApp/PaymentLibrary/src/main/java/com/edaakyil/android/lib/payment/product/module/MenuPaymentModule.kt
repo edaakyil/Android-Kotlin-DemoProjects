@@ -1,7 +1,7 @@
 package com.edaakyil.android.lib.payment.product.module
 
 import com.edaakyil.android.lib.payment.product.IProductPayment
-import com.edaakyil.android.lib.payment.product.MenuPayment
+import com.edaakyil.android.lib.payment.product.Menu
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ import javax.inject.Named
 abstract class MenuPaymentModule {
     @Binds
     @Named("menuPayment")
-    abstract fun bindMenuPayment(menuPayment: MenuPayment): IProductPayment
+    abstract fun bindMenuPayment(menu: Menu): IProductPayment
 }
