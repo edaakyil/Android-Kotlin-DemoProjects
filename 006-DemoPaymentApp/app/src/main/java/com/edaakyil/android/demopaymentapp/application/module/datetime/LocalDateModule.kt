@@ -16,7 +16,7 @@ object LocalDateModule {
     @Provides
     fun provideLocalDate(@ApplicationContext context: Context): LocalDate {
         Log.i("date-module", "Created provideLocalDate")
-        Toast.makeText(context, "Created provideLocalDate", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Created provideLocalDate", Toast.LENGTH_SHORT).show()
 
         return LocalDate.now()
     }

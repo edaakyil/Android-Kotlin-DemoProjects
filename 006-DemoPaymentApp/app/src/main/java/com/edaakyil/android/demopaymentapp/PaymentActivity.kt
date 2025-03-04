@@ -24,7 +24,7 @@ class PaymentActivity : AppCompatActivity() {
 
         initialize()
 
-        Toast.makeText(this, foodPayment.calculatePayment(200.9).toString(), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, foodPayment.calculatePayment(200.9).toString(), Toast.LENGTH_SHORT).show()
     }
 
     private fun initialize() {

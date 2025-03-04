@@ -20,7 +20,7 @@ object DateFormatterModule {
     @DateFormatterInterceptor
     fun provideDateFormatter(@ApplicationContext context: Context): DateTimeFormatter {
         Log.i("date-formatter-module", "Created provideDateFormatter")
-        Toast.makeText(context, "Created provideDateFormatter", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Created provideDateFormatter", Toast.LENGTH_SHORT).show()
 
         return DateTimeFormatter.ofPattern("dd/MM/yyyy")
     }
