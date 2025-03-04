@@ -11,20 +11,27 @@ import javax.inject.Inject
 import com.edaakyil.android.demopaymentapp.databinding.ActivityPaymentBinding
 import com.edaakyil.android.lib.payment.product.IProductPayment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Named
 
 @AndroidEntryPoint
 class PaymentActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityPaymentBinding
 
     @Inject
-    lateinit var foodPayment: IProductPayment
+    @Named("foodPayment")
+    lateinit var paymentFood: IProductPayment
+
+    @Inject
+    @Named("drinkPayment")
+    lateinit var paymentDrink: IProductPayment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initialize()
 
-        Toast.makeText(this, foodPayment.calculatePayment(200.9).toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Food -> ${paymentFood.calculatePayment(200.9)}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Drink -> ${paymentDrink.calculatePayment(1.0)}", Toast.LENGTH_SHORT).show()
     }
 
     private fun initialize() {
