@@ -56,6 +56,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onDateTimeButtonClicked() {
-        Intent(this,DateTimeActivity::class.java).apply { startActivity(this) }
+        Intent(this, DateTimeActivity::class.java).apply { startActivity(this) }
+    }
+
+    fun onPaymentButtonClicked() {
+        Intent(this, PaymentActivity::class.java).apply { startActivity(this) }
     }
 }

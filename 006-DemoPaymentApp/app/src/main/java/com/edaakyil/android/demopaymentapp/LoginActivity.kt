@@ -6,12 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import com.edaakyil.android.demopaymentapp.application.module.datetime.annotation.DateFormatterInterceptor
-import com.edaakyil.android.demopaymentapp.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import com.edaakyil.android.demopaymentapp.application.module.datetime.annotation.DateFormatterInterceptor
+import com.edaakyil.android.demopaymentapp.databinding.ActivityLoginBinding
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
