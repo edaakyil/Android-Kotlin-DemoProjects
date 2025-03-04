@@ -18,6 +18,9 @@ dependencyResolutionManagement {
         google()
         mavenLocal()
         mavenCentral()
+        maven {
+            url = uri("https://raw.github.com/edaakyil/android-maven-repo/main")
+        }
     }
 }
 

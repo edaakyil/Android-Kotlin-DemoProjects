@@ -2,38 +2,35 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="com.edaakyil.android.demopaymentapp.MainActivity"/>
-        <variable name="activity" type="MainActivity"/>
         <variable name="dateTime" type="String"/>
+        <variable name="date" type="String"/>
+        <variable name="time" type="String"/>
     </data>
 
     <LinearLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/mainActivityMainLayout"
+        android:id="@+id/dateTimeActivityMainLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="32dp"
-        tools:context=".MainActivity">
+        tools:context=".DateTimeActivity">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@{dateTime}" />
+            android:text="@{dateTime}"/>
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button_login_text"
-            android:onClick="@{ _ -> activity.onLoginButtonClicked()}"/>
+            android:text="@{date}"/>
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button_date_time_text"
-            android:onClick="@{ _ -> activity.onDateTimeButtonClicked()}"/>
+            android:text="@{time}"/>
 
     </LinearLayout>
 

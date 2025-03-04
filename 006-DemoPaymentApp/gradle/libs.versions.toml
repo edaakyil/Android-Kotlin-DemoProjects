@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.3"
+edaakyil_datetime = "2.0.0"
 hiltVersion = "2.51.1"
 desugar_jdk_libs = "2.1.5"
 kotlin = "1.9.24"
@@ -14,6 +15,7 @@ constraintlayout = "2.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+com-edaakyil-android-lib-datetime = { module = "com.edaakyil:com-edaakyil-android-lib-datetime", version.ref = "edaakyil_datetime" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltVersion" }

@@ -59,6 +59,8 @@ dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    implementation(libs.com.edaakyil.android.lib.datetime)
 }
 
 kapt {

@@ -54,4 +54,8 @@ class MainActivity : AppCompatActivity() {
     fun onLoginButtonClicked() {
         Intent(this, LoginActivity::class.java).apply { startActivity(this) }
     }
+
+    fun onDateTimeButtonClicked() {
+        Intent(this,DateTimeActivity::class.java).apply { startActivity(this) }
+    }
 }
