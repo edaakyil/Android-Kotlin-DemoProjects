@@ -14,5 +14,5 @@ import javax.inject.Named
 abstract class DrinkModule {
     @Binds
     @Named(DRINK)
-    abstract fun bindDrinkProduct(drink: Drink): BaseProduct
+    abstract fun bindDrink(drink: Drink): BaseProduct
 }

@@ -14,5 +14,5 @@ import javax.inject.Named
 abstract class DesertModule {
     @Binds
     @Named(DESERT)
-    abstract fun bindDesertProduct(desert: Desert): BaseProduct
+    abstract fun bindDesert(desert: Desert): BaseProduct
 }
