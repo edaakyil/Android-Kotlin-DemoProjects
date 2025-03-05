@@ -6,12 +6,13 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import com.edaakyil.android.lib.payment.product.Food
+import com.edaakyil.android.lib.payment.product.constant.name.FOOD
 import javax.inject.Named
 
 @Module
 @InstallIn(ActivityComponent::class)
 abstract class FoodModule {
     @Binds
-    @Named("food")
+    @Named(FOOD)
     abstract fun bindFoodProduct(food: Food) : BaseProduct
 }

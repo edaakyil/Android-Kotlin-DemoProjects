@@ -2,6 +2,7 @@ package com.edaakyil.android.lib.payment.product.module
 
 import com.edaakyil.android.lib.payment.product.BaseProduct
 import com.edaakyil.android.lib.payment.product.Desert
+import com.edaakyil.android.lib.payment.product.constant.name.DESERT
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,6 +13,6 @@ import javax.inject.Named
 @InstallIn(ActivityComponent::class)
 abstract class DesertModule {
     @Binds
-    @Named("desert")
+    @Named(DESERT)
     abstract fun bindDesertProduct(desert: Desert): BaseProduct
 }

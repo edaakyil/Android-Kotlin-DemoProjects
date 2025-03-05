@@ -10,7 +10,7 @@ import kotlin.random.Random
 @ActivityScoped
 class Food @Inject constructor(@ActivityContext var context: Context) : BaseProduct("Food", Random.nextDouble(1.0, 100.0)) {
     override fun calculatePayment(amount: Double): Double {
-        Toast.makeText(context, "Name: $name:\nAmount -> $amount,\nUnit Price -> $unitPrice", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Name: $name\nAmount -> $amount\nUnit Price -> $unitPrice", Toast.LENGTH_SHORT).show()
 
         return amount * unitPrice * 1.6
     }

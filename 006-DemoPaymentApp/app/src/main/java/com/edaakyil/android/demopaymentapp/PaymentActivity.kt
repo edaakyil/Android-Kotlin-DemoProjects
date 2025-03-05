@@ -10,6 +10,9 @@ import androidx.databinding.DataBindingUtil
 import javax.inject.Inject
 import com.edaakyil.android.demopaymentapp.databinding.ActivityPaymentBinding
 import com.edaakyil.android.lib.payment.product.IProductPayment
+import com.edaakyil.android.lib.payment.product.constant.name.DRINK_PAYMENT
+import com.edaakyil.android.lib.payment.product.constant.name.FOOD_PAYMENT
+import com.edaakyil.android.lib.payment.product.constant.name.MENU_PAYMENT
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Named
 
@@ -18,15 +21,15 @@ class PaymentActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityPaymentBinding
 
     @Inject
-    @Named("foodPayment")
+    @Named(FOOD_PAYMENT)
     lateinit var paymentFood: IProductPayment
 
     @Inject
-    @Named("drinkPayment")
+    @Named(DRINK_PAYMENT)
     lateinit var paymentDrink: IProductPayment
 
     @Inject
-    @Named("menuPayment")
+    @Named(MENU_PAYMENT)
     lateinit var paymentMenu: IProductPayment
 
     override fun onCreate(savedInstanceState: Bundle?) {
