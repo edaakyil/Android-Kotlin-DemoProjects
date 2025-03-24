@@ -51,28 +51,24 @@ class MainActivity : AppCompatActivity() {
         mBinding.startStopButtonText = resources.getString(R.string.start_text)
     }
 
-    // For ViewBinding
-    private fun setCounterText1() {
+    private fun schedulerCallback() {
         val hour = mSeconds / 60 / 60
         val minute = mSeconds / 60 % 60
         val second = mSeconds % 60
 
+        setCounterText1(hour, minute, second)
+        setCounterText2(hour, minute, second)
+        ++mSeconds
+    }
+
+    // For ViewBinding
+    private fun setCounterText1(hour: Long, minute: Long, second: Long) {
         runOnUiThread { "$hour:$minute:$second".apply { mBinding.mainActivityTextViewCounter.text = this } }
     }
 
     // For DataBinding
-    private fun setCounterText2() {
-        val hour = mSeconds / 60 / 60
-        val minute = mSeconds / 60 % 60
-        val second = mSeconds % 60
-
+    private fun setCounterText2(hour: Long, minute: Long, second: Long) {
         "$hour:$minute:$second".apply { mBinding.counterText = this }
-    }
-
-    private fun schedulerCallback() {
-        setCounterText1()
-        setCounterText2()
-        ++mSeconds
     }
 
     fun onStartStopButtonClicked(){
