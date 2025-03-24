@@ -5,6 +5,7 @@
         <import type="com.edaakyil.android.app.counter.MainActivity"/>
         <variable name="activity" type="MainActivity"/>
         <variable name="startStopButtonText" type="String"/>
+        <variable name="counterText" type="String"/>
     </data>
 
     <LinearLayout
@@ -20,10 +21,19 @@
 
         <TextView
             android:id="@+id/mainActivityTextViewCounter"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:textSize="22sp"
             android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            android:text="@={counterText}"/>
 
         <Button
             android:layout_width="match_parent"

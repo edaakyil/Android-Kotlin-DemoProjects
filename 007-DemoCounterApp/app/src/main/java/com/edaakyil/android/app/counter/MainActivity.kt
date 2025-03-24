@@ -1,7 +1,6 @@
 package com.edaakyil.android.app.counter
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -52,12 +51,28 @@ class MainActivity : AppCompatActivity() {
         mBinding.startStopButtonText = resources.getString(R.string.start_text)
     }
 
-    private fun setCounterText() {
+    // For ViewBinding
+    private fun setCounterText1() {
         val hour = mSeconds / 60 / 60
         val minute = mSeconds / 60 % 60
         val second = mSeconds % 60
 
-        "$hour:$minute:$second".apply { mBinding.mainActivityTextViewCounter.text = this }
+        runOnUiThread { "$hour:$minute:$second".apply { mBinding.mainActivityTextViewCounter.text = this } }
+    }
+
+    // For DataBinding
+    private fun setCounterText2() {
+        val hour = mSeconds / 60 / 60
+        val minute = mSeconds / 60 % 60
+        val second = mSeconds % 60
+
+        "$hour:$minute:$second".apply { mBinding.counterText = this }
+    }
+
+    private fun schedulerCallback() {
+        setCounterText1()
+        setCounterText2()
+        ++mSeconds
     }
 
     fun onStartStopButtonClicked(){
@@ -65,8 +80,8 @@ class MainActivity : AppCompatActivity() {
             mBinding.startStopButtonText = resources.getString(R.string.start_text)
             mScheduledFuture?.cancel(false)
         } else {
+            mScheduledFuture = scheduledThreadPool.scheduleWithFixedDelay({ schedulerCallback() }, 0, 1, TimeUnit.SECONDS)
             mBinding.startStopButtonText = resources.getString(R.string.stop_text)
-            mScheduledFuture = scheduledThreadPool.scheduleWithFixedDelay({ Log.i("Duration", (mSeconds++).toString()) }, 0, 1, TimeUnit.SECONDS)
         }
 
         mStartedFlag = !mStartedFlag
