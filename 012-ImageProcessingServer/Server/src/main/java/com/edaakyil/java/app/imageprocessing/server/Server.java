@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -25,6 +25,17 @@ public class Server {
     {
         try (socket) {
             log.info("Client connected from {}:{}", socket.getInetAddress(), socket.getPort());
+
+            var br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            var bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+            var str = br.readLine();
+
+            log.info("Client received from {}:{}", socket.getInetAddress().getHostAddress(), socket.getPort());
+            log.info("Received: {}", str);
+
+            bw.write("%s\r\n".formatted(str.toUpperCase()));
+            bw.flush();
         } catch (IOException ex) {
             log.error("IO Problem occurred while client connected: {}", ex.getMessage());
         } catch (Exception ex) {

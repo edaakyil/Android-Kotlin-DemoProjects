@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 @Component
@@ -20,6 +20,18 @@ public class Client {
     {
         try (var socket = new Socket(m_host, m_port)) {
             log.info("Connected to {}:{}", m_host, m_port);
+
+            var br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            var bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+            var str = "C ve Sistem Programcıları Derneği";
+
+            bw.write("%s\r\n".formatted(str));
+            bw.flush();
+
+            var upperStr = br.readLine();
+
+            log.info("Server Response: {}", upperStr);
         } catch (IOException ex) {
             log.error("IO Problem occurred: {}", ex.getMessage());
         } catch (Exception ex) {
