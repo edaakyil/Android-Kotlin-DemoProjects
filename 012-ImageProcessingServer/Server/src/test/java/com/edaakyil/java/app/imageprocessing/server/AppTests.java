@@ -1,10 +1,10 @@
-package com.edaakyil.java.app;
+package com.edaakyil.java.app.imageprocessing.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationJavaGradleKotlinApplicationTests {
+class AppTests {
 
 	@Test
 	void contextLoads() {

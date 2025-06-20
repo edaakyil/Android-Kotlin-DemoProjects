@@ -1,13 +1,11 @@
-package com.edaakyil.java.app;
+package com.edaakyil.java.app.imageprocessing.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApplicationJavaGradleKotlinApplication {
-
+public class App {
 	public static void main(String[] args) {
-		SpringApplication.run(ApplicationJavaGradleKotlinApplication.class, args);
+		SpringApplication.run(App.class, args);
 	}
-
 }
