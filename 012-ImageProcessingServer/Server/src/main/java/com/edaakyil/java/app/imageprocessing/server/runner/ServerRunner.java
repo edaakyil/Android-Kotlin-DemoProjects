@@ -19,7 +19,7 @@ public class ServerRunner implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args)
+    public void run(ApplicationArguments args) throws Exception
     {
         m_executorService.execute(m_server::start);
     }

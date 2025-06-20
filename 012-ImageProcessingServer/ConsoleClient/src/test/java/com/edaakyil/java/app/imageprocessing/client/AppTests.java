@@ -1,4 +1,4 @@
-package com.edaakyil.java.app.imageprocessing.consoleclient;
+package com.edaakyil.java.app.imageprocessing.client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

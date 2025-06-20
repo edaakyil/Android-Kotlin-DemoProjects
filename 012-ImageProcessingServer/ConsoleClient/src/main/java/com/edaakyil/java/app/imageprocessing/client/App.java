@@ -1,4 +1,4 @@
-package com.edaakyil.java.app.imageprocessing.consoleclient;
+package com.edaakyil.java.app.imageprocessing.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
