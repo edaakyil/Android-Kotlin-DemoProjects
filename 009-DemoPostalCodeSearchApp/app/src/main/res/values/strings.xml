@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PostalCodeSearchApp</string>
+
+    <string name="main_activity_title_text">Postal Code Search</string>
+
+    <!-- Hints -->
+    <string name="input_postal_code_hint">Input postal code:</string>
+
+    <!-- Texts -->
+    <string name="get_paces_button_text">Get Places</string>
 </resources>

@@ -2,6 +2,7 @@ package com.edaakyil.android.kotlin.app.postalcodesearch
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.constant.STATUS_OK
+import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.dto.PostalCode
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.dto.PostalCodes
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.service.IPostalCodeService
 import com.edaakyil.android.kotlin.app.postalcodesearch.databinding.ActivityMainBinding
@@ -28,8 +30,10 @@ class MainActivity : AppCompatActivity() {
     private fun postalCodesCallback(): Callback<PostalCodes> {
         return object: Callback<PostalCodes> {
             override fun onResponse(call: Call<PostalCodes?>, response: Response<PostalCodes?>) {
+                Log.i("Response:Raw", response.raw().toString())
+
                 if (response.code() != STATUS_OK) {
-                    Log.e("onResponse", response.code().toString())
+                    Log.e("Response:Status", response.code().toString())
                     Toast.makeText(this@MainActivity, "Unsuccessful operation", Toast.LENGTH_SHORT).show()
                     return
                 }
@@ -39,9 +43,9 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
 
-                response.body()!!.postalCodes.forEach { it ->
-                    Toast.makeText(this@MainActivity, it.placeName, Toast.LENGTH_SHORT).show()
-                }
+                mBinding.adapter!!.clear()
+
+                response.body()!!.postalCodes.forEach { it -> mBinding.adapter!!.add(it) }
             }
 
             override fun onFailure(call: Call<PostalCodes?>, t: Throwable) {
@@ -52,6 +56,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initModels() {
+        mBinding.activity = this
+        mBinding.postalCode= ""
+        mBinding.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ArrayList<PostalCode>())
     }
 
     private fun initBinding() {
@@ -62,27 +69,27 @@ class MainActivity : AppCompatActivity() {
     private fun initialize() {
         enableEdgeToEdge()
         initBinding()
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainActivityMainLayout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-
-
-        val call = postalCodeService.findByPostalCode("67000", "csystem", "tr")
-
-        // enqueue yaptiğimizde biz sonucu elde ediyoruz.
-        // enqueue returns Callback<PostalCodes> ve Callback, functional bir interface değildir.
-        // Retrofit'in asenkron çalışmasını sağlayan enqueue metodudur.
-        // enqueue asenkron olarak çalışır. Ama enqueue'nin bize verdiği callback'ler, retrofit'i nerede engueue yaptısak o thread'de çalışır.
-        // Yani onResponse ve onFailure metotları main (ui) thread'e çağırılacak yani enqueue asenkronluğu arkaplanda kendi yapıyor.
-        call.enqueue(postalCodesCallback())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initialize()
+    }
+
+    fun onGetPlacesButtonClicked() {
+        val call = postalCodeService.findByPostalCode(mBinding.postalCode!!, "csystem", "tr")
+        call.enqueue(postalCodesCallback())
+    }
+
+    fun onPlaceClicked(position: Int) {
+        val postalCode = mBinding.adapter!!.getItem(position)
+
+        Toast.makeText(this, postalCode.toString(), Toast.LENGTH_SHORT).show()
     }
 }
