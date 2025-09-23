@@ -34,17 +34,14 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
 
-                Log.i("Response:Code", response.code().toString())
-                Log.i("onResponse:Message", response.message().toString())
-                Log.i("onResponse:Body", response.body().toString())
-                Log.i("onResponse:Headers", response.headers().toString())
-                Log.i("onResponse:Raw", response.raw().toString())
+                if (response.body()?.postalCodes == null) {
+                    Toast.makeText(this@MainActivity, "Limit exhausted", Toast.LENGTH_SHORT).show()
+                    return
+                }
 
                 response.body()!!.postalCodes.forEach { it ->
                     Toast.makeText(this@MainActivity, it.placeName, Toast.LENGTH_SHORT).show()
                 }
-
-                response.headers().names().forEach { Log.i("Response:Headers:Name", it) }
             }
 
             override fun onFailure(call: Call<PostalCodes?>, t: Throwable) {
@@ -89,16 +86,3 @@ class MainActivity : AppCompatActivity() {
         initialize()
     }
 }
-
-// For postalCodeService.findByPostalCode("34843", "csystem", "tr")
-// response.code() -> 200
-// response.message() -> 200
-// response.body() -> PostalCodes(postalCodes=[Feyzullah])
-// response.raw() -> Response{protocol=http/1.1, code=200, message=200, url=http://api.geonames.org/postalCodeLookupJSON?postalcode=34843&username=csystem&country=tr}
-
-
-// For postalCodeService.findByPostalCode("67000", "csystem", "tr")
-// response.code() -> 200
-// response.message() -> 200
-// response.body() -> PostalCodes(postalCodes=[Alancik, Elvanpazarcik, Kardeşler, Kurtköy, Köroğlu, Merkezköy, Olukyani, Sapça, Sarimsak, Sivriler, Sofular, Tasmaci, Türkali, Çağli, Şirinköy])
-// response.raw() -> Response{protocol=http/1.1, code=200, message=200, url=http://api.geonames.org/postalCodeLookupJSON?postalcode=67000&username=csystem&country=tr}
