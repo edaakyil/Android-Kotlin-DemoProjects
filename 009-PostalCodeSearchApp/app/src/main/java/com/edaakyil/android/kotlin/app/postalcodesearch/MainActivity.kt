@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.constant.BASE_URL
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.constant.STATUS_OK
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.dto.PostalCodes
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.service.IPostalCodeService
@@ -17,14 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mRetrofit: Retrofit //eda
 
     @Inject
     lateinit var postalCodeService: IPostalCodeService
@@ -38,15 +34,17 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
 
-                Log.i("onResponse.code", response.code().toString())
-                Log.i("onResponse.message", response.message().toString())
-                Log.i("onResponse.body", response.body().toString())
-                Log.i("onResponse.headers", response.headers().toString())
-                Log.i("onResponse.raw", response.raw().toString())
+                Log.i("Response:Code", response.code().toString())
+                Log.i("onResponse:Message", response.message().toString())
+                Log.i("onResponse:Body", response.body().toString())
+                Log.i("onResponse:Header", response.headers().toString())
+                Log.i("onResponse:Raw", response.raw().toString())
 
                 response.body()!!.postalCodes.forEach { it ->
                     Toast.makeText(this@MainActivity, it.placeName, Toast.LENGTH_SHORT).show()
                 }
+
+                response.headers().names().forEach { Log.i("Response:Header:Name", it) }
             }
 
             override fun onFailure(call: Call<PostalCodes?>, t: Throwable) {
@@ -73,24 +71,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        mRetrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
-        mRetrofit
-            .create(IPostalCodeService::class.java)
-            .findByPostalCode("67000", "csystem", "tr")
-            .enqueue(postalCodesCallback())
 
-        //val call = postalCodeService.findByPostalCode("67000", "csystem", "tr")
+        val call = postalCodeService.findByPostalCode("67000", "csystem", "tr")
 
         // enqueue yaptiğimizde biz sonucu elde ediyoruz.
         // enqueue returns Callback<PostalCodes> ve Callback, functional bir interface değildir.
         // Retrofit'in asenkron çalışmasını sağlayan enqueue metodudur.
         // enqueue asenkron olarak çalışır. Ama enqueue'nin bize verdiği callback'ler, retrofit'i nerede engueue yaptısak o thread'de çalışır.
         // Yani onResponse ve onFailure metotları main (ui) thread'e çağırılacak yani enqueue asenkronluğu arkaplanda kendi yapıyor.
-        //call.enqueue(postalCodesCallback())
+        call.enqueue(postalCodesCallback())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
