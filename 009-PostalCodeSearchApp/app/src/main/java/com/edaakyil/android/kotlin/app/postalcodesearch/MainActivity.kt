@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
+import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.constant.BASE_URL
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.constant.STATUS_OK
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.dto.PostalCodes
 import com.edaakyil.android.kotlin.app.postalcodesearch.api.geonames.service.IPostalCodeService
@@ -16,11 +17,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
+    private lateinit var mRetrofit: Retrofit //eda
 
     @Inject
     lateinit var postalCodeService: IPostalCodeService
@@ -69,13 +73,24 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val call = postalCodeService.findByPostalCode("34843", "csystem", "tr")
+        mRetrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        mRetrofit
+            .create(IPostalCodeService::class.java)
+            .findByPostalCode("67000", "csystem", "tr")
+            .enqueue(postalCodesCallback())
+
+        //val call = postalCodeService.findByPostalCode("67000", "csystem", "tr")
 
         // enqueue yaptiğimizde biz sonucu elde ediyoruz.
         // enqueue returns Callback<PostalCodes> ve Callback, functional bir interface değildir.
+        // Retrofit'in asenkron çalışmasını sağlayan enqueue metodudur.
         // enqueue asenkron olarak çalışır. Ama enqueue'nin bize verdiği callback'ler, retrofit'i nerede engueue yaptısak o thread'de çalışır.
         // Yani onResponse ve onFailure metotları main (ui) thread'e çağırılacak yani enqueue asenkronluğu arkaplanda kendi yapıyor.
-        call.enqueue(postalCodesCallback())
+        //call.enqueue(postalCodesCallback())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,17 +100,15 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+// For postalCodeService.findByPostalCode("34843", "csystem", "tr")
 // response.code() -> 200
 // response.message() -> 200
 // response.body() -> PostalCodes(postalCodes=[Feyzullah])
 // response.raw() -> Response{protocol=http/1.1, code=200, message=200, url=http://api.geonames.org/postalCodeLookupJSON?postalcode=34843&username=csystem&country=tr}
-// response.headers():
-    // Date: Tue, 23 Sep 2025 01:36:08 GMT
-    // Server: Apache/2.4.37 (AlmaLinux) mod_jk/1.2.49 OpenSSL/1.1.1k
-    // Access-Control-Allow-Origin: *
-    // X-Frame-Options: sameorigin
-    // Cache-Control: no-cache
-    // Keep-Alive: timeout=5, max=100
-    // Connection: Keep-Alive
-    // Transfer-Encoding: chunked
-    // Content-Type: application/json;charset=UTF-8
+
+
+// For postalCodeService.findByPostalCode("67000", "csystem", "tr")
+// response.code() -> 200
+// response.message() -> 200
+// response.body() -> PostalCodes(postalCodes=[Alancik, Elvanpazarcik, Kardeşler, Kurtköy, Köroğlu, Merkezköy, Olukyani, Sapça, Sarimsak, Sivriler, Sofular, Tasmaci, Türkali, Çağli, Şirinköy])
+// response.raw() -> Response{protocol=http/1.1, code=200, message=200, url=http://api.geonames.org/postalCodeLookupJSON?postalcode=67000&username=csystem&country=tr}
