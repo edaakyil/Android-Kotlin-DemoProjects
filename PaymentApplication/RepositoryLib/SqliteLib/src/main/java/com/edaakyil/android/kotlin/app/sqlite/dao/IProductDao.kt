@@ -15,10 +15,10 @@ interface IProductDao {
     @Insert
     fun insert(vararg product: Product)
 
-    @Query("SELECT * FROM product")
+    @Query("SELECT * FROM products")
     fun findAll(): List<Product>
 
-    @Query("SELECT * FROM product WHERE code = :code")
+    @Query("SELECT * FROM products WHERE code = :code")
     fun findByCode(code: String): Product
 
     @Update
@@ -27,6 +27,6 @@ interface IProductDao {
     @Delete
     fun delete(product: Product)
 
-    @Query("DELETE FROM product")
+    @Query("DELETE FROM products")
     fun deleteAll()
 }
