@@ -1,0 +1,3 @@
+# SqliteLib
+
+- Exception işlemleri tamamlanacak
