@@ -12,10 +12,17 @@ import org.junit.runner.RunWith
 
 import org.junit.Assert.*
 import org.junit.Before
+import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class PaymentLocalRepositoryHelperTest {
     private lateinit var mHelper: PaymentLocalRepositoryHelper
+
+    private fun deleteDatabase() {
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
+        File(appContext.dataDir, "databases").listFiles().forEach { it.delete() }
+    }
 
     @Before
     fun setUp() {
@@ -31,8 +38,6 @@ class PaymentLocalRepositoryHelperTest {
 
     @Test
     fun findAll_whenCalled_thenSizeSuccessful() {
-        mHelper.deleteAllProducts()
-
         mHelper.saveProduct(Product(code = "test-1", name = "Test Product 1", unitPrice = 100.0))
         mHelper.saveProduct(Product(code = "test-2", name = "Test Product 2", unitPrice = 100.0))
         mHelper.saveProduct(Product(code = "test-3", name = "Test Product 3", unitPrice = 100.0))
@@ -41,5 +46,7 @@ class PaymentLocalRepositoryHelperTest {
         val products = mHelper.findAllProducts()
 
         assertEquals(expectedSize, products.size)
+
+        deleteDatabase()
     }
 }
